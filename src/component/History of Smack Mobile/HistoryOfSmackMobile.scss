@@ -1,0 +1,201 @@
+@media(min-width: 769px) {
+  .history-of-smack-mobile-parent {
+    display: none;
+  }
+
+  .bottom-section{
+    display: none;
+  }
+}
+
+@media(min-width: 600px) and (max-width: 768px) {
+  .history-of-smack-mobile-parent {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+
+    .top-section {
+      width: 100%;
+      height: 100%;
+
+      .top-section-text {
+        width: 80%;
+        height: auto;
+        margin: 0 auto;
+        color: rgba(0, 0, 0, 0.815);
+        font-size: 3rem;
+        line-height: 3.5rem;
+      }
+
+      .shop-the-full-range-parent {
+        width: 80%;
+        height: 27%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        color: black;
+
+        .shop-the-full-range {
+          width: 50%;
+          height: 3.5rem;
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 1.1rem;
+          font-weight: 600;
+          border-radius: 0.5rem;
+          transition: background-color 0.5s ease-in-out;
+        }
+
+        .shop-the-full-range:hover {
+          cursor: pointer;
+          background-color: rgb(61, 60, 60);
+          color: white;
+        }
+      }
+    }
+  }
+
+  .bottom-section{
+    width: 100%;
+    height: 50rem;
+  }
+
+  .bottom-section img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media(min-width: 481px) and (max-width: 599px) {
+  .history-of-smack-mobile-parent {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+
+    .top-section {
+      width: 100%;
+      height: 100%;
+
+      .top-section-text {
+        width: 80%;
+        height: auto;
+        margin: 0 auto;
+        color: rgba(0, 0, 0, 0.815);
+        font-size: 2.6rem;
+        line-height: 3.5rem;
+      }
+
+      .shop-the-full-range-parent {
+        width: 80%;
+        height: 27%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        color: black;
+
+        .shop-the-full-range {
+          width: 75%;
+          height: 2.8rem;
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 1.1rem;
+          font-weight: 600;
+          border-radius: 0.5rem;
+          transition: background-color 0.5s ease-in-out;
+        }
+
+        .shop-the-full-range:hover {
+          cursor: pointer;
+          background-color: rgb(61, 60, 60);
+          color: white;
+        }
+      }
+    }
+  }
+
+  .bottom-section{
+    width: 100%;
+    height: 40rem;
+  }
+
+  .bottom-section img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .history-of-smack-mobile-parent {
+    width: 100%;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+
+    .top-section {
+      width: 100%;
+      height: 100%;
+
+      .top-section-text {
+        width: 80%;
+        height: auto;
+        margin: 0 auto;
+        color: rgba(0, 0, 0, 0.815);
+        font-size: 2rem;
+        line-height: 3.5rem;
+      }
+
+      .shop-the-full-range-parent {
+        width: 80%;
+        height: 27%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        color: black;
+
+        .shop-the-full-range {
+          width: 85%;
+          height: 2.8rem;
+          border: 1px solid black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          font-size: 1.1rem;
+          font-weight: 600;
+          border-radius: 0.5rem;
+          transition: background-color 0.5s ease-in-out;
+        }
+
+        .shop-the-full-range:hover {
+          cursor: pointer;
+          background-color: rgb(61, 60, 60);
+          color: white;
+        }
+      }
+    }
+  }
+
+  .bottom-section{
+    width: 100%;
+    height: 25rem;
+  }
+
+  .bottom-section img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

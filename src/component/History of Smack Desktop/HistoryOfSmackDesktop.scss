@@ -1,0 +1,190 @@
+@media(min-width: 320px) and (max-width: 768px) {
+  .history-of-smack-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 1201px) {
+  .history-of-smack-parent{
+    width: 100%;
+    height: 50rem;
+    display: flex;
+
+    .left-section{
+      width: 50%;
+      height: 100%;
+      
+      .left-section-text{
+        width: 72%;
+        height: 60%;
+        margin: 5rem 0 0 4rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 3.2rem;
+        color: rgba(0, 0, 0, 0.877);
+      }
+
+      .shop-the-full-range-parent{
+        width: 100%;
+        height: 14.6rem;
+        display: flex;
+        align-items: center;
+
+        .shop-the-full-range{
+        width: 40%;
+        height: 3rem;
+        border: 1px solid black;
+        margin: 0 0 0 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.4rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: background-color 0.5s ease-in-out;
+      }
+      }
+
+      .shop-the-full-range:hover{
+        cursor: pointer;
+        background-color: rgb(61, 60, 60);
+        color: white;
+      }
+    }
+
+    .right-section{
+      width: 50%;
+      height: 100%;
+    }
+
+    .right-section img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@media(min-width: 1025px) and (max-width: 1200px) {
+  .history-of-smack-parent{
+    width: 100%;
+    height: 50rem;
+    display: flex;
+
+    .left-section{
+      width: 50%;
+      height: 100%;
+      
+      .left-section-text{
+        width: 78%;
+        height: 68%;
+        margin: 5rem 0 0 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 3.2rem;
+        color: rgba(0, 0, 0, 0.877);
+      }
+
+      .shop-the-full-range-parent{
+        width: 100%;
+        height: 10.7rem;
+        display: flex;
+        align-items: center;
+        margin: 0 0 0 0;
+
+        .shop-the-full-range{
+        width: 55%;
+        height: 3rem;
+        border: 1px solid black;
+        margin: 0 0 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: background-color 0.5s ease-in-out;
+      }
+      }
+
+      .shop-the-full-range:hover{
+        cursor: pointer;
+        background-color: rgb(61, 60, 60);
+        color: white;
+      }
+    }
+
+    .right-section{
+      width: 50%;
+      height: 100%;
+    }
+
+    .right-section img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@media(min-width: 769px) and (max-width: 1024px) {
+  .history-of-smack-parent{
+    width: 100%;
+    height: 50rem;
+    display: flex;
+
+    .left-section{
+      width: 50%;
+      height: 100%;
+      
+      .left-section-text{
+        width: 92%;
+        height: 70%;
+        margin: 5rem 0 0 1rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 3rem;
+        color: rgba(0, 0, 0, 0.877);
+      }
+
+      .shop-the-full-range-parent{
+        width: 100%;
+        height: 9.7rem;
+        display: flex;
+        align-items: center;
+        margin: 0 0 0 0;
+
+        .shop-the-full-range{
+        width: 75%;
+        height: 3rem;
+        border: 1px solid black;
+        margin: 0 0 0 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.3rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: background-color 0.5s ease-in-out;
+      }
+      }
+
+      .shop-the-full-range:hover{
+        cursor: pointer;
+        background-color: rgb(61, 60, 60);
+        color: white;
+      }
+    }
+
+    .right-section{
+      width: 50%;
+      height: 100%;
+    }
+
+    .right-section img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

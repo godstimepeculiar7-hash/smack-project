@@ -1,0 +1,237 @@
+@media(min-width: 769px) {
+  .food-component-mobile-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 600px) and (max-width: 768px) {
+    .food-component-mobile-parent{
+    width: 100%;
+    height: 60rem;
+    margin: 38rem 0 0 0;
+
+    .food-component-mobile-product{
+      width: 100%;
+      height: 25%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-mobile-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.377);
+        position: absolute;
+        top: 0;
+
+        .mobile-text-button-container{
+          width: 50%;
+          height: 45%;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          bottom: 0;
+          margin: 0 0 1.6rem 2rem;
+          align-items: start;
+          justify-content: space-between;
+
+          .mobile-content{
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: white;
+          }
+
+          .mobile-shop-now{
+            width: 60%;
+            height: 48%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 0.4rem;
+            color: white;
+            border: 1.9px solid white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .food-component-mobile-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-mobile-product:hover img{
+      transform: scale(1.1);
+    }
+
+    .food-component-mobile-product:hover .food-component-mobile-product-overlay .mobile-text-button-container .mobile-shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 1.5s ease-in-out;
+    }
+  }
+}
+
+@media(min-width: 481px) and (max-width: 599px) {
+  .food-component-mobile-parent{
+    width: 100%;
+    height: 60rem;
+
+    .food-component-mobile-product{
+      width: 100%;
+      height: 25%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-mobile-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.377);
+        position: absolute;
+        top: 0;
+
+        .mobile-text-button-container{
+          width: 50%;
+          height: 45%;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          bottom: 0;
+          margin: 0 0 1.6rem 2rem;
+          align-items: start;
+          justify-content: space-between;
+
+          .mobile-content{
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: white;
+          }
+
+          .mobile-shop-now{
+            width: 80%;
+            height: 48%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 0.4rem;
+            color: white;
+            border: 1.9px solid white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .food-component-mobile-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-mobile-product:hover img{
+      transform: scale(1.1);
+    }
+
+    .food-component-mobile-product:hover .food-component-mobile-product-overlay .mobile-text-button-container .mobile-shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 1.5s ease-in-out;
+    }
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .food-component-mobile-parent{
+    width: 100%;
+    height: 57rem;
+
+    .food-component-mobile-product{
+      width: 100%;
+      height: 25%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-mobile-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.377);
+        position: absolute;
+        top: 0;
+
+        .mobile-text-button-container{
+          width: 80%;
+          height: 45%;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          bottom: 0;
+          margin: 0 0 1.6rem 2rem;
+          align-items: start;
+          justify-content: space-between;
+
+          .mobile-content{
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: white;
+          }
+
+          .mobile-shop-now{
+            width: 80%;
+            height: 48%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+            border-radius: 0.4rem;
+            color: white;
+            border: 1.9px solid white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .food-component-mobile-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-mobile-product:hover img{
+      transform: scale(1.1);
+    }
+
+    .food-component-mobile-product:hover .food-component-mobile-product-overlay .mobile-text-button-container .mobile-shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 1.5s ease-in-out;
+    }
+  }
+}

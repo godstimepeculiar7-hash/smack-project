@@ -1,0 +1,179 @@
+@media(min-width: 320px) and (max-width: 768px) {
+  .cart-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 1201px) {
+  .cart-parent{
+    width: 100%;
+    height: 25rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8rem 0 0 0;
+
+    .details{
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .shop-now{
+        width: 60%;
+        height: 2.5rem;
+        border: 1px solid rgba(151, 100, 5, 0.699);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.726);
+        border-radius: 0.4rem;
+        margin: 1rem 0 0 0;
+        transition: all 0.4s ease;
+      }
+
+      .shop-now:hover{
+        cursor: pointer;
+        background-color: rgba(151, 100, 5, 0.699);
+        color: white;
+      }
+    }
+
+    .details h1{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 3.5rem;
+      color: rgba(0, 0, 0, 0.815);
+    }
+
+    .details h5{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.3rem;
+      color: rgba(0, 0, 0, 0.815);
+      letter-spacing: 0.1rem;
+      font-weight: 500;
+      margin: 1.7rem 0 0 0;
+    }
+  }
+}
+
+@media(min-width: 1025px) and (max-width: 1200px) {
+  .cart-parent{
+    width: 100%;
+    height: 20rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8rem 0 0 0;
+
+    .details{
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .shop-now{
+        width: 60%;
+        height: 2.5rem;
+        border: 1px solid rgba(151, 100, 5, 0.699);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.726);
+        border-radius: 0.4rem;
+        margin: 1rem 0 0 0;
+        transition: all 0.4s ease;
+      }
+
+      .shop-now:hover{
+        cursor: pointer;
+        background-color: rgba(151, 100, 5, 0.699);
+        color: white;
+      }
+    }
+
+    .details h1{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 3.5rem;
+      color: rgba(0, 0, 0, 0.815);
+    }
+
+    .details h5{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.3rem;
+      color: rgba(0, 0, 0, 0.815);
+      letter-spacing: 0.1rem;
+      font-weight: 500;
+      margin: 1.7rem 0 0 0;
+    }
+  }
+}
+
+@media(min-width: 769px) and (max-width: 1024px) {
+  .cart-parent{
+    width: 100%;
+    height: 20rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20rem 0 0 0;
+
+    .details{
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .shop-now{
+        width: 60%;
+        height: 2.5rem;
+        border: 1px solid rgba(151, 100, 5, 0.699);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.726);
+        border-radius: 0.4rem;
+        margin: 1rem 0 0 0;
+        transition: all 0.4s ease;
+      }
+
+      .shop-now:hover{
+        cursor: pointer;
+        background-color: rgba(151, 100, 5, 0.699);
+        color: white;
+      }
+    }
+
+    .details h1{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 3.5rem;
+      color: rgba(0, 0, 0, 0.815);
+    }
+
+    .details h5{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.3rem;
+      color: rgba(0, 0, 0, 0.815);
+      letter-spacing: 0.1rem;
+      font-weight: 500;
+      margin: 1.7rem 0 0 0;
+    }
+  }
+}

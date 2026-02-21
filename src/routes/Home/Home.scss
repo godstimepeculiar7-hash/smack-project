@@ -1,0 +1,486 @@
+@media(min-width: 1201px) {
+  .home-page-video{
+  width: 100%;
+  height: 95vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 38%;
+        height: 50%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 7rem 0 0 4.2rem;
+        justify-content: start;
+
+        #for-button{
+          width: 80%;
+        }
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 4.5rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Roboto';
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 45%;
+        height: 3.5rem;
+        border: 1px solid white;
+        font-family: 'Bebas Neue';
+        font-size: 1.5rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 2rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+    }
+
+}
+}
+
+@media(min-width: 1025px) and (max-width: 1200px) {
+  .home-page-video{
+  width: 100%;
+  height: 95vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 45%;
+        height: 41%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 0 2rem;
+        justify-content: start;
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 4rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Roboto';
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 45%;
+        height: 3.5rem;
+        border: 1px solid white;
+        font-family: 'Bebas Neue';
+        font-size: 1.5rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 2rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+
+    }
+
+}
+}
+
+@media(min-width: 769px) and (max-width: 1024px) {
+  .home-page-video{
+  width: 100%;
+  height: 95vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 50%;
+        height: 40%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 0 1rem;
+        justify-content: start;
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 3rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Roboto';
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 49%;
+        height: 3.5rem;
+        border: 1px solid white;
+        font-family: 'Bebas Neue';
+        font-size: 1.5rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 2rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+    }
+
+}
+}
+
+@media(min-width: 600px) and (max-width: 768px) {
+  .home-page-video{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 55%;
+        height: 37%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 0 2.4rem;
+        justify-content: start;
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 3rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Roboto';
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 51%;
+        height: 3rem;
+        border: 1px solid white;
+        font-family: 'Bebas Neue';
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 2rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+    }
+
+}
+}
+
+
+@media(min-width: 481px) and (max-width: 599px) {
+  .home-page-video{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 57%;
+        height: 31%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 0 2rem;
+        justify-content: start;
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 2.3rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 51%;
+        height: 2.5rem;
+        border: 1px solid white;
+        font-family: 'Bebas Neue';
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 1rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+    }
+
+}
+}
+
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .home-page-video{
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+
+    .smack-video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .home-page-video-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.192);
+      position: absolute;
+      top: 0;
+      display: flex;
+      align-items: center;
+
+      .text{
+        width: 75%;
+        height: 29%;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        margin: 0 0 0 1.2rem;
+        justify-content: start;
+      }
+
+      .text:hover{
+        cursor: pointer;
+      }
+
+      .heck-yeah{
+        font-family: 'Bebas Neue';
+        font-size: 2.1rem;
+        font-weight: 900;
+        color: white;
+      }
+
+      .caption{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: white;
+        text-align: justify;
+      }
+
+      .order-button{
+        width: 63%;
+        height: 2.7rem;
+        border: 1px solid white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: transparent;
+        color: white;
+        border-radius: 0.5rem;
+        margin: 1rem 0 0 0;
+        transition: background-color 0.5s ease-in-out;
+      }
+
+      .order-button:hover{
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.548);
+      }
+
+      .order-button:active{
+        cursor: pointer;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.555);
+      }
+    }
+
+}
+}

@@ -1,0 +1,258 @@
+@media(min-width: 320px) and (max-width: 768px) {
+  .food-component-desktop-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 1201px) {
+  .food-component-desktop-parent{
+    width: 100%;
+    height: 45rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .food-component-desktop-product{
+      width: 50%;
+      height: 50%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-desktop-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.281);
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        
+        .text-button-container{
+          width: 100%;
+          height: 30%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+
+          .content{
+            width: 50%;
+            height: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 3rem;
+            margin: 0 0 0 1.5rem;
+          }
+
+          .shop-now{
+            width: 30%;
+            height: 40%;
+            background-color: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.35rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            margin: 0 2rem 0 0;
+            border: 2px solid white;
+          }
+        }
+      }
+    }
+
+    .food-component-desktop-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-desktop-product:hover{
+      cursor: pointer;
+    }
+
+    .food-component-desktop-product:hover img{
+      transform: scale(1.05);
+    }
+
+    .food-component-desktop-product:hover .food-component-desktop-product-overlay .text-button-container .shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 0.7s ease-in-out;
+    }
+
+  }
+  
+}
+
+@media(min-width: 1025px) and (max-width: 1200px) {
+  .food-component-desktop-parent{
+    width: 100%;
+    height: 37rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .food-component-desktop-product{
+      width: 50%;
+      height: 50%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-desktop-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.281);
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        
+        .text-button-container{
+          width: 100%;
+          height: 30%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+
+          .content{
+            width: 50%;
+            height: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 2.5rem;
+            margin: 0 0 0 1.5rem;
+          }
+
+          .shop-now{
+            width: 30%;
+            height: 40%;
+            background-color: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.35rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            margin: 0 2rem 0 0;
+            border: 2px solid white;
+          }
+        }
+      }
+    }
+
+    .food-component-desktop-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-desktop-product:hover{
+      cursor: pointer;
+    }
+
+    .food-component-desktop-product:hover img{
+      transform: scale(1.05);
+    }
+
+    .food-component-desktop-product:hover .food-component-desktop-product-overlay .text-button-container .shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 0.7s ease-in-out;
+    }
+
+  }
+}
+
+@media(min-width: 769px) and (max-width: 1024px) {
+  .food-component-desktop-parent{
+    width: 100%;
+    height: 25rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    .food-component-desktop-product{
+      width: 50%;
+      height: 50%;
+      position: relative;
+      overflow: hidden;
+
+      .food-component-desktop-product-overlay{
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.281);
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        
+        .text-button-container{
+          width: 100%;
+          height: 30%;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+
+          .content{
+            width: 60%;
+            height: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            font-size: 2rem;
+            margin: 0 0 0 1rem;
+          }
+
+          .shop-now{
+            width: 35%;
+            height: 50%;
+            background-color: transparent;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.35rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+            margin: 0 2rem 0 0;
+            border: 2px solid white;
+          }
+        }
+      }
+    }
+
+    .food-component-desktop-product img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .food-component-desktop-product:hover{
+      cursor: pointer;
+    }
+
+    .food-component-desktop-product:hover img{
+      transform: scale(1.05);
+    }
+
+    .food-component-desktop-product:hover .food-component-desktop-product-overlay .text-button-container .shop-now{
+      background-color: white;
+      color: black;
+      transition: background-color 0.7s ease-in-out;
+    }
+
+  }
+}

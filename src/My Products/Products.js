@@ -1,0 +1,55 @@
+const riceProducts = [
+  {
+    id: "r1",
+    name: "Jollof Rice and Chicken",
+    priceCents: 5500,
+    kg: "Kcal: 480 | Protein: 30g",
+    image: 'https://anywhererecipes.com/wp-content/uploads/2025/10/Jollof-rice-and-chicken-recipe.jpg'
+  }, {
+    id: "r1",
+    name: "Fried Rice and Chicken",
+    priceCents: 5800,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQ6lj65Xdp8tuUeodA8MYSU1Kgd4elmpoQog&s'
+  }, {
+    id: "r1",
+    name: "Jollo Rice and Turkey",
+    priceCents: 500,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Ev-xu5aTK9rLZkwvf7faRLTW_SXtRw3NLQ&s'
+  }, {
+    id: "r1",
+    name: "Jollof Rice and Meat",
+    priceCents: 5400,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuKLoL-jltuJiW_TRkZPFp6CrUCTTnfrseqQ&s'
+  } , {
+    id: "r1",
+    name: "Chicken Sauce",
+    priceCents: 5400,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5dfPVVXk78ydcYZOm2s719K4DqETH-Hclsw&s'
+  } , {
+    id: "r1",
+    name: "Jollof Rice and Plantain",
+    priceCents: 5800,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyyPsh4DnR-XeNQH6_a8Z-uQg_bHdu_coCbQ&s'
+  } , {
+    id: "r1",
+    name: "Jollof Rice and Fried Meat",
+    priceCents: 5800,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzIVd-wOgpgnmQbHk12MlSbmJtF-kHR7Jv6w&s'
+  } 
+, {
+    id: "r1",
+    name: "Fried Rice and Beef",
+    priceCents: 5800,
+    kg: "Kcal: 380 | Protein: 50g",
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaYjRkmI3fnQ9YlscSLtVbw3GLi6W6EQ9iIA&s'
+  } 
+
+];
+
+export default riceProducts;

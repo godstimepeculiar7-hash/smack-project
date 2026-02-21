@@ -1,0 +1,197 @@
+@media(min-width: 769px) {
+  .subscribe-and-save{
+    display: none;
+  }
+  
+  .smack-ai-photo-mobile{
+    display: none;
+  }
+}
+
+@media(min-width: 600px) and (max-width: 768px) {
+  .subscribe-and-save{
+    width: 100%;
+    height: 23rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 92%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.5rem;
+      margin: 0 0 1.8rem 0;
+      color: rgba(0, 0, 0, 0.842);
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1rem;
+      margin: 0 0 2rem 0;
+      color: rgba(0, 0, 0, 0.836);
+      line-height: 1.5rem;
+    }
+
+
+    .subscribe-and-save-button{
+      width: 35%;
+      height: 3rem;
+      font-size: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 700;
+      background-color: white;
+      border: 1px solid black;
+      border-radius: 0.3rem;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+  }
+
+  .smack-ai-photo-mobile{
+    width: 100%;
+    height: 37.4rem;
+  }
+
+  .smack-advert{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media(min-width: 481px) and (max-width: 599px) {
+  .subscribe-and-save{
+    width: 100%;
+    height: 23rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 92%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.5rem;
+      margin: 0 0 1.8rem 0;
+      color: rgba(0, 0, 0, 0.842);
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1rem;
+      margin: 0 0 2rem 0;
+      color: rgba(0, 0, 0, 0.836);
+      line-height: 1.5rem;
+    }
+
+
+    .subscribe-and-save-button{
+      width: 43%;
+      height: 3rem;
+      font-size: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 700;
+      background-color: white;
+      border: 1px solid black;
+      border-radius: 0.3rem;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+  }
+
+  .smack-ai-photo-mobile{
+    width: 100%;
+    height: 29.8rem;
+  }
+
+  .smack-advert{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .subscribe-and-save{
+    width: 100%;
+    height: 23rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 84%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.9rem;
+      margin: 0 0 1.8rem 0;
+      color: rgba(0, 0, 0, 0.842);
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1rem;
+      margin: 0 0 2.2rem 0;
+      color: rgba(0, 0, 0, 0.836);
+    }
+
+
+    .subscribe-and-save-button{
+      width: 75%;
+      height: 3.2rem;
+      font-size: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-weight: 700;
+      background-color: white;
+      border: 1px solid black;
+      border-radius: 0.3rem;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+  }
+
+  .smack-ai-photo-mobile{
+    width: 100%;
+    height: 19.4rem;
+  }
+
+  .smack-advert{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,244 @@
+@media(min-width: 320px) and (max-width: 768px) {
+  .subscribe-and-save-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 1201px) {
+  .subscribe-and-save-parent{
+  width: 100%;
+  height: 28rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  .smack-ai-photo-desktop{
+    width: 50%;
+    height: 100%;
+    position: relative;
+
+    .smack-advert{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .smack-ai-photo-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.397);
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .subscribe-and-save{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 63%;
+      height: 60%;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.9rem;
+      color: rgba(0, 0, 0, 0.829);
+      margin: 0 0 1.5rem 0;
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0 0 3rem 0;
+      line-height: 1.5rem;
+    }
+
+    .subscribe-and-save-button{
+      width: 57%;
+      height: 20%;
+      border-radius: 0.5rem;
+      border: 1px solid black;
+      background-color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+
+  }
+
+}
+}
+
+
+@media(min-width: 1025px) and (max-width: 1200px) {
+  .subscribe-and-save-parent{
+  width: 100%;
+  height: 28rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  .smack-ai-photo-desktop{
+    width: 50%;
+    height: 100%;
+    position: relative;
+
+    .smack-advert{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .smack-ai-photo-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.397);
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .subscribe-and-save{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 70%;
+      height: 60%;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.9rem;
+      color: rgba(0, 0, 0, 0.829);
+      margin: 0 0 1.5rem 0;
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0 0 3rem 0;
+      line-height: 1.5rem;
+    }
+
+    .subscribe-and-save-button{
+      width: 57%;
+      height: 20%;
+      border-radius: 0.5rem;
+      border: 1px solid black;
+      background-color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+
+  }
+
+}
+}
+
+
+@media(min-width: 769px) and (max-width: 1025px) {
+  .subscribe-and-save-parent{
+  width: 100%;
+  height: 30rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  
+  .smack-ai-photo-desktop{
+    width: 50%;
+    height: 100%;
+    position: relative;
+
+    .smack-advert{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .smack-ai-photo-overlay{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.397);
+      position: absolute;
+      top: 0;
+    }
+  }
+
+  .subscribe-and-save{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .subscribe-and-save-text{
+      width: 90%;
+      height: 55%;
+    }
+
+    .subscribe-and-save-text h1{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2.7rem;
+      color: rgba(0, 0, 0, 0.829);
+      margin: 0 0 1.5rem 0;
+    }
+
+    .subscribe-and-save-text h5{
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0 0 3rem 0;
+      line-height: 1.5rem;
+    }
+
+    .subscribe-and-save-button{
+      width: 70%;
+      height: 18%;
+      border-radius: 0.3rem;
+      border: 1px solid black;
+      background-color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: black;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.9s ease;
+    }
+
+    .subscribe-and-save-button:hover{
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.74);
+      color: white;
+    }
+
+  }
+
+}
+}
