@@ -14,7 +14,7 @@ function Products() {
         </div>
       </div>
       
-      <FoodComponentDesktop />
+
 
     </div>
   )
