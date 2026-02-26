@@ -1,12 +1,13 @@
 import './Products.scss';
 import FoodComponentDesktop from '../../component/Food Component Desktop/FoodComponentDesktop';
 import FindThePerfectProductForYou from '../../component/Find The Perfect Product For You/FindThePerfectProductForYou';
+import FoodComponentMobile from '../../component/Food Component Mobile/FoodComponentMobile';
 
 
 function Products() {
   return (
     <div className='parent'>
-      <div className='find-a-retailer-parent'>
+      <div className='product-parent'>
         <h1 data-aos='fade-up' data-aos-delay='300' data-aos-duration='2000'>Our Products</h1>
         <div className='description' data-aos='fade-up' data-aos-delay='300' data-aos-duration='2000'>
           <p className='note'>We are passionate about real food.</p>
@@ -14,8 +15,8 @@ function Products() {
         </div>
       </div>
       
-
-
+      <FoodComponentDesktop />
+      <FoodComponentMobile />
     </div>
   )
 }

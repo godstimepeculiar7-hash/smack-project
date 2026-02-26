@@ -1,13 +1,3 @@
-@media(min-width: 320px) and (max-width: 768px) {
-  .parent {
-    display: none;
-
-    .find-a-retailer-parent {
-      display: none;
-    }
-  }
-}
-
 @media(min-width: 1201px) {
   .find-a-retailer-parent {
     width: 100%;
@@ -85,6 +75,34 @@
 
   .find-a-retailer-parent h1 {
     font-size: 3rem;
+    font-family: ivypesto-display, serif;
+    color: rgba(0, 0, 0, 0.877);
+    font-weight: 400;
+    margin: 0 0 0 3.4rem;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .find-a-retailer-parent {
+    width: 100%;
+    height: 20rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    margin: 8rem 0 0 0;
+
+    .description {
+      width: 30%;
+      height: 4rem;
+      font-size: 1.09rem;
+      font-family: rubik, sans-serif;
+      color: rgba(0, 0, 0, 0.74);
+      margin: 0 0 0 3.4rem;
+    }
+  }
+
+  .find-a-retailer-parent h1 {
+    font-size: 4rem;
     font-family: ivypesto-display, serif;
     color: rgba(0, 0, 0, 0.877);
     font-weight: 400;

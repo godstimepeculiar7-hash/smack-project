@@ -1,5 +1,5 @@
 @media(min-width: 1201px) {
-  .find-a-retailer-parent {
+  .product-parent {
     width: 100%;
     height: 20rem;
     background-color: white;
@@ -24,7 +24,7 @@
     }
   }
 
-  .find-a-retailer-parent h1 {
+  .product-parent h1 {
     font-size: 4rem;
     font-family: ivypesto-display, serif;
     color: rgba(0, 0, 0, 0.877);
@@ -34,7 +34,7 @@
 }
 
 @media(min-width: 1025px) and (max-width: 1200px) {
-  .find-a-retailer-parent {
+  .product-parent {
     width: 100%;
     height: 15rem;
     background-color: white;
@@ -59,7 +59,7 @@
     }
   }
 
-  .find-a-retailer-parent h1 {
+  .product-parent h1 {
     font-size: 3rem;
     font-family: ivypesto-display, serif;
     color: rgba(0, 0, 0, 0.877);
@@ -69,7 +69,7 @@
 }
 
 @media(min-width: 769px) and (max-width: 1024px) {
-  .find-a-retailer-parent {
+  .product-parent {
     width: 100%;
     height: 15rem;
     background-color: white;
@@ -94,8 +94,43 @@
     }
   }
 
-  .find-a-retailer-parent h1 {
+  .product-parent h1 {
     font-size: 3rem;
+    font-family: ivypesto-display, serif;
+    color: rgba(0, 0, 0, 0.877);
+    font-weight: 400;
+    margin: 0 0 0 3.4rem;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .product-parent {
+    width: 100%;
+    height: 20rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    margin: 8rem 0 0 0;
+
+    .description {
+      width: 30%;
+      height: 43%;
+      font-size: 1.09rem;
+      font-family: rubik, sans-serif;
+      color: rgba(0, 0, 0, 0.74);
+      margin: 0 0 0 3.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .note {
+        color: #B89946;
+      }
+    }
+  }
+
+  .product-parent h1 {
+    font-size: 4rem;
     font-family: ivypesto-display, serif;
     color: rgba(0, 0, 0, 0.877);
     font-weight: 400;
