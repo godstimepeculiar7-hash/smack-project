@@ -22,16 +22,18 @@ import FindTheRightBundleMobile from '../../component/Find The Right Bundle Mobi
 import GoogleMap from '../../component/Google Map/GoogleMap';
 import FooterDesktop from '../../component/Footer Desktop/FooterDesktop';
 import FooterMobile from '../../component/Footer Mobile/FooterMobile';
-import { useNavigate } from 'react-router-dom';
 import { uploadProducts } from '../../backend/firebase.utils';
+import { useNavigate } from 'react-router-dom';
+import { uploadSwallow } from '../../backend/firebase.utils';
 
 function HomePage() {
-
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   function product() {
-    navigate('/products');
+    navigate('/smack-products')
   }
+
+
 
 
   useEffect(() => {
@@ -42,6 +44,7 @@ function HomePage() {
     })
 
     uploadProducts();
+    uploadSwallow();
 
 
 

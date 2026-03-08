@@ -12,6 +12,8 @@ import ContactUs from "./routes/Contact Us/ContactUs";
 import ResetPassword from "./routes/Reset Password/ResetPassword";
 import Products from "./routes/Products/Products";
 import JollofRice from "./routes/Jollof Rice/JollofRice";
+import SmackProducts from "./routes/Smack Products/SmackProducts";
+import Swallow from "./routes/Swallow/Swallow";
 
 
 function App() {
@@ -35,24 +37,26 @@ function App() {
   return (
     <div>
       <ScrollToTop />
-    <Routes>
-      <Route path="/" element={<Navigation />}>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
 
-        <Route index element={<HomePage />} />
-        <Route path="/cart" element={<CartComponent />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/find-a-retailer" element={<FindaRetailer />} />
-        <Route path="/become-a-stockist" element={<BecomeAStockist />} />
-        <Route path="/become-a-stockist/page2" element={<BecomeAStockist2 />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/my-account/lost-password" element={<ResetPassword />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/jollofRice" element={<JollofRice />} />
-      </Route>
-    </Routes>
+          <Route index element={<HomePage />} />
+          <Route path="/cart" element={<CartComponent />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/find-a-retailer" element={<FindaRetailer />} />
+          <Route path="/become-a-stockist" element={<BecomeAStockist />} />
+          <Route path="/become-a-stockist/page2" element={<BecomeAStockist2 />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/my-account/lost-password" element={<ResetPassword />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/jollofRice" element={<JollofRice />} />
+          <Route path="/smack-products" element={<SmackProducts />} />
+          <Route path="/swallow" element={<Swallow />} />
+        </Route>
+      </Routes>
     </div>
-   
+
   )
 }
 

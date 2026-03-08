@@ -28,12 +28,12 @@ function FoodComponentMobile() {
     <div className='food-component-mobile-parent'>
       {products.map((product) => {
         return (
-          <div key={product.id} className='food-component-mobile-product' data-aos='fade-down' data-aos-delay='700' data-aos-duration='2000'>
+          <div key={product.id} className='food-component-mobile-product'>
             <img src={product.image} alt="" />
             <div className='food-component-mobile-product-overlay'>
               <div className='mobile-text-button-container'>
-                <div className='mobile-content' data-aos='fade-right' data-aos-delay='1000' data-aos-duration='2000'>{product.content}</div>
-                <div className='mobile-shop-now' data-aos='fade-left' data-aos-delay='1300' data-aos-duration='2000' onClick={(e) => stopPropagation(e, product)}>SHOP NOW</div>
+                <div className='mobile-content'>{product.content}</div>
+                <div className='mobile-shop-now' onClick={(e) => stopPropagation(e, product)}>SHOP NOW</div>
               </div>
             </div>
           </div>

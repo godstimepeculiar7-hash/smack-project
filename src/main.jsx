@@ -11,10 +11,12 @@ import { MobileShopProvider } from './component/Mobile Shop Now/context.jsx';
 import { MobileBlogProvider } from './component/Mobile Blog/context.jsx';
 import { WhySmackMobileProvider } from './component/Mobile Why Smack/context.jsx';
 import { JollofRiceProductsProvider } from './backend/JollofRiceProducts.jsx';
+import { SwallowProductContextProvider } from './backend/SwallowProducts.jsx';
 
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+  <BrowserRouter>
+    <SwallowProductContextProvider>
       <JollofRiceProductsProvider>
         <WhySmackMobileProvider>
           <MobileBlogProvider>
@@ -32,5 +34,6 @@ createRoot(document.getElementById('root')).render(
           </MobileBlogProvider>
         </WhySmackMobileProvider>
       </JollofRiceProductsProvider>
-    </BrowserRouter>
+    </SwallowProductContextProvider>
+  </BrowserRouter>
 )

@@ -12,7 +12,7 @@ function OurBestSellersDesktop({ data }) {
 
         {data.map((product) => {
           return (
-            <div className='our-best-sellers-product'>
+            <div key={product.id} className='our-best-sellers-product'>
               <div className='our-best-sellers-product-image'>
                 <img src={product.image} alt="" />
                 <div className='ovelay'></div>

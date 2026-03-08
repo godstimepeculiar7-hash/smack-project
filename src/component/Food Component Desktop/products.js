@@ -13,7 +13,7 @@ export const products = [{
   image: Hamburger
 }, {
   id: crypto.randomUUID(),
-  content: 'Chinese Dishes',
+  content: 'Swallow',
   image: ChineseDishes
 }, {
   id: crypto.randomUUID(),
