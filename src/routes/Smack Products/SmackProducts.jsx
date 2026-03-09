@@ -1,6 +1,7 @@
 import './SmackProducts.scss';
 import FoodComponentDesktop from '../../component/Food Component Desktop/FoodComponentDesktop';
 import FoodComponentMobile from '../../component/Food Component Mobile/FoodComponentMobile';
+import CantDecideWhatToPick from '../../component/Cant Decide What To Pick/CantDecideWhatToPick';
 
 function SmackProducts() {
   return(
@@ -15,6 +16,7 @@ function SmackProducts() {
 
     <FoodComponentDesktop />
     <FoodComponentMobile />
+    <CantDecideWhatToPick />
     </>
   )
 }
