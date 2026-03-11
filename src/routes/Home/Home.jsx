@@ -43,9 +43,6 @@ function HomePage() {
       mirror: true
     })
 
-    uploadProducts();
-    uploadSwallow();
-
 
 
   }, [])
