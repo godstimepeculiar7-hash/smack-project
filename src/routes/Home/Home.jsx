@@ -16,7 +16,7 @@ import SmackServicesMobile from '../../component/Smack Services Mobile/SmackServ
 import HistoryOfSmackDesktop from '../../component/History of Smack Desktop/HistoryOFSmackDesktop';
 import HistoryOfSmackMobile from '../../component/History of Smack Mobile/HistoryOfSmackMobile';
 import OurBestSellersProduct from '../../component/Our Best Sellers Products/OurBestSellersProducts';
-import OurBestSellersMobile from '../../component/Our Best Sellers Mobile/OurBestSellersMobile';
+import OurBestSellerProductMobile from '../../component/Our Best Seller Product Mobile/OurBestSellerProductMobile';
 import FindTheRightBundleDesktop from '../../component/Find The Right Bundle Desktop/FindTheRightBundleDesktop';
 import FindTheRightBundleMobile from '../../component/Find The Right Bundle Mobile/FindTheRightBundleMobile';
 import GoogleMap from '../../component/Google Map/GoogleMap';
@@ -75,7 +75,7 @@ function HomePage() {
       <HistoryOfSmackDesktop />
       <HistoryOfSmackMobile />
       <OurBestSellersProduct />
-      <OurBestSellersMobile />
+      <OurBestSellerProductMobile />
       <FindTheRightBundleDesktop />
       <FindTheRightBundleMobile />
       <GoogleMap />
