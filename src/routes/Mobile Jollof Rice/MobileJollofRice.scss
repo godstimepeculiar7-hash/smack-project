@@ -1,0 +1,61 @@
+@media(min-width: 769px) {
+  .mobile-jollof-rice-parent{
+    display: none;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .mobile-jollof-rice-parent {
+    width: 100%;
+    height: 26rem;
+    position: relative;
+
+    .mobile-jollof-rice-parent-overlay {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.356);
+      position: absolute;
+      top: 0;
+
+      .mobile-details-parent {
+        width: 99%;
+        height: auto;
+        margin: 25% 0 0 1rem;
+      }
+
+      .mobile-details-parent span {
+        color: white;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        font-size: 1.5rem;
+        text-decoration: underline;
+      }
+
+      .mobile-details-parent span:hover {
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .mobile-details-parent h1 {
+        font-family: ivypresto-display, serif;
+        font-weight: 400;
+        font-size: 45px;
+        color: white;
+        margin: 0.5rem 0 0 0;
+      }
+
+      .mobile-details-parent p {
+        color: white;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        font-size: 1.2rem;
+        margin: 1rem 0 0 0;
+      }
+    }
+  }
+
+  .mobile-jollof-rice-parent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+}

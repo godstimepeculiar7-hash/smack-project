@@ -14,6 +14,7 @@ import Products from "./routes/Products/Products";
 import JollofRice from "./routes/Jollof Rice/JollofRice";
 import SmackProducts from "./routes/Smack Products/SmackProducts";
 import Swallow from "./routes/Swallow/Swallow";
+import MobileJollofRice from "./routes/Mobile Jollof Rice/MobileJollofRice";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
           <Route path="/jollofRice" element={<JollofRice />} />
           <Route path="/smack-products" element={<SmackProducts />} />
           <Route path="/swallow" element={<Swallow />} />
+          <Route path="/mobile-jollof-rice" element={<MobileJollofRice />} />
         </Route>
       </Routes>
     </div>

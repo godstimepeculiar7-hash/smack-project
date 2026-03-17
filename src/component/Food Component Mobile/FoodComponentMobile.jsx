@@ -18,8 +18,7 @@ function FoodComponentMobile() {
   function stopPropagation(e, product) {
     e.stopPropagation();
     if(product.content === 'Jollof Rice') {
-      alert('You are going to the rice page')
-      navigate('/jollofRice');
+      navigate('/mobile-jollof-rice');
     } else{
       alert('there is no other page apart from the rice page')
     }

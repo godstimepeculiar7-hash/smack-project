@@ -11,27 +11,27 @@
     margin: 0 auto;
     background-color: white;
 
-    .our-best-sellers-text {
+    .our-best-sellers-mobile-text {
       width: 100%;
       height: 7rem;
       display: flex;
       align-items: center;
     }
 
-    .our-best-sellers-text span {
+    .our-best-sellers-mobile-text span {
       font-family: 'Times New Roman', Times, serif;
       font-size: 2.5rem;
       font-weight: 500;
     }
 
-    .our-best-sellers-image-parent {
+    .our-best-sellers-mobile-image-parent {
       width: 100%;
       height: 32rem;
       position: relative;
       overflow: hidden;
       border-radius: 1rem;
 
-      .our-best-sellers-image-parent-overlay {
+      .our-best-sellers-mobile-image-parent-overlay {
         width: 100%;
         height: 100%;
         background-color: transparent;
@@ -40,21 +40,21 @@
       }
     }
 
-    .our-best-sellers-image-parent:hover img {
+    .our-best-sellers-mobile-image-parent:hover img {
       transform: scale(1.05);
     }
 
-    .our-best-sellers-image-parent img {
+    .our-best-sellers-mobile-image-parent img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .our-best-sellers-image-description-parent {
+    .our-best-sellers-mobile-image-description-parent {
       width: 100%;
       height: auto;
 
-      .our-best-sellers-product-image-name {
+      .our-best-sellers-mobile-product-image-name {
         width: 100%;
         height: 4rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -65,7 +65,7 @@
         justify-content: center;
       }
 
-      .price {
+      .mobile-price {
         width: 100%;
         height: 4rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -77,7 +77,7 @@
         color: rgba(190, 109, 3, 0.842);
       }
 
-      .measurement {
+      .mobile-measurement {
         width: 100%;
         height: 3rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -89,7 +89,7 @@
         color: rgba(0, 0, 0, 0.301);
       }
 
-      .buttons-parent {
+      .mobile-buttons-parent {
         width: 100%;
         height: 11.5rem;
         margin: 1rem 0 0 0;
@@ -98,7 +98,7 @@
         justify-content: space-between;
         background-color: white;
 
-        .bundle-buy {
+        .mobile-bundle-buy {
           width: 100%;
           height: 5rem;
           border: 2px solid black;
@@ -112,13 +112,13 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .bundle-buy:hover {
+        .mobile-bundle-buy:hover {
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0.589);
           color: white;
         }
 
-        .quick-add {
+        .mobile-quick-add {
           width: 100%;
           height: 5rem;
           border: 3px solid rgba(214, 123, 5, 0.616);
@@ -132,7 +132,7 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .quick-add:hover {
+        .mobile-quick-add:hover {
           cursor: pointer;
           background-color: rgba(214, 123, 5, 0.616);
           color: white;
@@ -149,27 +149,27 @@
     margin: 0 auto;
     background-color: RGB(248, 248, 245);
 
-    .our-best-sellers-text {
+    .our-best-sellers-mobile-text {
       width: 100%;
       height: 5rem;
       display: flex;
       align-items: center;
     }
 
-    .our-best-sellers-text span {
+    .our-best-sellers-mobile-text span {
       font-family: 'Times New Roman', Times, serif;
       font-size: 2.2rem;
       font-weight: 500;
     }
 
-    .our-best-sellers-image-parent {
+    .our-best-sellers-mobile-image-parent {
       width: 100%;
       height: 20rem;
       position: relative;
       overflow: hidden;
       border-radius: 1rem;
 
-      .our-best-sellers-image-parent-overlay {
+      .our-best-sellers-mobile-image-parent-overlay {
         width: 100%;
         height: 100%;
         background-color: transparent;
@@ -178,21 +178,21 @@
       }
     }
 
-    .our-best-sellers-image-parent:hover img {
+    .our-best-sellers-mobile-image-parent:hover img {
       transform: scale(1.05);
     }
 
-    .our-best-sellers-image-parent img {
+    .our-best-sellers-mobile-image-parent img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .our-best-sellers-image-description-parent {
+    .our-best-sellers-mobile-image-description-parent {
       width: 100%;
       height: auto;
 
-      .our-best-sellers-product-image-name {
+      .our-best-sellers-mobile-product-image-name {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -203,7 +203,7 @@
         justify-content: center;
       }
 
-      .price {
+      .mobile-price {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -215,7 +215,7 @@
         color: rgba(190, 109, 3, 0.842);
       }
 
-      .measurement {
+      .mobile-measurement {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -227,7 +227,7 @@
         color: rgba(0, 0, 0, 0.301);
       }
 
-      .buttons-parent {
+      .mobile-buttons-parent {
         width: 100%;
         height: 6.3rem;
         margin: 1rem 0 0 0;
@@ -235,7 +235,7 @@
         flex-direction: column;
         justify-content: space-between;
 
-        .bundle-buy {
+        .mobile-bundle-buy {
           width: 100%;
           height: 2.7rem;
           border: 1px solid black;
@@ -249,13 +249,13 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .bundle-buy:hover {
+        .mobile-bundle-buy:hover {
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0.589);
           color: white;
         }
 
-        .quick-add {
+        .mobile-quick-add {
           width: 100%;
           height: 2.7rem;
           border: 1px solid rgba(214, 123, 5, 0.616);
@@ -269,7 +269,7 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .quick-add:hover {
+        .mobile-quick-add:hover {
           cursor: pointer;
           background-color: rgba(214, 123, 5, 0.616);
           color: white;
@@ -286,27 +286,27 @@
     margin: 0 auto;
     background-color: RGB(248, 248, 245);
 
-    .our-best-sellers-text {
+    .our-best-sellers-mobile-text {
       width: 100%;
       height: 5rem;
       display: flex;
       align-items: center;
     }
 
-    .our-best-sellers-text span {
+    .our-best-sellers-mobile-text span {
       font-family: 'Times New Roman', Times, serif;
       font-size: 2.2rem;
       font-weight: 500;
     }
 
-    .our-best-sellers-image-parent {
+    .our-best-sellers-mobile-image-parent {
       width: 100%;
       height: 20rem;
       position: relative;
       overflow: hidden;
       border-radius: 1rem;
 
-      .our-best-sellers-image-parent-overlay {
+      .our-best-sellers-mobile-image-parent-overlay {
         width: 100%;
         height: 100%;
         background-color: transparent;
@@ -315,21 +315,21 @@
       }
     }
 
-    .our-best-sellers-image-parent:hover img {
+    .our-best-sellers-mobile-image-parent:hover img {
       transform: scale(1.05);
     }
 
-    .our-best-sellers-image-parent img {
+    .our-best-sellers-mobile-image-parent img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .our-best-sellers-image-description-parent {
+    .our-best-sellers-mobile-image-description-parent {
       width: 100%;
       height: auto;
 
-      .our-best-sellers-product-image-name {
+      .our-best-sellers-mobile-product-image-name {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -340,7 +340,7 @@
         justify-content: center;
       }
 
-      .price {
+      .mobile-price {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -352,7 +352,7 @@
         color: rgba(190, 109, 3, 0.842);
       }
 
-      .measurement {
+      .mobile-measurement {
         width: 100%;
         height: 2rem;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -364,7 +364,7 @@
         color: rgba(0, 0, 0, 0.301);
       }
 
-      .buttons-parent {
+      .mobile-buttons-parent {
         width: 100%;
         height: 6.3rem;
         margin: 1rem 0 0 0;
@@ -372,7 +372,7 @@
         flex-direction: column;
         justify-content: space-between;
 
-        .bundle-buy {
+        .mobile-bundle-buy {
           width: 100%;
           height: 2.7rem;
           border: 1px solid black;
@@ -386,13 +386,13 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .bundle-buy:hover {
+        .mobile-bundle-buy:hover {
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0.589);
           color: white;
         }
 
-        .quick-add {
+        .mobile-quick-add {
           width: 100%;
           height: 2.7rem;
           border: 1px solid rgba(214, 123, 5, 0.616);
@@ -406,7 +406,7 @@
           transition: all 0.5s ease-in-out;
         }
 
-        .quick-add:hover {
+        .mobile-quick-add:hover {
           cursor: pointer;
           background-color: rgba(214, 123, 5, 0.616);
           color: white;

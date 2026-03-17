@@ -13,7 +13,7 @@ function JollofRice() {
     navigate('/products');
   }
   return (
-    <>  
+    <>
       <div className='parent'>
         <img src={JollofRiceImage} alt="" />
         <div className='parent-overlay'>
@@ -26,8 +26,7 @@ function JollofRice() {
         </div>
       </div>
 
-        <OurBestSellersDesktop data={rice} />
-
+      <OurBestSellersDesktop data={rice} />
 
     </>
   )
