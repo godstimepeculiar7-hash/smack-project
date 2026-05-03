@@ -1,20 +1,12 @@
-import { createContext, useEffect, useState } from "react";
-import { getProducts } from "./firebase.utils";
+import { createContext, useState } from "react";
+import riceProducts from '../My Products/Rice';
 
 export const JollofRiceProductsContext = createContext()
 
 export const JollofRiceProductsProvider = ({ children }) => {
-  const [rice, setRice] = useState([]);
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProducts();
-      setRice(data);
-      console.log(rice)
-      console.log(Array.isArray(data));
-    }
+  const [rice, setRice] = useState(riceProducts);
 
-    fetchProducts();
-  }, [])
+  // Products are loaded directly from Rice.js, no async needed
 
   return (
     <JollofRiceProductsContext.Provider value={{ rice, setRice }}>
