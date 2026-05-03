@@ -1,7 +1,11 @@
 import './OurBestSellersDesktop.scss';
 import { formatCurrency } from '../../component/Our Best Sellers Desktop/Money/Money'
+import { useContext } from 'react';
+import { CartContext } from '../../backend/Cart';
 
 function OurBestSellersDesktop({ data }) {
+  const { cart, setCart, addToCart } = useContext(CartContext);
+
   return (
     <div className='our-best-sellers-parent'>
       <div className='our-best-sellers-text'>
@@ -24,7 +28,7 @@ function OurBestSellersDesktop({ data }) {
               <div className='measurement'>{product.kg}</div>
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
-                <div className='quick-add'>QUICK ADD</div>
+                <div className='quick-add'onClick={() => addToCart(product)}>QUICK ADD</div>
               </div>
             </div>
           )

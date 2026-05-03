@@ -14,11 +14,13 @@ import { shopNow } from '../../../Context/ShopNowDropdown';
 import { blogDrop } from '../../../Context/BlogDropdown';
 import { whySmackDrop } from '../../../Context/WhySmackDropdown';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../backend/Cart';
 
 
 
 function LargeNav() {
   const { shop, setShop } = useContext(shopNow);
+  const { totalQuantity } = useContext(CartContext);
 
   const handler = () => {
     setShop(1);
@@ -194,7 +196,7 @@ function LargeNav() {
             <img src={searchIcon} alt="search icon" className='sub-fixed-right-section-icons' />
             <img src={userIcon} alt="user icon" className='sub-fixed-right-section-icons' onClick={login} />
             <img src={shoopingBag} alt="shoping bag" className='sub-fixed-right-section-icons' onClick={Cart}/>
-            <button className='basket'>0</button>
+            <button className='basket'>{totalQuantity}</button>
           </div>
 
         </div>

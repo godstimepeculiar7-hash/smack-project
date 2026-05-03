@@ -12,28 +12,31 @@ import { MobileBlogProvider } from './component/Mobile Blog/context.jsx';
 import { WhySmackMobileProvider } from './component/Mobile Why Smack/context.jsx';
 import { JollofRiceProductsProvider } from './backend/JollofRiceProducts.jsx';
 import { SwallowProductContextProvider } from './backend/SwallowProducts.jsx';
+import { CartContextProvider } from './backend/Cart.jsx';
 
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <SwallowProductContextProvider>
-      <JollofRiceProductsProvider>
-        <WhySmackMobileProvider>
-          <MobileBlogProvider>
-            <MobileShopProvider>
-              <ShopNowSmallMenuProvider>
-                <WhySmackProvider>
-                  <BlogDropProvider>
-                    <ShopNowProvider>
-                      <App />
-                    </ShopNowProvider>
-                  </BlogDropProvider>
-                </WhySmackProvider>
-              </ShopNowSmallMenuProvider>
-            </MobileShopProvider>
-          </MobileBlogProvider>
-        </WhySmackMobileProvider>
-      </JollofRiceProductsProvider>
-    </SwallowProductContextProvider>
+    <CartContextProvider>
+      <SwallowProductContextProvider>
+        <JollofRiceProductsProvider>
+          <WhySmackMobileProvider>
+            <MobileBlogProvider>
+              <MobileShopProvider>
+                <ShopNowSmallMenuProvider>
+                  <WhySmackProvider>
+                    <BlogDropProvider>
+                      <ShopNowProvider>
+                        <App />
+                      </ShopNowProvider>
+                    </BlogDropProvider>
+                  </WhySmackProvider>
+                </ShopNowSmallMenuProvider>
+              </MobileShopProvider>
+            </MobileBlogProvider>
+          </WhySmackMobileProvider>
+        </JollofRiceProductsProvider>
+      </SwallowProductContextProvider>
+    </CartContextProvider>
   </BrowserRouter>
 )

@@ -4,21 +4,25 @@ import Smacksaltandpepperchickenbites from '../../assets/smack-salt-and-pepper-c
 import Smacksweetchilliwrap from '../../assets/smack-sweet-chilli-wrap.jpg';
 
 export const Products = [{
+  id: crypto.randomUUID(),
   image: Bowl,
   name: 'Breaded Chicken Katsu Curry',
   priceCents: 399,
   kg: 'kcal: 568 | protein: 29g'
 }, {
+  id: crypto.randomUUID(),
   image: Smackbreadedchickenbites,
   name: 'Smack Breaded Chicken Bites',
   priceCents: 1500,
   kg: 'kcal: 269 | protein: 18g'
 }, {
+  id: crypto.randomUUID(),
   image: Smacksaltandpepperchickenbites,
   name: 'Salt & Pepper Chicken Bites',
   priceCents: 1400,
   kg: 'kcal: 130 | protein: 25.1g'
 }, {
+  id: crypto.randomUUID(),
   image: Smacksweetchilliwrap,
   name: 'Smack Korean Sweet Chilli Wrap',
   priceCents: 299,
