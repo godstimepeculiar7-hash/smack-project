@@ -1,7 +1,10 @@
 import './OurBestSellersMobile.scss';
 import Bowl from '../../assets/Bowl.jpeg';
+import { useContext } from 'react';
+import { CartContext } from '../../backend/Cart';
 
 function OurBestSellersMobile({data}) {
+  const { addToCart } = useContext(CartContext);
   return (
     <div className='our-best-sellers-mobile-parent'>
       <div className='our-best-sellers-mobile-text'>
@@ -23,7 +26,7 @@ function OurBestSellersMobile({data}) {
               <div className='mobile-measurement'>{product.kg}</div>
               <div className='mobile-buttons-parent'>
                 <div className='mobile-bundle-buy'>BUNDLE BUY</div>
-                <div className='mobile-quick-add'>QUICK ADD</div>
+                <div className='mobile-quick-add'onClick={() => addToCart(product)}>QUICK ADD</div>
               </div>
             </div>
           </div>

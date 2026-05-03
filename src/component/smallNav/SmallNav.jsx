@@ -7,10 +7,12 @@ import { ShopNowSmallMenu } from '../../../Context/ShopNowSmallMenu';
 import { MdClose } from 'react-icons/md';
 import { MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../../backend/Cart';
 
 
 function SmallNav() {
   const { smallShopNow, setSmallShopNow } = useContext(ShopNowSmallMenu);
+  const { totalQuantity } = useContext(CartContext);
   const navigate = useNavigate()
 
   const smallmenu = () => {
@@ -45,6 +47,7 @@ function SmallNav() {
             <img src={searchIcon} alt="search icon" className='fixed-width-right-section-icons' />
             <img src={userIcon} alt="user icon" className='fixed-width-right-section-icons' onClick={contact} />
             <img src={shopingBag} alt="shoping bag" className='fixed-width-right-section-icons' />
+            <button className='basket'>{totalQuantity}</button>
             {smallShopNow === 1 ? (<MdClose size={30} color='white' onClick={removeSmallMenu} className='cancel'/>) : (
               <MdMenu size={30} onClick={smallmenu} color='white'/>
             )}
