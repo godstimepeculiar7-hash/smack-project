@@ -196,7 +196,7 @@ function LargeNav() {
             <img src={searchIcon} alt="search icon" className='sub-fixed-right-section-icons' />
             <img src={userIcon} alt="user icon" className='sub-fixed-right-section-icons' onClick={login} />
             <img src={shoopingBag} alt="shoping bag" className='sub-fixed-right-section-icons' onClick={Cart}/>
-            <button className='basket'>{totalQuantity}</button>
+            {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
           </div>
 
         </div>
