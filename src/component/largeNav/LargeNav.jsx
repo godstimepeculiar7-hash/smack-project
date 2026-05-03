@@ -62,7 +62,11 @@ function LargeNav() {
   const navigate = useNavigate();
 
   function Cart() {
-    navigate('/cart');
+    if (totalQuantity > 0) {
+      navigate('/checkout');
+    } else {
+      navigate('/cart');
+    }
   }
 
   function home() {

@@ -15,7 +15,7 @@ import JollofRice from "./routes/Jollof Rice/JollofRice";
 import SmackProducts from "./routes/Smack Products/SmackProducts";
 import Swallow from "./routes/Swallow/Swallow";
 import MobileJollofRice from "./routes/Mobile Jollof Rice/MobileJollofRice";
-
+import Checkout from "./routes/Checkout/Checkout";
 
 function App() {
   // BELOW IS A FUNCTION THAT RUNS WHEN A USER ACCIDENTALLY CLOSES THE PAGE
@@ -55,6 +55,7 @@ function App() {
           <Route path="/smack-products" element={<SmackProducts />} />
           <Route path="/swallow" element={<Swallow />} />
           <Route path="/mobile-jollof-rice" element={<MobileJollofRice />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </div>

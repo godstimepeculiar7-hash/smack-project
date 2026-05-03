@@ -34,6 +34,14 @@ function SmallNav() {
     navigate('/login')
   }
 
+  function cart() {
+    if (totalQuantity > 0) {
+      navigate('/checkout');
+    } else {
+      navigate('/cart');
+    }
+  }
+
 
 
   return (
