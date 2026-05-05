@@ -2,9 +2,15 @@ import './Checkout.scss';
 import './checkout-header.css';
 import { useContext } from 'react';
 import { CartContext } from '../../backend/Cart';
+import { useNavigate } from 'react-router-dom';
 
 function Checkout() {
   const { cart, totalQuantity } = useContext(CartContext);
+  const navigate = useNavigate()
+
+  const home = () => {
+    navigate('/')
+  }
 
   return (
     <div>
@@ -12,8 +18,8 @@ function Checkout() {
         <div className="header-content">
 
           <div className="checkout-header-middle-section">
-            Checkout (<a className="return-to-home-link"
-              href="index.html">{totalQuantity} items</a>)
+            Checkout (<div className="return-to-home-link"
+              onClick={home}>{totalQuantity} items</div>)
           </div>
 
 
