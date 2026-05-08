@@ -24,7 +24,7 @@ function OurBestSellersDesktop({ data }) {
               <div className='our-best-sellers-product-image-name'>
                 {product.name}
               </div>
-              <div className='price'>{formatCurrency(product.priceCents)}</div>
+              <div className='price'>{product.priceCents}</div>
               <div className='measurement'>{product.kg}</div>
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
