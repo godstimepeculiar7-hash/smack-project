@@ -7,6 +7,7 @@ import riceProducts from '../../My Products/Rice';
 import { formatCurrency } from '../../component/Our Best Sellers Desktop/Money/Money';
 import { deliveryOptions } from '../../backend/deliveryOptions';
 import swallow from '../../My Products/Swallow';
+import { Products } from '../../component/Our Best Sellers Desktop/products';
 
 function Checkout() {
   const { cart, totalQuantity, removeFromCart } = useContext(CartContext);
@@ -38,7 +39,9 @@ function Checkout() {
 
             {cart.map((cartItem) => {
 
-              const matchingProduct = riceProducts.find((product) => {
+              const allProducts = [...riceProducts, ...swallow, ...Products];
+
+              const matchingProduct = allProducts.find((product) => {
                 return product.id === cartItem.id
 
               });
