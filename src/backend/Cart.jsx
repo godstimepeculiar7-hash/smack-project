@@ -19,9 +19,23 @@ export const CartContextProvider = ({ children }) => {
                 return newCart;
             }
 
-            const newCart = [...prevCart, { id: product.id, quantity: 1 }];
+            const newCart = [...prevCart, { id: product.id, quantity: 1, deliveryOptionId: '1' }];
             console.log('Cart:', newCart);
             return newCart;
+        });
+    };
+
+    const updateDeliveryOption = (productId, deliveryOptionId) => {
+        setCart((prevCart) => {
+            return prevCart.map((item) => {
+                if (item.id === productId) {
+                    return {
+                        ...item,
+                        deliveryOptionId: deliveryOptionId
+                    };
+                }
+                return item;
+            });
         });
     };
 
@@ -29,5 +43,5 @@ export const CartContextProvider = ({ children }) => {
     const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
     console.log('Total Quantity:', totalQuantity);
 
-    return(<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity }}>{children}</CartContext.Provider>)
+    return (<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity, updateDeliveryOption }}>{children}</CartContext.Provider>)
 };

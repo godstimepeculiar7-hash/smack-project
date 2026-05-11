@@ -1,6 +1,6 @@
 import './Checkout.scss';
 import './checkout-header.css';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { CartContext } from '../../backend/Cart';
 import { useNavigate } from 'react-router-dom';
 import riceProducts from '../../My Products/Rice';
@@ -8,14 +8,24 @@ import { formatCurrency } from '../../component/Our Best Sellers Desktop/Money/M
 import { deliveryOptions } from '../../backend/deliveryOptions';
 import swallow from '../../My Products/Swallow';
 import { Products } from '../../component/Our Best Sellers Desktop/products';
+import dayjs from 'dayjs';
 
 function Checkout() {
-  const { cart, totalQuantity, removeFromCart } = useContext(CartContext);
-  const navigate = useNavigate()
+  const { cart, totalQuantity, removeFromCart, updateDeliveryOption } = useContext(CartContext);
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(dayjs());
 
   const home = () => {
     navigate('/')
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(dayjs());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -46,10 +56,14 @@ function Checkout() {
 
               });
 
+              const selectedOption = deliveryOptions.find((option) => {
+                return option.id === cartItem.deliveryOptionId
+              });
+
               return (
                 <div className="cart-item-container">
                   <div className="delivery-date">
-                    Delivery Time: 7 hour delivery
+                    Delivery Time: {selectedOption.deliveryHours} hours delivery
                   </div>
 
                   <div className="cart-item-details-grid">
@@ -73,7 +87,7 @@ function Checkout() {
                         <span className="delete-quantity-link link-primary" onClick={() => {
                           cart.map((cartItem) => {
                             const matchingProduct = cart.find((product) => {
-                              if(cartItem.id === product.id) {
+                              if (cartItem.id === product.id) {
                                 removeFromCart(product.id)
                               }
                             })
@@ -89,17 +103,26 @@ function Checkout() {
                         Choose a delivery option:
                       </div>
                       {deliveryOptions.map((option) => {
+                        let priceString = 'Free Shipping';
+
+                        if (option.priceCents > 0) {
+                          priceString = `${formatCurrency(option.priceCents)} - Shipping`
+                        }
+
                         return (
-                          <div className="delivery-option">
-                            <input type="radio" checked
+                          <div key={option.id} className="delivery-option">
+                            <input type="radio" checked={option.id === cartItem.deliveryOptionId}
                               className="delivery-option-input"
+                              onChange={() => {
+                                updateDeliveryOption(cartItem.id, option.id)
+                              }}
                               name={`delivery-option-${cartItem.id}`} />
                             <div>
                               <div className="delivery-option-date">
-                                {option.deliveryDays} hour delivery
+                                {currentTime.add(option.deliveryHours, 'hour').format('HH:mm A, ')}
                               </div>
                               <div className="delivery-option-price">
-                                FREE Shipping
+                                {priceString}
                               </div>
                             </div>
                           </div>
