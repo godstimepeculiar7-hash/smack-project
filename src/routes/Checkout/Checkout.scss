@@ -81,12 +81,28 @@
     (they will divide up the remaining space evenly). */
   grid-template-columns: 100px 1fr 1fr;
   column-gap: 25px;
+
+  .delete-quantity-link:hover{
+    cursor: pointer;
+    color: red;
+  }
+
+  .update-quantity-link:hover{
+    cursor: pointer;
+    color: green;
+
+  }
 }
 
 @media (max-width: 1000px) {
   .checkout-page .cart-item-details-grid {
     grid-template-columns: 100px 1fr;
     row-gap: 30px;
+  }
+
+  .delete-quantity-link:hover{
+    cursor: pointer;
+    color: red;
   }
 }
 

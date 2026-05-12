@@ -85,13 +85,7 @@ function Checkout() {
                           Update
                         </span>
                         <span className="delete-quantity-link link-primary" onClick={() => {
-                          cart.map((cartItem) => {
-                            const matchingProduct = cart.find((product) => {
-                              if (cartItem.id === product.id) {
-                                removeFromCart(product.id)
-                              }
-                            })
-                          })
+                          removeFromCart(cartItem.id)
                         }}>
                           Delete
                         </span>
