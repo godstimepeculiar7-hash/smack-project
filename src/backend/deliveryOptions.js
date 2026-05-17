@@ -5,9 +5,9 @@ export const deliveryOptions = [{
 }, {
   id: '2',
   deliveryHours: 3,
-  priceCents: 100
+  priceCents: 1000
 }, {
   id: '3',
   deliveryHours: 1,
-  priceCents: 200
+  priceCents: 1500
 }]; 

@@ -1,4 +1,8 @@
 import { createContext, useState } from "react";
+import riceProducts from '../My Products/Rice';
+import swallow from '../My Products/Swallow';
+import { Products } from '../component/Our Best Sellers Desktop/products';
+import { deliveryOptions } from './deliveryOptions';
 
 export const CartContext = createContext();
 
@@ -49,5 +53,41 @@ export const CartContextProvider = ({ children }) => {
     const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
     console.log('Total Quantity:', totalQuantity);
 
-    return (<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity, updateDeliveryOption, removeFromCart }}>{children}</CartContext.Provider>)
+    const totalCost = () => {
+        const allProducts = [...riceProducts, ...swallow, ...Products];
+        const productPrice = cart.reduce((total, cartItem) => {
+            const matchingProduct = allProducts.find((product) => {
+                return product.id === cartItem.id
+            });
+
+            if(!matchingProduct) {
+                return total;
+            }
+
+            return total + (matchingProduct.priceCents * cartItem.quantity);
+        }, 0)
+        
+        return productPrice;
+    }
+
+    const shippingCost = () => {
+        const shippingPrice = cart.reduce((total, cartItem) => {
+            const selectedOption = deliveryOptions.find((option) => {
+                return option.id === cartItem.deliveryOptionId
+            })
+            if(!selectedOption) {
+                return total;
+            }
+
+            return total + selectedOption.priceCents;
+        }, 0)
+
+        return shippingPrice;
+    }
+
+    const totalBeforeTax = totalCost() + shippingCost();
+    const tax = totalBeforeTax * 0.05;
+    const orderTotal = totalBeforeTax + tax;
+
+    return (<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity, updateDeliveryOption, removeFromCart, totalCost, shippingCost, totalBeforeTax, tax, orderTotal }}>{children}</CartContext.Provider>)
 };

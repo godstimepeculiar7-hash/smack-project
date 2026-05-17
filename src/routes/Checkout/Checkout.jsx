@@ -11,7 +11,7 @@ import { Products } from '../../component/Our Best Sellers Desktop/products';
 import dayjs from 'dayjs';
 
 function Checkout() {
-  const { cart, totalQuantity, removeFromCart, updateDeliveryOption } = useContext(CartContext);
+  const { cart, totalQuantity, removeFromCart, updateDeliveryOption, totalCost, shippingCost, totalBeforeTax, tax, orderTotal } = useContext(CartContext);
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(dayjs());
 
@@ -63,7 +63,7 @@ function Checkout() {
               return (
                 <div className="cart-item-container">
                   <div className="delivery-date">
-                    Delivery Time: {selectedOption.deliveryHours} hours delivery
+                    Delivery Time: {selectedOption.deliveryHours} hour delivery
                   </div>
 
                   <div className="cart-item-details-grid">
@@ -100,7 +100,7 @@ function Checkout() {
                         let priceString = 'Free Shipping';
 
                         if (option.priceCents > 0) {
-                          priceString = `${formatCurrency(option.priceCents)} - Shipping`
+                          priceString = `${option.priceCents} - Shipping`
                         }
 
                         return (
@@ -135,33 +135,34 @@ function Checkout() {
           </div>
 
           <div className="payment-summary">
+
             <div className="payment-summary-title">
               Payment Summary
             </div>
 
             <div className="payment-summary-row">
               <div>Items (3):</div>
-              <div className="payment-summary-money">$42.75</div>
+              <div className="payment-summary-money">{totalCost()}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">$4.99</div>
+              <div className="payment-summary-money">{shippingCost()}</div>
             </div>
 
             <div className="payment-summary-row subtotal-row">
               <div>Total before tax:</div>
-              <div className="payment-summary-money">$47.74</div>
+              <div className="payment-summary-money">{totalBeforeTax}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">$4.77</div>
+              <div className="payment-summary-money">{tax}</div>
             </div>
 
             <div className="payment-summary-row total-row">
               <div>Order total:</div>
-              <div className="payment-summary-money">$52.51</div>
+              <div className="payment-summary-money">{orderTotal}</div>
             </div>
 
             <button className="place-order-button button-primary">
