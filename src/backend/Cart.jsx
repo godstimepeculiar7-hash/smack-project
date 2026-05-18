@@ -89,5 +89,9 @@ export const CartContextProvider = ({ children }) => {
     const tax = totalBeforeTax * 0.05;
     const orderTotal = totalBeforeTax + tax;
 
-    return (<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity, updateDeliveryOption, removeFromCart, totalCost, shippingCost, totalBeforeTax, tax, orderTotal }}>{children}</CartContext.Provider>)
+    const clearCart = () => {
+        setCart([]);
+    }
+
+    return (<CartContext.Provider value={{ cart, setCart, addToCart, totalQuantity, updateDeliveryOption, removeFromCart, totalCost, shippingCost, totalBeforeTax, tax, orderTotal, clearCart }}>{children}</CartContext.Provider>)
 };

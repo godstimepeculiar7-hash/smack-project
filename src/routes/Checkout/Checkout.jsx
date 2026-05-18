@@ -9,14 +9,38 @@ import { deliveryOptions } from '../../backend/deliveryOptions';
 import swallow from '../../My Products/Swallow';
 import { Products } from '../../component/Our Best Sellers Desktop/products';
 import dayjs from 'dayjs';
+import { useFlutterwave } from 'flutterwave-react-v3';
+import Swal from 'sweetalert2';
+
 
 function Checkout() {
-  const { cart, totalQuantity, removeFromCart, updateDeliveryOption, totalCost, shippingCost, totalBeforeTax, tax, orderTotal } = useContext(CartContext);
+  const { cart, totalQuantity, removeFromCart, updateDeliveryOption, totalCost, shippingCost, totalBeforeTax, tax, orderTotal, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(dayjs());
 
   const home = () => {
     navigate('/')
+  }
+
+  const success = () => {
+    Swal.fire({
+      title: 'Payment Successful!',
+      text: 'Your order has been placed successfully.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+    })
+    clearCart();
+  }
+
+  const failed = () => {
+    Swal.fire({
+      title: 'Payment Cancelled',
+      text: 'There was an issue processing your payment. Please try again.',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      allowOutsideClick: false
+    })
   }
 
   useEffect(() => {
@@ -26,6 +50,27 @@ function Checkout() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const config = {
+    public_key: 'FLWPUBK_TEST-d989135c2af242a4412d33d19f510c17-X',
+    tx_ref: `${Date.now()}`, // String format is safer
+    amount: orderTotal,
+    currency: 'NGN',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: 'user@gmail.com',
+      phone_number: '070********',
+      name: 'john doe',
+    },
+    customizations: {
+      title: 'Smack Foods',
+      description: 'Total Order',
+      logo: 'https://your-logo-url.com/logo.png',
+    },
+  };
+
+  //Initialize the hook
+  const handleFlutterPayment = useFlutterwave(config);
 
   return (
     <div>
@@ -141,7 +186,7 @@ function Checkout() {
             </div>
 
             <div className="payment-summary-row">
-              <div>Items (3):</div>
+              <div>Items ({totalQuantity}):</div>
               <div className="payment-summary-money">{totalCost()}</div>
             </div>
 
@@ -165,7 +210,24 @@ function Checkout() {
               <div className="payment-summary-money">{orderTotal}</div>
             </div>
 
-            <button className="place-order-button button-primary">
+            <button className="place-order-button button-primary" onClick={() => {
+              console.log(orderTotal);
+              handleFlutterPayment({
+                callback: (response) => {
+                  console.log("Payment Response:", response);
+                  if (response.status === 'completed') {
+                    success();
+                  } else{
+                    failed();
+                  }
+                },
+                onClose: () => {
+                  console.log("User closed the modal");
+                  failed();
+                },
+              });
+            }}
+            >
               Place your order
             </button>
           </div>
