@@ -65,7 +65,6 @@ function Checkout() {
     customizations: {
       title: 'Smack Foods',
       description: 'Total Order',
-      logo: 'home-favicon.png',
     },
   };
 
