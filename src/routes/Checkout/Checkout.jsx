@@ -58,14 +58,14 @@ function Checkout() {
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
-      email: 'user@gmail.com',
-      phone_number: '070********',
-      name: 'john doe',
+      email: 'peculiargodstime1@gmail.com',
+      phone_number: '09070850162',
+      name: 'Godstime Peculiar',
     },
     customizations: {
       title: 'Smack Foods',
       description: 'Total Order',
-      logo: 'https://your-logo-url.com/logo.png',
+      logo: 'home-favicon.png',
     },
   };
 
@@ -211,11 +211,14 @@ function Checkout() {
             </div>
 
             <button className="place-order-button button-primary" onClick={() => {
+              console.log('flutterwave button clicked');
+              let paymentCompleted = false;
               console.log(orderTotal);
               handleFlutterPayment({
                 callback: (response) => {
                   console.log("Payment Response:", response);
                   if (response.status === 'completed') {
+                    paymentCompleted = true;
                     success();
                   } else{
                     failed();
@@ -223,7 +226,9 @@ function Checkout() {
                 },
                 onClose: () => {
                   console.log("User closed the modal");
-                  failed();
+                  if(!paymentCompleted) {
+                    failed();
+                  }
                 },
               });
             }}
