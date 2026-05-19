@@ -52,7 +52,7 @@ function Checkout() {
   }, []);
 
   const config = {
-    public_key: 'FLWPUBK_TEST-d989135c2af242a4412d33d19f510c17-X',
+    public_key: 'FLWPUBK_TEST-1d461d516381ef52f84e8bd8440d95a4-X',
     tx_ref: `${Date.now()}`, // String format is safer
     amount: orderTotal,
     currency: 'NGN',
