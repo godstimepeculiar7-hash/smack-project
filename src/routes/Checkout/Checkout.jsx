@@ -11,6 +11,8 @@ import { Products } from '../../component/Our Best Sellers Desktop/products';
 import dayjs from 'dayjs';
 import { useFlutterwave } from 'flutterwave-react-v3';
 import Swal from 'sweetalert2';
+import { getDistance } from 'geolib';
+import axios from 'axios';
 
 
 function Checkout() {
@@ -70,6 +72,77 @@ function Checkout() {
 
   //Initialize the hook
   const handleFlutterPayment = useFlutterwave(config);
+
+  const getUserLocation = () => {
+    navigator.geolocation.getCurrentPosition( async (position) => {
+
+      const userLatitude = position.coords.latitude;
+      const userLongitude = position.coords.longitude;
+
+      console.log('userLatitude:', userLatitude);
+      console.log('userLongitude:', userLongitude);
+
+      try{
+        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLatitude}&lon=${userLongitude}`)
+        console.log('Full Address:', response.data.display_name);
+      } catch (error) {``
+        console.log('Error fetching address:', error)
+      }
+
+      // Shop location
+      const shopLatitude = 4.8156;
+      const shopLongitude = 7.0498;
+
+      // Calculate distance INSIDE callback
+      const distance = getDistance(
+        {
+          latitude: userLatitude,
+          longitude: userLongitude
+        },
+        {
+          latitude: shopLatitude,
+          longitude: shopLongitude
+        }
+      );
+
+      console.log('Distance to shop (meters):', distance);
+
+      let paymentCompleted = false;
+
+      if (distance <= 50000) {
+        // User is within 10 km, proceed with payment
+        handleFlutterPayment({
+          callback: (response) => {
+            console.log("Payment Response:", response);
+            if (response.status === 'completed' || response.status === 'successful') {
+              paymentCompleted = true;
+              success();
+            } else {
+              failed();
+            }
+          },
+          onClose: () => {
+            console.log("User closed the modal");
+            if (!paymentCompleted) {
+              failed();
+            }
+          },
+        })
+      } else {
+        Swal.fire({
+          title: 'Out of Delivery Range',
+          text: 'Sorry, we do not deliver to your location.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          allowOutsideClick: false,
+        })
+      }
+
+    }, (error) => {
+      console.error('Error getting location:', error);
+    });
+
+  };
 
   return (
     <div>
@@ -209,28 +282,11 @@ function Checkout() {
               <div className="payment-summary-money">{orderTotal}</div>
             </div>
 
-            <button className="place-order-button button-primary" onClick={() => {
-              console.log('flutterwave button clicked');
-              let paymentCompleted = false;
-              console.log(orderTotal);
-              handleFlutterPayment({
-                callback: (response) => {
-                  console.log("Payment Response:", response);
-                  if (response.status === 'completed') {
-                    paymentCompleted = true;
-                    success();
-                  } else{
-                    failed();
-                  }
-                },
-                onClose: () => {
-                  console.log("User closed the modal");
-                  if(!paymentCompleted) {
-                    failed();
-                  }
-                },
-              });
-            }}
+            <button className="place-order-button button-primary"
+              onClick={
+                getUserLocation
+
+              }
             >
               Place your order
             </button>

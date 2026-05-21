@@ -2,7 +2,7 @@ const riceProducts = [
   {
     id: crypto.randomUUID(),
     name: "Jollof Rice and Chicken",
-    priceCents: 9500,
+    priceCents: 1,
     kg: "Kcal: 480 | Protein: 30g",
     image: 'https://anywhererecipes.com/wp-content/uploads/2025/10/Jollof-rice-and-chicken-recipe.jpg'
   }, {
