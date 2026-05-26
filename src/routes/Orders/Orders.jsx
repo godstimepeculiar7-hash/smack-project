@@ -1,61 +1,77 @@
-import './general.css';
-import './orders.css';
+import './orders.scss';
+
 import Hamburger from '../../assets/hamburger 1.webp';
 import BuyAgain from '../../assets/buy-again.png';
 
 function Orders() {
     return (
-        <div className="main">
-            <div className="page-title">Your Orders</div>
+        <div className="orders-page">
+            <h1 className="orders-title">Your Orders</h1>
 
-            <div className="orders-grid js-orders-grid">
-                <div className="order-container">
-                    <div className="order-header">
-                        <div className="order-header-left-section">
-                            <div className="order-date">
-                                <div className="order-header-label">Order Placed:</div>
-                                <div></div>
+            <div className="orders-list">
+
+                {/* ORDER CARD */}
+                <div className="order-card">
+
+                    {/* ORDER HEADER */}
+                    <div className="order-card__header">
+                        <div className="order-meta">
+                            <div>
+                                <span className="label">Order Placed</span>
+                                <span className="value">May 26, 2026</span>
                             </div>
-                            <div className="order-total">
-                                <div className="order-header-label">Total:</div>
-                                <div></div>
+
+                            <div>
+                                <span className="label">Total</span>
+                                <span className="value">₦12,500</span>
                             </div>
                         </div>
-                        <div className="order-header-right-section">
-                            <div className="order-header-label">Order ID:</div>
-                            <div></div>
+
+                        <div className="order-id">
+                            <span className="label">Order ID</span>
+                            <span className="value">#ORD-10293</span>
                         </div>
                     </div>
-                    <div className="order-details-grid">
-                        <div className="product-image-container">
-                            <img src={Hamburger} alt="Product Image" />
-                        </div>
-                        <div className="product-details">
-                            <div className="product-name">
 
-                            </div>
-                            <div className="product-delivery-date">
-                                Arriving on: Today
-                            </div>
-                            <div className="product-quantity">
-                                Quantity:
-                            </div>
-                            <button className="buy-again-button button-primary js-buy-again" data-product-id="">
-                                <img className="buy-again-icon" src={BuyAgain} alt="Buy Again Icon" />
-                                <span className="buy-again-message">Buy it again</span>
+                    {/* ORDER ITEM */}
+                    <div className="order-item">
+
+                        <div className="product-image">
+                            <img src={Hamburger} alt="Product" />
+                        </div>
+
+                        <div className="product-info">
+                            <h3 className="product-name">
+                                Chicken Burger Deluxe
+                            </h3>
+
+                            <p className="delivery-date">
+                                Arriving: Today
+                            </p>
+
+                            <p className="quantity">
+                                Quantity: 1
+                            </p>
+
+                            <button className="buy-again">
+                                <img src={BuyAgain} alt="Buy again" />
+                                Buy again
                             </button>
                         </div>
-                        <div className="product-actions">
-                            <button className="track-package-button button-secondary">
+
+                        <div className="actions">
+                            <button className="track-btn">
                                 Track package
                             </button>
-
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
         </div>
-    )
+    );
 }
 
 export default Orders;
