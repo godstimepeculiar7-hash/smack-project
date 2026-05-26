@@ -10,6 +10,7 @@ import ShopNowForMobile from '../../component/Mobile Shop Now/MobileShopNow';
 import BlogForMobile from '../../component/Mobile Blog/MobileBlog';
 import WhySmack from '../../component/Mobile Why Smack/MobileWhySmack';
 
+
 function Navigation() {
   return (
     <div>

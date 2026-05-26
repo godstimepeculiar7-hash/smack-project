@@ -21,7 +21,7 @@ function Checkout() {
   const [currentTime, setCurrentTime] = useState(dayjs());
 
   const home = () => {
-    navigate('/')
+    navigate('/');
   }
 
   const success = () => {
@@ -33,6 +33,7 @@ function Checkout() {
       allowOutsideClick: false,
     })
     clearCart();
+    navigate('/orders');
   }
 
   const failed = () => {

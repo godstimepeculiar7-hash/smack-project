@@ -16,6 +16,7 @@ import SmackProducts from "./routes/Smack Products/SmackProducts";
 import Swallow from "./routes/Swallow/Swallow";
 import MobileJollofRice from "./routes/Mobile Jollof Rice/MobileJollofRice";
 import Checkout from "./routes/Checkout/Checkout";
+import Orders from "./routes/Orders/Orders";
 
 function App() {
   // BELOW IS A FUNCTION THAT RUNS WHEN A USER ACCIDENTALLY CLOSES THE PAGE
@@ -56,6 +57,7 @@ function App() {
           <Route path="/swallow" element={<Swallow />} />
           <Route path="/mobile-jollof-rice" element={<MobileJollofRice />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} /> 
         </Route>
       </Routes>
     </div>
