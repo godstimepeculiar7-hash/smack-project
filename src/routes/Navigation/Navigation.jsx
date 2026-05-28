@@ -9,13 +9,28 @@ import MobileTopMenus from '../../component/Mobile Top Menus/MobileTopMenus';
 import ShopNowForMobile from '../../component/Mobile Shop Now/MobileShopNow';
 import BlogForMobile from '../../component/Mobile Blog/MobileBlog';
 import WhySmack from '../../component/Mobile Why Smack/MobileWhySmack';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 
 function Navigation() {
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
+  const getTotalQuantity = async () => {
+    const response = await axios.get('http://localhost:5000/cart-quantity');
+    setTotalQuantity(response.data.total);
+  };
+
+  useEffect(() => {
+    getTotalQuantity();
+  }, [])
+
+
   return (
     <div>
-      <LargeNav />
-      <SmallNav />
+      <LargeNav totalQuantity={totalQuantity} />
+      <SmallNav totalQuantity={totalQuantity}/>
       <ShopNowDropdown />
       <BlogDropdown />
       <WhySmackDropdown />
@@ -23,7 +38,7 @@ function Navigation() {
       <ShopNowForMobile />
       <BlogForMobile />
       <WhySmack />
-      <Outlet />
+      <Outlet context={{ getTotalQuantity }} />
     </div>
   )
 }

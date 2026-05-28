@@ -2,9 +2,11 @@ import './OurBestSellersDesktop.scss';
 import { formatCurrency } from '../../component/Our Best Sellers Desktop/Money/Money'
 import { useContext } from 'react';
 import { CartContext } from '../../backend/Cart';
+import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
-function OurBestSellersDesktop({ data }) {
-  const { cart, setCart, addToCart } = useContext(CartContext);
+function OurBestSellersDesktop({ data = [], cartQuantity }) {
+  const {getTotalQuantity} = useOutletContext();
 
   return (
     <div className='our-best-sellers-parent'>
@@ -28,7 +30,13 @@ function OurBestSellersDesktop({ data }) {
               <div className='measurement'>{product.kg}</div>
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
-                <div className='quick-add'onClick={() => addToCart(product)}>QUICK ADD</div>
+                <div className='quick-add'onClick={async () => {
+                  const response = await axios.post('http://localhost:5000/cart', {
+                    productId: product.id
+                  });
+                  console.log(response.data);
+                  await getTotalQuantity();
+                }}>QUICK ADD</div>
               </div>
             </div>
           )

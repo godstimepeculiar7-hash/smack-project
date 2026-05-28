@@ -1,10 +1,12 @@
 import './OurBestSellersMobile.scss';
 import Bowl from '../../assets/Bowl.jpeg';
-import { useContext } from 'react';
-import { CartContext } from '../../backend/Cart';
+import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
+
 
 function OurBestSellersMobile({data}) {
-  const { addToCart } = useContext(CartContext);
+  const {getTotalQuantity} = useOutletContext();
+
   return (
     <div className='our-best-sellers-mobile-parent'>
       <div className='our-best-sellers-mobile-text'>
@@ -26,7 +28,13 @@ function OurBestSellersMobile({data}) {
               <div className='mobile-measurement'>{product.kg}</div>
               <div className='mobile-buttons-parent'>
                 <div className='mobile-bundle-buy'>BUNDLE BUY</div>
-                <div className='mobile-quick-add'onClick={() => addToCart(product)}>QUICK ADD</div>
+                <div className='mobile-quick-add'onClick={async () => {
+                  const response = await axios.post('http://localhost:5000/cart', {
+                    productId: product.id
+                  });
+                  console.log(response.data)
+                  await getTotalQuantity();
+                }}>QUICK ADD</div>
               </div>
             </div>
           </div>

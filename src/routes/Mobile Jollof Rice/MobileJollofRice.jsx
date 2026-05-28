@@ -1,19 +1,33 @@
 import './MobileJollofRice.scss';
 import JollofRiceImage from '../../assets/jollofriceheader.jpg';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { JollofRiceProductsContext } from '../../backend/JollofRiceProducts'
-
 import OurBestSellersMobile from '../../component/Our Best Sellers Mobile/OurBestSellersMobile';
+import axios from 'axios';
 
 
 function MobileJollofRice() {
-  const { rice } = useContext(JollofRiceProductsContext);
-  console.log('Rice inside foodComponent:', rice);
+  const [rice, setRice] = useState([])
+
   const navigate = useNavigate();
   function toProductsPage() {
     navigate('/smack-products');
-  }
+  };
+
+  useEffect(() => {
+    const fetchRice = async () => {
+      try{
+        const response = await axios.get('http://localhost:5000/rice');
+        setRice(response.data)
+        console.log(response.data);
+      }catch(error) {
+        console.log('Error fetching Rice:', error)
+      }
+    }
+
+    fetchRice();
+  }, [])
   return (
     <>
       <div className='mobile-jollof-rice-parent'>

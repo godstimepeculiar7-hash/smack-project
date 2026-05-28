@@ -14,13 +14,10 @@ import { shopNow } from '../../../Context/ShopNowDropdown';
 import { blogDrop } from '../../../Context/BlogDropdown';
 import { whySmackDrop } from '../../../Context/WhySmackDropdown';
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../../backend/Cart';
 
 
-
-function LargeNav() {
+function LargeNav({totalQuantity}) {
   const { shop, setShop } = useContext(shopNow);
-  const { totalQuantity } = useContext(CartContext);
 
   const handler = () => {
     setShop(1);
@@ -134,7 +131,6 @@ function LargeNav() {
 
 
 
-
   return (
     <div>
       <div className='blur'>
@@ -199,7 +195,7 @@ function LargeNav() {
           <div className='sub-fixed-right-section'>
             <img src={searchIcon} alt="search icon" className='sub-fixed-right-section-icons' />
             <img src={userIcon} alt="user icon" className='sub-fixed-right-section-icons' onClick={login} />
-            <img src={shoopingBag} alt="shoping bag" className='sub-fixed-right-section-icons' onClick={Cart}/>
+            <img src={shoopingBag} alt="shoping bag" className='sub-fixed-right-section-icons' onClick={Cart} />
             {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
           </div>
 

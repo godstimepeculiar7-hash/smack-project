@@ -2,17 +2,30 @@ import './Swallow.scss';
 import JollofRiceImage from '../../assets/jollofriceheader.jpg';
 import { useNavigate } from 'react-router-dom';
 import OurBestSellersDesktop from '../../component/Our Best Sellers Desktop/OurBestSellersDesktop';
-import { useContext } from 'react';
-import { SwallowProductContext } from '../../backend/SwallowProducts';
-
+import { useContext, useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function Swallow() {
-  const { swallow } = useContext(SwallowProductContext)
-  console.log('Swallow inside foodComponent:', swallow);
+  const [swallow, setSwallow] = useState([]);
+
   const navigate = useNavigate();
   function toProductsPage() {
     navigate('/products');
   }
+
+  useEffect(() => {
+    const fetchSwallow = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/swallow');
+        setSwallow(response.data);
+      } catch (error) {
+        console.log('Error fetching swallow:', error);
+      }
+    }
+
+    fetchSwallow();
+  }, [])
   return (
     <>
       <div className='parent'>

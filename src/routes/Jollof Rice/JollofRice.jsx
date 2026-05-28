@@ -1,17 +1,34 @@
 import './JollofRice.scss';
 import JollofRiceImage from '../../assets/jollofriceheader.jpg';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OurBestSellersDesktop from '../../component/Our Best Sellers Desktop/OurBestSellersDesktop';
 import { useContext } from 'react';
-import { JollofRiceProductsContext } from '../../backend/JollofRiceProducts'
+import axios from 'axios';
+
 
 function JollofRice() {
-  const { rice } = useContext(JollofRiceProductsContext);
-  console.log('Rice inside foodComponent:', rice);
+  const [rice, setRice] = useState([]);
+
   const navigate = useNavigate();
   function toProductsPage() {
     navigate('/products');
   }
+
+  useEffect(() => {
+
+   const fetchRice = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/rice');
+        setRice(response.data);
+      } catch (error) {
+        console.log('Error fetching rice:', error)
+      }
+    }
+
+    fetchRice();
+  }, []);
+
   return (
     <>
       <div className='parent'>
