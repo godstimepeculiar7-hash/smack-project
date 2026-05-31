@@ -2,10 +2,12 @@ import './Checkout.scss';
 import './checkout-header.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
 function Checkout() {
   const [cartProducts, setCartProducts] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
+  const {getTotalQuantity} = useOutletContext();
 
   const getCartProducts = async () => {
     const response = await axios.get('http://localhost:5000/cart');
@@ -76,7 +78,12 @@ function Checkout() {
                         <span className="update-quantity-link link-primary">
                           Update
                         </span>
-                        <span className="delete-quantity-link link-primary">
+                        <span className="delete-quantity-link link-primary" onClick={async () => {
+                          await axios.delete(`http://localhost:5000/cart-delete/${product.id}`);
+
+                          await getCartProducts();
+                          await getTotalQuantity();
+                        }}>
                           Delete
                         </span>
                       </div>
