@@ -3,6 +3,7 @@ import './checkout-header.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
+import formatCurrency from '../../backend/utils/formatCurrency';
 
 function Checkout() {
   const [cartProducts, setCartProducts] = useState([]);
@@ -16,14 +17,14 @@ function Checkout() {
   };
 
   const getPaymentSummary = async () => {
-      const response = await axios.get(
-        'http://localhost:5000/payment-summary'
-      );
+    const response = await axios.get(
+      'http://localhost:5000/payment-summary'
+    );
 
-      console.log(response.data);
+    console.log(response.data);
 
-      setPaymentSummary(response.data);
-    };
+    setPaymentSummary(response.data);
+  };
 
   useEffect(() => {
 
@@ -34,15 +35,14 @@ function Checkout() {
       setDeliveryOptions(response.data);
     }
 
-    
-
-
-
     getDeliveryOptions();
     getPaymentSummary();
 
-
   }, [])
+
+  const totalItems = cartProducts.reduce((total, product) => {
+    return total + product.quantity;
+  }, 0);
   return (
     <div>
       <div className="checkout-header">
@@ -50,7 +50,7 @@ function Checkout() {
 
           <div className="checkout-header-middle-section">
             Checkout (<a className="return-to-home-link"
-            >3 items</a>)
+            >{totalItems}</a>)
           </div>
 
 
@@ -156,28 +156,28 @@ function Checkout() {
             </div>
 
             <div className="payment-summary-row">
-              <div>Items (3):</div>
-              <div className="payment-summary-money">{paymentSummary.itemsTotal}</div>
+              <div>Items ({totalItems}):</div>
+              <div className="payment-summary-money">{formatCurrency(paymentSummary.itemsTotal || 0)}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">{paymentSummary.shippingTotal}</div>
+              <div className="payment-summary-money">{formatCurrency(paymentSummary.shippingTotal || 0)}</div>
             </div>
 
             <div className="payment-summary-row subtotal-row">
               <div>Total before tax:</div>
-              <div className="payment-summary-money">{paymentSummary.totalBeforeTax}</div>
+              <div className="payment-summary-money">{formatCurrency(paymentSummary.totalBeforeTax || 0)}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">{paymentSummary.tax}</div>
+              <div className="payment-summary-money">{formatCurrency(paymentSummary.tax || 0)}</div>
             </div>
 
             <div className="payment-summary-row total-row">
               <div>Order total:</div>
-              <div className="payment-summary-money">{paymentSummary.orderTotal}</div>
+              <div className="payment-summary-money">{formatCurrency(paymentSummary.orderTotal || 0)}</div>
             </div>
 
             <button className="place-order-button button-primary">
