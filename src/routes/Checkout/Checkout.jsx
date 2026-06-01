@@ -7,12 +7,23 @@ import { useOutletContext } from 'react-router-dom';
 function Checkout() {
   const [cartProducts, setCartProducts] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
-  const {getTotalQuantity} = useOutletContext();
+  const { getTotalQuantity } = useOutletContext();
+  const [paymentSummary, setPaymentSummary] = useState({});
 
   const getCartProducts = async () => {
     const response = await axios.get('http://localhost:5000/cart');
     setCartProducts(response.data)
   };
+
+  const getPaymentSummary = async () => {
+      const response = await axios.get(
+        'http://localhost:5000/payment-summary'
+      );
+
+      console.log(response.data);
+
+      setPaymentSummary(response.data);
+    };
 
   useEffect(() => {
 
@@ -23,9 +34,12 @@ function Checkout() {
       setDeliveryOptions(response.data);
     }
 
+    
+
 
 
     getDeliveryOptions();
+    getPaymentSummary();
 
 
   }, [])
@@ -83,6 +97,7 @@ function Checkout() {
 
                           await getCartProducts();
                           await getTotalQuantity();
+                          await getPaymentSummary();
                         }}>
                           Delete
                         </span>
@@ -109,6 +124,7 @@ function Checkout() {
                                 );
 
                                 await getCartProducts();
+                                await getPaymentSummary();
 
                               }}
                               className="delivery-option-input"
@@ -141,27 +157,27 @@ function Checkout() {
 
             <div className="payment-summary-row">
               <div>Items (3):</div>
-              <div className="payment-summary-money">$42.75</div>
+              <div className="payment-summary-money">{paymentSummary.itemsTotal}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">$4.99</div>
+              <div className="payment-summary-money">{paymentSummary.shippingTotal}</div>
             </div>
 
             <div className="payment-summary-row subtotal-row">
               <div>Total before tax:</div>
-              <div className="payment-summary-money">$47.74</div>
+              <div className="payment-summary-money">{paymentSummary.totalBeforeTax}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">$4.77</div>
+              <div className="payment-summary-money">{paymentSummary.tax}</div>
             </div>
 
             <div className="payment-summary-row total-row">
               <div>Order total:</div>
-              <div className="payment-summary-money">$52.51</div>
+              <div className="payment-summary-money">{paymentSummary.orderTotal}</div>
             </div>
 
             <button className="place-order-button button-primary">
