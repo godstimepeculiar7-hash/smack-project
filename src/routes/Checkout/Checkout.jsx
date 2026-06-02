@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
 import formatCurrency from '../../backend/utils/formatCurrency';
+import { useFlutterwave } from 'flutterwave-react-v3';
+import { useNavigate } from 'react-router-dom';
 
 function Checkout() {
   const [cartProducts, setCartProducts] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const { getTotalQuantity } = useOutletContext();
   const [paymentSummary, setPaymentSummary] = useState({});
+  const navigate = useNavigate();
 
   const getCartProducts = async () => {
     const response = await axios.get('http://localhost:5000/cart');
@@ -43,6 +46,84 @@ function Checkout() {
   const totalItems = cartProducts.reduce((total, product) => {
     return total + product.quantity;
   }, 0);
+
+  const handlePlaceOrder = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation not supported");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/checkout/location",
+          { lat, lng }
+        );
+
+        console.log(response.data);
+
+        if (response.data.allowed) {
+          handleFlutterPayment({
+            callback: async (response) => {
+              console.log(response);
+
+              if (response.status === 'completed') {
+
+                await axios.post(
+                  'http://localhost:5000/payment/verify',
+                  {
+                    transaction_id: response.transaction_id,
+                    tx_ref: response.tx_ref
+                  }
+                );
+
+                await getCartProducts();
+                await getTotalQuantity();
+
+                navigate('/orders');
+              }
+            },
+
+            onClose: () => {
+              console.log('Payment closed');
+            }
+          });
+        }
+
+      } catch (error) {
+        console.log(error.response.data);
+        alert(error.response.data.message);
+      }
+    });
+  };
+
+  const config = {
+    public_key: 'FLWPUBK_TEST-d989135c2af242a4412d33d19f510c17-X',
+
+    tx_ref: Date.now().toString(),
+
+    amount: paymentSummary.orderTotal || 0,
+
+    currency: 'NGN',
+
+    payment_options: 'card,ussd,banktransfer',
+
+    customer: {
+      email: 'customer@gmail.com',
+      phone_number: '08100000000',
+      name: 'Godstime Peculiar',
+    },
+
+    customizations: {
+      title: 'My Store',
+      description: 'Payment for items in cart',
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
   return (
     <div>
       <div className="checkout-header">
@@ -180,7 +261,7 @@ function Checkout() {
               <div className="payment-summary-money">{formatCurrency(paymentSummary.orderTotal || 0)}</div>
             </div>
 
-            <button className="place-order-button button-primary">
+            <button className="place-order-button button-primary" onClick={handlePlaceOrder}>
               Place your order
             </button>
           </div>
