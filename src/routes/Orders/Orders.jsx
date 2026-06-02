@@ -67,7 +67,11 @@ function Orders() {
                                             </h3>
 
                                             <p className="delivery-date">
-                                                Arriving: Today
+                                                Arriving: {new Date(product.estimatedDelivery).toLocaleTimeString([], {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                    hour12: false,
+                                                })} 
                                             </p>
 
                                             <p className="quantity">
