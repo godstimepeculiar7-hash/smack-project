@@ -12,7 +12,28 @@ function Checkout() {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const { getTotalQuantity } = useOutletContext();
   const [paymentSummary, setPaymentSummary] = useState({});
+  const [currentTime, setCurrentTime] = useState(new Date());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const getDeliveryEstimate = (hours) => {
+    const delivery = new Date(currentTime.getTime() + hours * 60 * 60 * 1000);
+    const timeString = delivery.toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+    const isSameDay = currentTime.toDateString() === delivery.toDateString();
+
+    return isSameDay ? `By ${timeString}` : `Tomorrow by ${timeString}`;
+  };
 
   const getCartProducts = async () => {
     const response = await axios.get('http://localhost:5000/cart');
@@ -152,7 +173,7 @@ function Checkout() {
               return (
                 <div className="cart-item-container" key={product.id}>
                   <div className="delivery-date">
-                    Delivery Time: {selectedDeliveryOption?.deliveryHours} hour delivery
+                    Delivery Time: {selectedDeliveryOption ? getDeliveryEstimate(selectedDeliveryOption.deliveryHours) : 'Not selected'}
                   </div>
 
                   <div className="cart-item-details-grid">
@@ -212,7 +233,7 @@ function Checkout() {
                               name={`delivery-option-${product.id}`} />
                             <div>
                               <div className="delivery-option-date">
-                                {option.deliveryHours} hour delivery
+                                {getDeliveryEstimate(option.deliveryHours)}
                               </div>
                               <div className="delivery-option-price">
                                 {option.priceCents === 0 ? 'FREE Shipping' : `₦${option.priceCents}`}
