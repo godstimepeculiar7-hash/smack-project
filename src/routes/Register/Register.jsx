@@ -25,6 +25,43 @@ function Register() {
   const [phone, setPhone] = useState('');
   const [fullName, setFullName] = useState('');
 
+  useEffect(() => {
+    const errors = validatePassword(password);
+
+    if (password.length === 0) {
+      setError('');
+      setRight('');
+      return;
+    }
+
+    if (errors.length > 0) {
+      setError(errors.join(', '));
+      setRight('');
+    } else {
+      setError('');
+      setRight('Password meets all requirements');
+    }
+  }, [password]);
+
+  useEffect(() => {
+    if (confirmPassword.length === 0) {
+      setError('');
+      return;
+    }
+  }, [confirmPassword])
+
+  useEffect(() => {
+    if (confirmPassword.length === 0) {
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+    } else {
+      setError('');
+    }
+  }, [password, confirmPassword]);
+
   async function signUpWithGoogle(e) {
     e.preventDefault();
     try {
@@ -40,7 +77,7 @@ function Register() {
         setError('This email already has an account');
       } else if (error.code === 'auth/invalid-email') {
         setError('Email format is wrong');
-      } else if(error.code === 'auth/internal-error') {
+      } else if (error.code === 'auth/internal-error') {
         Swal.fire({
           icon: 'error',
           title: 'Please connect to the internet',
@@ -54,13 +91,6 @@ function Register() {
 
   async function emailAndPassword(e) {
     e.preventDefault();
-    const passwordErrors = validatePassword(password);
-
-    if (passwordErrors.length > 0) {
-      setError(passwordErrors.join(', '));
-      return;
-    }
-
 
     if (password !== confirmPassword) {
       setError('Passwords must match');
@@ -72,7 +102,7 @@ function Register() {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const { user } = result;
-      await saveUserToDataBase(user, {phone, fullName});
+      await saveUserToDataBase(user, { phone, fullName });
       console.log(user.uid);
       setEmail('');
       setPassword('');
@@ -111,11 +141,9 @@ function Register() {
 
     if (password.length < 6) {
       errors.push('Password must be at least 6 characters');
-    } else {
-      setRight('Password met all requirements')
     }
 
-    return errors; // returns an array of missing rules
+    return errors;
   }
 
 
