@@ -26,6 +26,7 @@ function Login() {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
       const { user } = result;
+      console.log(user);
 
       setError('');
 
@@ -37,6 +38,7 @@ function Login() {
         showConfirmButton: true
       })
     } catch (error) {
+      console.log(error.code)
       if (error.code === 'auth/invalid-credential') {
         setError('Incorrect email or password');
       } else if (error.code === 'auth/invalid-email') {

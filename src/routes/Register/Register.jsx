@@ -67,6 +67,7 @@ function Register() {
     try {
       const result = await signInWithPopup(auth, googleProvider)
       const { user } = result;
+      console.log(user);
       await saveUserToDataBase(user)
 
     } catch (error) {
