@@ -11,10 +11,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { FcGoogle } from 'react-icons/fc'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import FooterMobile from '../../component/Footer Mobile/FooterMobile';
+import {useNavigate} from 'react-router-dom';
 
 const googleProvider = new GoogleAuthProvider();
 
 function Login() {
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,13 +32,8 @@ function Login() {
 
       setError('');
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Congratulations',
-        allowOutsideClick: false,
-        showCloseButton: true,
-        showConfirmButton: true
-      })
+      navigate('/dashboard');
+
     } catch (error) {
       console.log(error.code)
       if (error.code === 'auth/invalid-credential') {
@@ -61,6 +58,8 @@ function Login() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const { user } = result
+
+      navigate('/dashboard');
     } catch (error) {
       console.log(error.code)
       if (error.code === 'auth/internal-error') {

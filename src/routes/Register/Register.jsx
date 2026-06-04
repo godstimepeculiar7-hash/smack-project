@@ -5,12 +5,14 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { auth } from '../../backend/firebase.utils';
 import { saveUserToDataBase } from '../../backend/firebase.utils';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import FooterMobile from '../../component/Footer Mobile/FooterMobile';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -24,6 +26,9 @@ function Register() {
   const [right, setRight] = useState('');
   const [phone, setPhone] = useState('');
   const [fullName, setFullName] = useState('');
+
+    const navigate = useNavigate();
+
 
   useEffect(() => {
     const errors = validatePassword(password);
@@ -103,6 +108,10 @@ function Register() {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       const { user } = result;
+      // set the displayName on the Firebase user profile so dashboard can read it
+      if (fullName && fullName.trim().length > 0) {
+        await updateProfile(user, { displayName: fullName.trim() });
+      }
       await saveUserToDataBase(user, { phone, fullName });
       console.log(user.uid);
       setEmail('');
@@ -123,6 +132,10 @@ function Register() {
         setEmailError('Email format is wrong');
       }
     }
+
+    navigate('/dashboard');
+
+
   }
 
   function validatePassword(password) {
@@ -188,7 +201,6 @@ function Register() {
               <div className='details'>
                 <p>CONFIRM PASSWORD*</p>
                 <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                <h5 className='wrong-password'>{error}</h5>
                 <h5 className='right-password'>{right}</h5>
               </div>
 
