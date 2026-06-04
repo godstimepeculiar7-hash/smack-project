@@ -18,6 +18,8 @@ import MobileJollofRice from "./routes/Mobile Jollof Rice/MobileJollofRice";
 import Checkout from "./routes/Checkout/Checkout";
 import Orders from "./routes/Orders/Orders";
 import Dashboard from "./routes/Dashboard/DashBoard";
+import ProtectedRoute from "./routes/Protected Routes/ProtectedRoute";
+import PublicRoute from "./routes/Public Route/PublicRoute";
 
 function App() {
   // BELOW IS A FUNCTION THAT RUNS WHEN A USER ACCIDENTALLY CLOSES THE PAGE
@@ -43,10 +45,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigation />}>
 
-          <Route index element={<HomePage />} />
+          <Route index element={<PublicRoute><HomePage /></PublicRoute>} />
           <Route path="/cart" element={<CartComponent />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/find-a-retailer" element={<FindaRetailer />} />
           <Route path="/become-a-stockist" element={<BecomeAStockist />} />
           <Route path="/become-a-stockist/page2" element={<BecomeAStockist2 />} />
@@ -60,8 +62,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
         </Route>
-        <Route path="/dashboard" element={<Dashboard />} />
-
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
     </div>
 
