@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Dashboard.scss';
+import './DashBoard.scss';
 import { auth } from '../../backend/firebase.utils';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
