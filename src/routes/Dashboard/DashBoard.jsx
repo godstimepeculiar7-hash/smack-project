@@ -123,7 +123,6 @@ function Dashboard() {
                     <button
                         className='cart-btn'
                         type='button'
-                        onClick={() => navigate('/cart')}
                         aria-label='Open cart'
                     >
                         <FaShoppingCart />
