@@ -17,7 +17,7 @@ function Swallow() {
   useEffect(() => {
     const fetchSwallow = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/swallow');
+        const response = await axios.get('https://smackbackend.onrender.com/swallow');
         setSwallow(response.data);
       } catch (error) {
         console.log('Error fetching swallow:', error);
