@@ -18,7 +18,7 @@ function Navigation() {
   const [totalQuantity, setTotalQuantity] = useState(0);
 
   const getTotalQuantity = async () => {
-    const response = await axios.get('http://localhost:5000/cart-quantity');
+    const response = await axios.get('https://smackbackend.onrender.com/cart-quantity');
     setTotalQuantity(response.data.total);
   };
 

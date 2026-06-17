@@ -36,13 +36,13 @@ function Checkout() {
   };
 
   const getCartProducts = async () => {
-    const response = await axios.get('http://localhost:5000/cart');
+    const response = await axios.get('https://smackbackend.onrender.com/cart');
     setCartProducts(response.data)
   };
 
   const getPaymentSummary = async () => {
     const response = await axios.get(
-      'http://localhost:5000/payment-summary'
+      'https://smackbackend.onrender.com/payment-summary'
     );
 
     console.log(response.data);
@@ -55,7 +55,7 @@ function Checkout() {
     getCartProducts();
 
     const getDeliveryOptions = async () => {
-      const response = await axios.get('http://localhost:5000/delivery-options');
+      const response = await axios.get('https://smackbackend.onrender.com/delivery-options');
       setDeliveryOptions(response.data);
     }
 
@@ -80,7 +80,7 @@ function Checkout() {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/checkout/location",
+          "https://smackbackend.onrender.com/checkout/location",
           { lat, lng }
         );
 
@@ -94,7 +94,7 @@ function Checkout() {
               if (response.status === 'completed') {
 
                 await axios.post(
-                  'http://localhost:5000/payment/verify',
+                  'https://smackbackend.onrender.com/payment/verify',
                   {
                     transaction_id: response.transaction_id,
                     tx_ref: response.tx_ref
@@ -195,7 +195,7 @@ function Checkout() {
                           Update
                         </span>
                         <span className="delete-quantity-link link-primary" onClick={async () => {
-                          await axios.delete(`http://localhost:5000/cart-delete/${product.id}`);
+                          await axios.delete(`https://smackbackend.onrender.com/cart-delete/${product.id}`);
 
                           await getCartProducts();
                           await getTotalQuantity();
@@ -218,7 +218,7 @@ function Checkout() {
                               onChange={async () => {
 
                                 await axios.put(
-                                  'http://localhost:5000/cart/delivery-option',
+                                  'https://smackbackend.onrender.com/cart/delivery-option',
                                   {
                                     productId: product.id,
                                     deliveryOptionId: option.id

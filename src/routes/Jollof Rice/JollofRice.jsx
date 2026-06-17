@@ -21,6 +21,7 @@ function JollofRice() {
       try {
         const response = await axios.get('https://smackbackend.onrender.com/rice');
         setRice(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log('Error fetching rice:', error)
       }

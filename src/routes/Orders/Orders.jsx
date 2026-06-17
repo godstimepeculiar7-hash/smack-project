@@ -12,7 +12,7 @@ function Orders() {
         const getOrders = async () => {
 
             const response = await axios.get(
-                'http://localhost:5000/orders'
+                'https://smackbackend.onrender.com/orders'
             );
 
             console.log(response.data);
@@ -71,7 +71,7 @@ function Orders() {
                                                     hour: '2-digit',
                                                     minute: '2-digit',
                                                     hour12: false,
-                                                })} 
+                                                })}
                                             </p>
 
                                             <p className="quantity">

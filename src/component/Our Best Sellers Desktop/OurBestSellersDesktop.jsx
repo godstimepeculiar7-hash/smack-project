@@ -5,7 +5,7 @@ import { CartContext } from '../../backend/Cart';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
 
-function OurBestSellersDesktop({ data = [], cartQuantity }) {
+function OurBestSellersDesktop({ data, cartQuantity }) {
   const {getTotalQuantity} = useOutletContext();
 
   return (
@@ -31,7 +31,8 @@ function OurBestSellersDesktop({ data = [], cartQuantity }) {
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
                 <div className='quick-add'onClick={async () => {
-                  const response = await axios.post('http://localhost:5000/cart', {
+                  console.log(product.id);
+                  const response = await axios.post('https://smackbackend.onrender.com/cart', {
                     productId: product.id
                   });
                   console.log(response.data);
