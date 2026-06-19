@@ -18,7 +18,7 @@ function MobileJollofRice() {
   useEffect(() => {
     const fetchRice = async () => {
       try{
-        const response = await axios.get('http://localhost:5000/rice');
+        const response = await axios.get('https://smackbackend.onrender.com/rice');
         setRice(response.data)
         console.log(response.data);
       }catch(error) {

@@ -2,6 +2,7 @@ import './Swallow.scss';
 import JollofRiceImage from '../../assets/jollofriceheader.jpg';
 import { useNavigate } from 'react-router-dom';
 import OurBestSellersDesktop from '../../component/Our Best Sellers Desktop/OurBestSellersDesktop';
+import OurBestSellersMobile from '../../component/Our Best Sellers Mobile/OurBestSellersMobile';
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -40,8 +41,7 @@ function Swallow() {
         </div>
       </div>
 
-      <OurBestSellersDesktop data={swallow} />
-
+      <OurBestSellersDesktop data={swallow} />      <OurBestSellersMobile data={swallow} />
     </>
 
   )
