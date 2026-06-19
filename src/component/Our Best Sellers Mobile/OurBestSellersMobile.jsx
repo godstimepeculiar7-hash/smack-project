@@ -29,7 +29,7 @@ function OurBestSellersMobile({data}) {
               <div className='mobile-buttons-parent'>
                 <div className='mobile-bundle-buy'>BUNDLE BUY</div>
                 <div className='mobile-quick-add'onClick={async () => {
-                  const response = await axios.post('http://localhost:5000/cart', {
+                  const response = await axios.post('https://smackbackend.onrender.com/cart', {
                     productId: product.id
                   });
                   console.log(response.data)

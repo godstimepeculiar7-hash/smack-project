@@ -38,12 +38,12 @@ function Orders() {
                                 <div className="order-meta">
                                     <div>
                                         <span className="label">Order Placed</span>
-                                        <span className="value">{new Date(order.createdAt).toDateString()}</span>
+                                        <span className="value">{new Date(order.orderDate).toDateString()}</span>
                                     </div>
 
                                     <div>
                                         <span className="label">Total</span>
-                                        <span className="value">₦{order.total?.toLocaleString()}</span>
+                                        <span className="value">₦{order.totalPrice?.toLocaleString()}</span>
                                     </div>
                                 </div>
 
@@ -53,7 +53,7 @@ function Orders() {
                                 </div>
                             </div>
 
-                            {order.products.map((product) => {
+                            {order.items.map((product) => {
                                 return (
                                     <div className="order-item" key={product.productId}>
 
