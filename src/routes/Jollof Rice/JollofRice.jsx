@@ -44,8 +44,8 @@ function JollofRice() {
           </div>
         </div>
       </div>
-
-      <OurBestSellersDesktop data={rice} />     
+      <div>DEBUG: {rice.length} products loaded</div>      <OurBestSellersDesktop data={rice} />
+      <OurBestSellersMobile data={rice} />     
     </>
   )
 }
