@@ -42,7 +42,7 @@ function MobileJollofRice() {
         </div>
       </div>
 
-      <OurBestSellersMobile data={rice} />
+      
     </>
   )
 }
