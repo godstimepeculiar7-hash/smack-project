@@ -94,11 +94,7 @@ function Checkout() {
               if (response.status === 'completed') {
 
                 await axios.post(
-                  'https://smackbackend.onrender.com/payment/verify',
-                  {
-                    transaction_id: response.transaction_id,
-                    tx_ref: response.tx_ref
-                  }
+                  'https://smackbackend.onrender.com/create-order'
                 );
 
                 await getCartProducts();
