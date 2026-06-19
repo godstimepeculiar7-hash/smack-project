@@ -6,7 +6,6 @@ import { JollofRiceProductsContext } from '../../backend/JollofRiceProducts'
 import OurBestSellersMobile from '../../component/Our Best Sellers Mobile/OurBestSellersMobile';
 import axios from 'axios';
 
-
 function MobileJollofRice() {
   const [rice, setRice] = useState([])
 
@@ -41,6 +40,8 @@ function MobileJollofRice() {
           </div>
         </div>
       </div>
+
+      <OurBestSellersMobile data={rice} />
 
       
     </>

@@ -17,7 +17,7 @@ function JollofRice() {
 
   useEffect(() => {
 
-   const fetchRice = async () => {
+    const fetchRice = async () => {
       try {
         const response = await axios.get('https://smackbackend.onrender.com/rice');
         setRice(response.data);
@@ -38,8 +38,7 @@ function JollofRice() {
           <div className='details-parent'>
             <span onClick={toProductsPage}><h5>Product</h5></span>
             <h1>Jollof Rice</h1>
-            <p>Save money and improve your nutrition by filling your freezer with our legendary Pot O Gold meals! They’re high in protein, low in sugar, and ready to eat in just 6 minutes.
-            </p>
+            <p>Save money and improve your nutrition by filling your freezer with our legendary Pot O Gold meals! They’re high in protein, low in sugar, and ready to eat in just 6 minutes.</p>
           </div>
         </div>
       </div>
