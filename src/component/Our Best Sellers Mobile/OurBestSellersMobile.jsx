@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
 
 
-function OurBestSellersMobile({data}) {
+function OurBestSellersMobile({data, cartQuantity}) {
   const {getTotalQuantity} = useOutletContext();
 
   return (
