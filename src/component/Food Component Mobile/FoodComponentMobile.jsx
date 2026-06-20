@@ -19,7 +19,10 @@ function FoodComponentMobile() {
     e.stopPropagation();
     if(product.content === 'Jollof Rice') {
       navigate('/mobile-jollof-rice');
-    } else{
+    } else if(product.content === 'Chinese Dishes') {
+      navigate('/chinese-dishes');
+    } 
+    else{
       alert('there is no other page apart from the rice page')
     }
   }

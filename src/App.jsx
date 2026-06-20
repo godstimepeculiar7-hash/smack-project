@@ -20,7 +20,7 @@ import Orders from "./routes/Orders/Orders";
 import Dashboard from "./routes/Dashboard/DashBoard";
 import ProtectedRoute from "./routes/Protected Routes/ProtectedRoute";
 import PublicRoute from "./routes/Public Route/PublicRoute";
-
+import ChineseDishes from "./routes/ChineseDishes/Chinese Dishes";
 function App() {
   // BELOW IS A FUNCTION THAT RUNS WHEN A USER ACCIDENTALLY CLOSES THE PAGE
   /*useEffect(() => {
@@ -59,6 +59,7 @@ function App() {
           <Route path="/smack-products" element={<SmackProducts />} />
           <Route path="/swallow" element={<Swallow />} />
           <Route path="/mobile-jollof-rice" element={<MobileJollofRice />} />
+          <Route path="/chinese-dishes" element={<ChineseDishes />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
         </Route>
