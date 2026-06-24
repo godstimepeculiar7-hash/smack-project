@@ -16,7 +16,7 @@ function ChineseDishes() {
     useEffect(() => {
         const fetchSwallow = async () => {
             try{
-                const response = await axios.get('https://smackbackend.onrender.com/swallow-products');
+                const response = await axios.get('https://smackbackend.onrender.com/swallow');
                 setSwallow(response.data)
                 console.log(response.data);
             } catch(error) {
