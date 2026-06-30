@@ -39,6 +39,7 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
                       sessionId,
                       productId
                     });
+                    console.log('sent')
                     console.log(response.data);
                     await getTotalQuantity();
                   } catch (error) {
