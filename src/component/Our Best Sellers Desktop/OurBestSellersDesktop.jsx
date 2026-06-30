@@ -4,9 +4,10 @@ import { useContext } from 'react';
 import { CartContext } from '../../backend/Cart';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
+import { getSessionId } from '../../backend/utils/session';
 
 function OurBestSellersDesktop({ data, cartQuantity }) {
-  const {getTotalQuantity} = useOutletContext();
+  const { getTotalQuantity } = useOutletContext();
 
   return (
     <div className='our-best-sellers-parent'>
@@ -18,7 +19,7 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
 
         {data.map((product) => {
           return (
-            <div key={product.id} className='our-best-sellers-product'>
+            <div key={product._id} className='our-best-sellers-product'>
               <div className='our-best-sellers-product-image'>
                 <img src={product.image} alt="" />
                 <div className='ovelay'></div>
@@ -30,13 +31,20 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
               <div className='measurement'>{product.kg}</div>
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
-                <div className='quick-add'onClick={async () => {
-                  console.log(product.id);
-                  const response = await axios.post('https://smackbackend.onrender.com/cart', {
-                    productId: product.id
-                  });
-                  console.log(response.data);
-                  await getTotalQuantity();
+                <div className='quick-add' onClick={async () => {
+                  try {
+                    const sessionId = getSessionId();
+                    const productId = product._id
+                    const response = await axios.post('https://smackbackend.onrender.com/cart', {
+                      sessionId,
+                      productId
+                    });
+                    console.log(response.data);
+                    await getTotalQuantity();
+                  } catch (error) {
+                    console.log(error);
+                  }
+
                 }}>QUICK ADD</div>
               </div>
             </div>
