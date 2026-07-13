@@ -39,12 +39,14 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
                       sessionId,
                       productId
                     });
-                    console.log('sent')
-                    console.log(response.data);
+
+                    // Update the total quantity in the navigation bar
                     await getTotalQuantity();
+                    console.log(response.data.items);
                   } catch (error) {
                     console.log(error);
                   }
+                  console.log('added');
 
                 }}>QUICK ADD</div>
               </div>

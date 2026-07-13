@@ -51,7 +51,6 @@ export const CartContextProvider = ({ children }) => {
 
 
     const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-    console.log('Total Quantity:', totalQuantity);
 
     const totalCost = () => {
         const allProducts = [...riceProducts, ...swallow, ...Products];

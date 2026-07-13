@@ -11,15 +11,21 @@ import BlogForMobile from '../../component/Mobile Blog/MobileBlog';
 import WhySmack from '../../component/Mobile Why Smack/MobileWhySmack';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-
+import { getSessionId } from '../../backend/utils/session';
 
 function Navigation() {
   const [totalQuantity, setTotalQuantity] = useState(0);
 
+
   const getTotalQuantity = async () => {
-    const response = await axios.get('https://smackbackend.onrender.com/cart-quantity');
-    setTotalQuantity(response.data.total);
+    const sessionId = getSessionId();
+    const response = await axios.get('https://smackbackend.onrender.com/cart-quantity', {
+      params: {
+        sessionId
+      }
+    });
+    setTotalQuantity(response.data.totalQuantity);
+    console.log(response.data);
   };
 
   useEffect(() => {
@@ -30,7 +36,7 @@ function Navigation() {
   return (
     <div>
       <LargeNav totalQuantity={totalQuantity} />
-      <SmallNav totalQuantity={totalQuantity}/>
+      <SmallNav totalQuantity={totalQuantity} />
       <ShopNowDropdown />
       <BlogDropdown />
       <WhySmackDropdown />
