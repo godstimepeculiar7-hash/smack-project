@@ -1,0 +1,34 @@
+
+/* Full-screen loading overlay — covers entire viewport */
+.loading-overlay {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100dvh;
+	min-height: 100vh;
+	background-color: #000000e7; /* black */
+	z-index: 9999;
+	opacity: 0;
+	animation: overlayFade 360ms cubic-bezier(.2,.8,.2,1) forwards;
+	will-change: opacity;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	.spinner{
+		width: 70px;
+	}
+}
+
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-overlay {
+    animation: none;
+    opacity: 1;
+  }
+}
+

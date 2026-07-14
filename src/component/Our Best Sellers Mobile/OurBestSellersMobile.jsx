@@ -6,7 +6,7 @@ import { getSessionId } from '../../backend/utils/session';
 
 
 function OurBestSellersMobile({ data, cartQuantity }) {
-  const { getTotalQuantity } = useOutletContext();
+  const { getTotalQuantity, setLoading } = useOutletContext();
 
   return (
     <div className='our-best-sellers-mobile-parent'>
@@ -33,14 +33,19 @@ function OurBestSellersMobile({ data, cartQuantity }) {
                   try {
                     const sessionId = getSessionId();
                     const productId = product._id
+                    setLoading(true); // Show the loading overlay
                     const response = await axios.post('https://smackbackend.onrender.com/cart', {
                       sessionId,
                       productId
                     });
                     console.log(response.data)
+
+                    // Update the total quantity in the navigation bar
                     await getTotalQuantity();
                   } catch (error) {
                     console.log(error)
+                  } finally {
+                    setLoading(false); // Ensure the loading overlay is hidden even if there's an error
                   }
 
                 }}>QUICK ADD</div>

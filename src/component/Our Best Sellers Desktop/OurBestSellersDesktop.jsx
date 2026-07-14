@@ -7,7 +7,7 @@ import { useOutletContext } from 'react-router-dom';
 import { getSessionId } from '../../backend/utils/session';
 
 function OurBestSellersDesktop({ data, cartQuantity }) {
-  const { getTotalQuantity } = useOutletContext();
+  const { getTotalQuantity, setLoading } = useOutletContext();
 
   return (
     <div className='our-best-sellers-parent'>
@@ -35,6 +35,7 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
                   try {
                     const sessionId = getSessionId();
                     const productId = product._id
+                    setLoading(true); // Show the loading overlay
                     const response = await axios.post('https://smackbackend.onrender.com/cart', {
                       sessionId,
                       productId
@@ -43,10 +44,12 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
                     // Update the total quantity in the navigation bar
                     await getTotalQuantity();
                     console.log(response.data.items);
+                    console.log('added');
                   } catch (error) {
                     console.log(error);
+                  } finally {
+                    setLoading(false); // Ensure the loading overlay is hidden even if there's an error
                   }
-                  console.log('added');
 
                 }}>QUICK ADD</div>
               </div>

@@ -12,9 +12,11 @@ import WhySmack from '../../component/Mobile Why Smack/MobileWhySmack';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSessionId } from '../../backend/utils/session';
+import LoadingOverlay from '../../component/Our Best Sellers Desktop/Loading Overlay/LoadingOverlay';
 
 function Navigation() {
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [loading, setLoading] = useState(false);
 
 
   const getTotalQuantity = async () => {
@@ -44,7 +46,8 @@ function Navigation() {
       <ShopNowForMobile />
       <BlogForMobile />
       <WhySmack />
-      <Outlet context={{ getTotalQuantity }} />
+      {loading && <LoadingOverlay />}
+      <Outlet context={{ getTotalQuantity, setLoading }} />
     </div>
   )
 }
