@@ -6,7 +6,9 @@
 
   display: flex;
   justify-content: center;
-  margin: 8rem 0 0 0;
+
+  position: relative;
+  margin-top: 8rem;
 }
 
 .checkout-header .header-content {
@@ -35,6 +37,10 @@
    means when the screen width is 575px or less, different
    styles (inside the {...}) will be applied. */
 @media (max-width: 575px) {
+  .checkout-header {
+    margin-top: 4rem;
+  }
+
   .checkout-header .checkout-header-left-section {
     width: auto;
   }
@@ -46,12 +52,6 @@
   .checkout-header .mobile-logo {
     display: inline-block;
     height: 26px;
-  }
-}
-
-@media (max-width: 768px) {
-  .checkout-header {
-    margin: 3rem 0 0 0;
   }
 }
 
