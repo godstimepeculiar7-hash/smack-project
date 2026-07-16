@@ -3,16 +3,33 @@ import FooterDesktop from '../../component/Footer Desktop/FooterDesktop';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { getSessionId } from '../../backend/utils/session';
 
 function CartComponent() {
+  const sessionId = getSessionId();
 
   useEffect(() => {
-      AOS.init({
-        duration: 3000,
-        once: false,
-        mirror: true
-      })
-    }, [])
+    AOS.init({
+      duration: 3000,
+      once: false,
+      mirror: true
+    })
+  }, [])
+
+  useEffect(async () => {
+    const getCart = async () => {
+      const response = await axios.get('https://smackbackend.onrender.com/checkout', {
+        params: {
+          sessionId
+        }
+      });
+      console.log(response.data);
+    }
+
+    getCart();
+
+  }, [])
 
   return (
     <>
