@@ -17,19 +17,7 @@ function CartComponent() {
     })
   }, [])
 
-  useEffect(async () => {
-    const getCart = async () => {
-      const response = await axios.get('https://smackbackend.onrender.com/checkout', {
-        params: {
-          sessionId
-        }
-      });
-      console.log(response.data);
-    }
-
-    getCart();
-
-  }, [])
+  
 
   return (
     <>
