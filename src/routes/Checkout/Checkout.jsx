@@ -65,7 +65,7 @@ function Checkout() {
                         {item.productId.name}
                       </div>
                       <div className="product-price">
-                        ${item.productId.priceCents.toLocaleString()}
+                        ${item.productId.priceCents}
                       </div>
                       <div className="product-quantity">
                         <span>
