@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 function JollofRice() {
-  const [rice, setRice] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const navigate = useNavigate();
   function toProductsPage() {
@@ -17,17 +17,17 @@ function JollofRice() {
 
   useEffect(() => {
 
-    const fetchRice = async () => {
+    const fetchProducts = async () => {
       try {
         const response = await axios.get('https://smackbackend.onrender.com/products');
-        setRice(response.data);
+        setProducts(response.data);
         console.log(response.data);
       } catch (error) {
-        console.log('Error fetching rice:', error)
+        console.log('Error fetching products:', error)
       }
     }
 
-    fetchRice();
+    fetchProducts();
   }, []);
 
   return (
@@ -43,7 +43,7 @@ function JollofRice() {
         </div>
       </div>
 
-      <OurBestSellersDesktop data={rice} />
+      <OurBestSellersDesktop data={products} />
 
     </>
   )

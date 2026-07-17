@@ -35,12 +35,11 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
                   try {
                     const sessionId = getSessionId();
                     const productId = product._id
-                    const productModel = product.productModel
+                    console.log(sessionId, productId)
                     setLoading(true); // Show the loading overlay
                     const response = await axios.post('https://smackbackend.onrender.com/cart', {
                       sessionId,
                       productId,
-                      productModel
                     });
 
                     // Update the total quantity in the navigation bar
