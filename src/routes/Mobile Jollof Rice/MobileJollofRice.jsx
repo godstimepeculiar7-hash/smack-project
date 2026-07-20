@@ -7,7 +7,7 @@ import OurBestSellersMobile from '../../component/Our Best Sellers Mobile/OurBes
 import axios from 'axios';
 
 function MobileJollofRice() {
-  const [rice, setRice] = useState([])
+  const [products, setProducts] = useState([])
 
   const navigate = useNavigate();
   function toProductsPage() {
@@ -15,17 +15,17 @@ function MobileJollofRice() {
   };
 
   useEffect(() => {
-    const fetchRice = async () => {
+    const fetchProducts = async () => {
       try{
-        const response = await axios.get('https://smackbackend.onrender.com/rice-products');
-        setRice(response.data)
+        const response = await axios.get('https://smackbackend.onrender.com/products');
+        setProducts(response.data)
         console.log(response.data);
       }catch(error) {
-        console.log('Error fetching Rice:', error)
+        console.log('Error fetching products:', error)
       }
     }
 
-    fetchRice();
+    fetchProducts();
   }, [])
   return (
     <>
@@ -41,7 +41,7 @@ function MobileJollofRice() {
         </div>
       </div>
 
-      <OurBestSellersMobile data={rice} />
+      <OurBestSellersMobile data={products} />
 
       
     </>
