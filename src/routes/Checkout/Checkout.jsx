@@ -7,22 +7,30 @@ import { getSessionId } from '../../backend/utils/session';
 function Checkout() {
   const sessionId = getSessionId();
   const [cartItems, setCartItems] = useState([]);
+  const [deliveryOptions, setDeliveryOptions] = useState([]);
+
+  const getCart = async () => {
+    const response = await axios.get('https://smackbackend.onrender.com/checkout', {
+      params: {
+        sessionId
+      }
+    });
+    console.log(response.data.items); // Log the response data to the console
+    setCartItems(response.data.items);
+    console.log('Cart Items:', cartItems); // Log the cart items to the console
+  }
 
 
   useEffect(() => {
-    const getCart = async () => {
-      const response = await axios.get('https://smackbackend.onrender.com/checkout', {
-        params: {
-          sessionId
-        }
-      });
-      console.log(response.data.items); // Log the response data to the console
-      setCartItems(response.data.items);
-      console.log('Cart Items:', cartItems); // Log the cart items to the console
-    }
-
     getCart();
 
+    const deliveryResponse = async () => {
+      const response = await axios.get('https://smackbackend.onrender.com/delivery-options');
+      setDeliveryOptions(response.data);
+      console.log(response.data)
+    }
+
+    deliveryResponse();
   }, [])
 
   return (
@@ -65,7 +73,7 @@ function Checkout() {
                         {item.productId.name}
                       </div>
                       <div className="product-price">
-                        ${item.productId.priceCents}
+                        ₦{item.productId.priceCents}
                       </div>
                       <div className="product-quantity">
                         <span>
@@ -84,45 +92,34 @@ function Checkout() {
                       <div className="delivery-options-title">
                         Choose a delivery option:
                       </div>
-                      <div className="delivery-option">
-                        <input type="radio"
-                          className="delivery-option-input"
-                          name="delivery-option-1" />
-                        <div>
-                          <div className="delivery-option-date">
-                            Tuesday, June 21
+                      {deliveryOptions.map((deliveryOption) => {
+                        return (
+                          <div className="delivery-option">
+                            <input type="radio"
+                              className="delivery-option-input"
+                              checked={deliveryOption.id === item.deliveryOptionId}
+                              onChange={async () => {
+                                await axios.put('https://smackbackend.onrender.com/cart/delivery-option', {
+                                  sessionId,
+                                  productId: item.productId._id,
+                                  deliveryOptionId: deliveryOption.id
+                                })
+                                getCart();
+                              }}
+                              name={`delivery-options${item._id}`} />
+                            <div>
+                              <div className="delivery-option-date">
+                                {deliveryOption.estimatedHours} Hours Delivery
+                              </div>
+                              <div className="delivery-option-price">
+                                {deliveryOption.priceCents === 0 ? 'FREE Shipping' : `₦${deliveryOption.priceCents.toLocaleString()}`}
+                              </div>
+                            </div>
                           </div>
-                          <div className="delivery-option-price">
-                            FREE Shipping
-                          </div>
-                        </div>
-                      </div>
-                      <div className="delivery-option">
-                        <input type="radio"
-                          className="delivery-option-input"
-                          name="delivery-option-1" />
-                        <div>
-                          <div className="delivery-option-date">
-                            Wednesday, June 15
-                          </div>
-                          <div className="delivery-option-price">
-                            $4.99 - Shipping
-                          </div>
-                        </div>
-                      </div>
-                      <div className="delivery-option">
-                        <input type="radio"
-                          className="delivery-option-input"
-                          name="delivery-option-1" />
-                        <div>
-                          <div className="delivery-option-date">
-                            Monday, June 13
-                          </div>
-                          <div className="delivery-option-price">
-                            $9.99 - Shipping
-                          </div>
-                        </div>
-                      </div>
+                        )
+                      })}
+
+
                     </div>
                   </div>
                 </div>
