@@ -58,10 +58,13 @@ function Checkout() {
         <div className="checkout-grid">
           <div className="order-summary">
             {cartItems.map((item) => {
+              const selectedDeliveryOption = deliveryOptions.find((deliveryOption) => {
+                return deliveryOption.id === item.deliveryOptionId
+              })
               return (
                 <div className="cart-item-container">
                   <div className="delivery-date">
-                    Delivery date: Tuesday, June 21
+                    Delivery Time: {selectedDeliveryOption ? `Delivers in ${selectedDeliveryOption.estimatedHours} hours` : 'Loading...'}
                   </div>
 
                   <div className="cart-item-details-grid">
