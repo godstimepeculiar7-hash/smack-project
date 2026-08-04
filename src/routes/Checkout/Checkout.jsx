@@ -9,6 +9,8 @@ function Checkout() {
   const [cartItems, setCartItems] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
 
+  const quantities = [1, 2, 3, 4, 5];
+
   const getCart = async () => {
     const response = await axios.get('https://smackbackend.onrender.com/checkout', {
       params: {
@@ -27,7 +29,6 @@ function Checkout() {
     const deliveryResponse = async () => {
       const response = await axios.get('https://smackbackend.onrender.com/delivery-options');
       setDeliveryOptions(response.data);
-      console.log(response.data)
     }
 
     deliveryResponse();
@@ -83,7 +84,22 @@ function Checkout() {
                           Quantity: <span className="quantity-label">{item.quantity}</span>
                         </span>
                         <span className="update-quantity-link link-primary">
-                          Update
+                          <select value={item.quantity} onChange={async (event) => {
+                            await axios.put('https://smackbackend.onrender.com/update-quantity', {
+                              sessionId,
+                              productId: item.productId._id,
+                              quantity: parseInt(event.target.value, 10)
+                            })
+                            await getCart();
+                          }}>
+                            {quantities.map((quantity) => {
+                              return (
+                                <option key={quantity} value={quantity} >
+                                  {quantity}
+                                </option>
+                              );
+                            })}
+                          </select>
                         </span>
                         <span className="delete-quantity-link link-primary">
                           Delete
@@ -107,7 +123,7 @@ function Checkout() {
                                   productId: item.productId._id,
                                   deliveryOptionId: deliveryOption.id
                                 })
-                                getCart();
+                                await getCart();
                               }}
                               name={`delivery-options${item._id}`} />
                             <div>
