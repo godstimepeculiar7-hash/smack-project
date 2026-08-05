@@ -3,11 +3,14 @@ import './checkout-header.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getSessionId } from '../../backend/utils/session';
+import { useOutletContext } from 'react-router-dom';
 
 function Checkout() {
   const sessionId = getSessionId();
   const [cartItems, setCartItems] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
+
+  const { getTotalQuantity, setLoading } = useOutletContext();
 
   const quantities = [1, 2, 3, 4, 5];
 
@@ -91,6 +94,7 @@ function Checkout() {
                               quantity: parseInt(event.target.value, 10)
                             })
                             await getCart();
+                            await getTotalQuantity();
                           }}>
                             {quantities.map((quantity) => {
                               return (
@@ -102,14 +106,16 @@ function Checkout() {
                           </select>
                         </span>
                         <span className="delete-quantity-link link-primary"
-                          onclick={async () => {
-                            await axios.delete('https://smackbackend.onrender.com/cart', {
+                          onClick={async () => {
+                            const response = await axios.delete('https://smackbackend.onrender.com/cart', {
                               data: {
                                 sessionId,
                                 productId: item.productId._id
                               }
                             });
                             await getCart();
+                            await getTotalQuantity();
+                            console.log(response.data); // Log the response data to the console
                           }}
                         >
                           Delete
