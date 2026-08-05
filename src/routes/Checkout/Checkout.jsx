@@ -101,7 +101,17 @@ function Checkout() {
                             })}
                           </select>
                         </span>
-                        <span className="delete-quantity-link link-primary">
+                        <span className="delete-quantity-link link-primary"
+                          onclick={async () => {
+                            await axios.delete('https://smackbackend.onrender.com/cart', {
+                              data: {
+                                sessionId,
+                                productId: item.productId._id
+                              }
+                            });
+                            await getCart();
+                          }}
+                        >
                           Delete
                         </span>
                       </div>
