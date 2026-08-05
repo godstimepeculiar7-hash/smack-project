@@ -108,7 +108,7 @@ function Checkout() {
                             await getCart();
                             await getTotalQuantity();
                             await getPaymentSummary();
-                          }}>
+                          }} className="quantity-dropdown">
                             {quantities.map((quantity) => {
                               return (
                                 <option key={quantity} value={quantity} >
