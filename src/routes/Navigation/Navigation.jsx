@@ -47,7 +47,7 @@ function Navigation() {
       <BlogForMobile />
       <WhySmack />
       {loading && <LoadingOverlay />}
-      <Outlet context={{ getTotalQuantity, setLoading }} />
+      <Outlet context={{ getTotalQuantity, setLoading, totalQuantity }} />
     </div>
   )
 }

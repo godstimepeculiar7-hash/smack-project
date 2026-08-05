@@ -9,8 +9,9 @@ function Checkout() {
   const sessionId = getSessionId();
   const [cartItems, setCartItems] = useState([]);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
+  const [paymentSummary, setPaymentSummary] = useState(null);
 
-  const { getTotalQuantity, setLoading } = useOutletContext();
+  const { getTotalQuantity, setLoading, totalQuantity } = useOutletContext();
 
   const quantities = [1, 2, 3, 4, 5];
 
@@ -25,9 +26,20 @@ function Checkout() {
     console.log('Cart Items:', cartItems); // Log the cart items to the console
   }
 
+  const getPaymentSummary = async () => {
+    const response = await axios.get('https://smackbackend.onrender.com/payment-summary', {
+      params: {
+        sessionId
+      }
+    });
+    console.log(response.data);
+    setPaymentSummary(response.data);
+  }
+
 
   useEffect(() => {
     getCart();
+    getPaymentSummary();
 
     const deliveryResponse = async () => {
       const response = await axios.get('https://smackbackend.onrender.com/delivery-options');
@@ -95,6 +107,7 @@ function Checkout() {
                             })
                             await getCart();
                             await getTotalQuantity();
+                            await getPaymentSummary();
                           }}>
                             {quantities.map((quantity) => {
                               return (
@@ -115,6 +128,7 @@ function Checkout() {
                             });
                             await getCart();
                             await getTotalQuantity();
+                            await getPaymentSummary();
                             console.log(response.data); // Log the response data to the console
                           }}
                         >
@@ -140,6 +154,7 @@ function Checkout() {
                                   deliveryOptionId: deliveryOption.id
                                 })
                                 await getCart();
+                                await getPaymentSummary();
                               }}
                               name={`delivery-options${item._id}`} />
                             <div>
@@ -171,28 +186,28 @@ function Checkout() {
             </div>
 
             <div className="payment-summary-row">
-              <div>Items (3):</div>
-              <div className="payment-summary-money">$42.75</div>
+              <div>Items ({totalQuantity}):</div>
+              <div className="payment-summary-money">₦{paymentSummary?.itemsTotal}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Shipping &amp; handling:</div>
-              <div className="payment-summary-money">$4.99</div>
+              <div className="payment-summary-money">₦{paymentSummary?.shippingTotal}</div>
             </div>
 
             <div className="payment-summary-row subtotal-row">
               <div>Total before tax:</div>
-              <div className="payment-summary-money">$47.74</div>
+              <div className="payment-summary-money">₦{paymentSummary?.totalBeforeTax}</div>
             </div>
 
             <div className="payment-summary-row">
               <div>Estimated tax (10%):</div>
-              <div className="payment-summary-money">$4.77</div>
+              <div className="payment-summary-money">₦{paymentSummary?.tax}</div>
             </div>
 
             <div className="payment-summary-row total-row">
               <div>Order total:</div>
-              <div className="payment-summary-money">$52.51</div>
+              <div className="payment-summary-money">₦{paymentSummary?.totalCost}</div>
             </div>
 
             <button className="place-order-button button-primary">
