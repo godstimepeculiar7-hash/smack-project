@@ -59,7 +59,7 @@ function Checkout() {
 
           <div className="checkout-header-middle-section">
             Checkout (<a className="return-to-home-link"
-              href="index.html">3 items</a>)
+              href="index.html">{totalQuantity} items</a>)
           </div>
 
           <div className="checkout-header-right-section">
