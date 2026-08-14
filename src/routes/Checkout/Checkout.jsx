@@ -210,7 +210,24 @@ function Checkout() {
               <div className="payment-summary-money">₦{paymentSummary?.totalCost}</div>
             </div>
 
-            <button className="place-order-button button-primary">
+            <button className="place-order-button button-primary" onClick={async () => {
+              navigator.geolocation.getCurrentPosition(async (position) => {
+                const { latitude, longitude } = position.coords;
+                console.log(latitude)
+                console.log(longitude)
+
+                try {
+                  const response = await axios.post('https://smackbackend.onrender.com/checkout/location', {
+                    sessionId,
+                    latitude,
+                    longitude
+                  })
+                  console.log(response.data);
+                } catch (error) {
+                  console.log(error.response.data);
+                }
+              })
+            }}>
               Place your order
             </button>
           </div>
