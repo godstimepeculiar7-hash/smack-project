@@ -214,17 +214,17 @@ function Checkout() {
               navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords;
                 console.log(latitude)
-                console.log(longitude)
+                console.log(longitude)  
 
                 try {
-                  const response = await axios.post('https://smackbackend.onrender.com/checkout/location', {
+                  const response = await axios.post('https://smackbackend.onrender.com/create-payment', {
                     sessionId,
                     latitude,
                     longitude
                   })
                   console.log(response.data);
                 } catch (error) {
-                  console.log(error.response.data);
+                  console.log('Create payment error:', error.response?.data || error);
                 }
               })
             }}>
