@@ -25,12 +25,25 @@
   margin: 1.25rem 0 0;
 }
 
-.Register-parent .details p {
+.Register-parent .details label {
+  display: block;
   margin: 0 0 0.45rem;
   color: rgba(128, 128, 128, 0.84);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.Register-parent .field-error {
+  margin: 0.4rem 0 0;
+  color: #c62828;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.Register-parent .details input[aria-invalid='true'] {
+  border-color: #c62828;
 }
 
 .Register-parent .details input {
@@ -41,6 +54,41 @@
   border-radius: 0.4rem;
   box-sizing: border-box;
   font: inherit;
+}
+
+.Register-parent .password-input-wrapper {
+  position: relative;
+}
+
+.Register-parent .password-input-wrapper input {
+  padding-right: 3rem;
+}
+
+.Register-parent .password-visibility-button {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.Register-parent .password-visibility-button:hover,
+.Register-parent .password-visibility-button:focus-visible {
+  color: rgb(164, 133, 49);
+}
+
+.Register-parent .password-visibility-button:focus-visible {
+  outline: 2px solid rgba(184, 153, 70, 0.35);
+  outline-offset: 2px;
 }
 
 .Register-parent .details input:focus {
@@ -109,7 +157,7 @@
     padding: 4rem 1rem 3rem;
   }
 
-  .Register-parent .details p {
+  .Register-parent .details label {
     font-size: 0.85rem;
   }
 
