@@ -213,19 +213,20 @@ function Checkout() {
             <button className="place-order-button button-primary" onClick={async () => {
               navigator.geolocation.getCurrentPosition(async (position) => {
                 const { latitude, longitude } = position.coords;
-                console.log(latitude)
-                console.log(longitude)  
+                console.log('Latitude:', latitude);
+                console.log('Longitude:', longitude);
 
                 try {
                   const response = await axios.post('https://smackbackend.onrender.com/create-payment', {
                     sessionId,
                     latitude,
                     longitude
-                  })
+                  });
                   console.log(response.data);
                 } catch (error) {
-                  console.log('Create payment error:', error.response?.data || error);
+                  console.error('Error Message:', error.response.data);
                 }
+                
               })
             }}>
               Place your order
