@@ -51,8 +51,10 @@ function SmallNav({ totalQuantity }) {
           <div className='fixed-width-right-section'>
             <img src={searchIcon} alt="search icon" className='fixed-width-right-section-icons' />
             <img src={userIcon} alt="user icon" className='fixed-width-right-section-icons' onClick={contact} />
-            <img src={shopingBag} alt="shoping bag" className='fixed-width-right-section-icons' onClick={cart} />
-            {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
+            <div className='cart-icon-wrapper'>
+              <img src={shopingBag} alt="shoping bag" className='fixed-width-right-section-icons' onClick={cart} />
+              {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
+            </div>
             {smallShopNow === 1 ? (<MdClose size={30} color='white' onClick={removeSmallMenu} className='cancel' />) : (
               <MdMenu size={30} onClick={smallmenu} color='white' />
             )}
