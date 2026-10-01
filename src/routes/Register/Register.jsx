@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import FooterDesktop from '../../component/Footer Desktop/FooterDesktop';
 import FooterMobile from '../../component/Footer Mobile/FooterMobile';
 import { useState } from 'react';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiMail } from 'react-icons/fi';
+import axios from 'axios';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ function Register() {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   function validateForm() {
     const nextErrors = {};
@@ -76,98 +78,120 @@ function Register() {
     return nextErrors;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const nextErrors = validateForm();
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {
-      console.log('Form is valid and ready for the backend:', formData);
+      try {
+        await axios.post('http://localhost:5000/auth/register', formData);
+        setVerificationSent(true);
+      } catch (error) {
+        console.log(error.response.data);
+      }
     }
+
+
   }
 
   return (
     <>
       <div className='Register-parent'>
         <div className='form-parent'>
-          <h1>REGISTER</h1>
-          <form onSubmit={handleSubmit} noValidate>
-            <div className='details'>
-              <label htmlFor='full-name'>FULL NAME*</label>
-              <input
-                id='full-name'
-                type='text'
-                value={formData.fullName}
-                aria-invalid={Boolean(errors.fullName)}
-                onChange={(event) => setFormData({ ...formData, fullName: event.target.value })}
-              />
-              {errors.fullName && <p className='field-error'>{errors.fullName}</p>}
-            </div>
-
-            <div className='details'>
-              <label htmlFor='email'>EMAIL ADDRESS*</label>
-              <input
-                id='email'
-                type='email'
-                value={formData.email}
-                aria-invalid={Boolean(errors.email)}
-                onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-              />
-              {errors.email && <p className='field-error'>{errors.email}</p>}
-            </div>
-
-            <div className='details'>
-              <label htmlFor='password'>PASSWORD*</label>
-              <div className='password-input-wrapper'>
-                <input
-                  id='password'
-                  type={showPassword ? 'text' : 'password'}
-                  value={formData.password}
-                  aria-invalid={Boolean(errors.password)}
-                  onChange={(event) => setFormData({ ...formData, password: event.target.value })}
-                />
-                <button
-                  className='password-visibility-button'
-                  type='button'
-                  aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <FiEyeOff aria-hidden='true' /> : <FiEye aria-hidden='true' />}
-                </button>
+          {verificationSent ? (
+            <section className='verification-confirmation' aria-labelledby='verification-title'>
+              <div className='verification-icon' aria-hidden='true'><FiMail /></div>
+              <h1 id='verification-title'>Check your email</h1>
+              <p className='verification-copy'>We've sent a verification link to</p>
+              <p className='verification-email'>{formData.email}</p>
+              <div className='resend-prompt'>
+                <span>Didn't receive the email?</span>
+                <button type='button'>Resend verification email</button>
               </div>
-              {errors.password && <p className='field-error'>{errors.password}</p>}
-            </div>
+            </section>
+          ) : (
+            <>
+              <h1>REGISTER</h1>
+              <form onSubmit={handleSubmit} noValidate>
+                <div className='details'>
+                  <label htmlFor='full-name'>FULL NAME*</label>
+                  <input
+                    id='full-name'
+                    type='text'
+                    value={formData.fullName}
+                    aria-invalid={Boolean(errors.fullName)}
+                    onChange={(event) => setFormData({ ...formData, fullName: event.target.value })}
+                  />
+                  {errors.fullName && <p className='field-error'>{errors.fullName}</p>}
+                </div>
 
-            <div className='details'>
-              <label htmlFor='confirm-password'>CONFIRM PASSWORD*</label>
-              <div className='password-input-wrapper'>
-                <input
-                  id='confirm-password'
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  value={formData.confirmPassword}
-                  aria-invalid={Boolean(errors.confirmPassword)}
-                  onChange={(event) => setFormData({ ...formData, confirmPassword: event.target.value })}
-                />
-                <button
-                  className='password-visibility-button'
-                  type='button'
-                  aria-label={showConfirmPassword ? 'Hide confirmation password' : 'Show confirmation password'}
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? <FiEyeOff aria-hidden='true' /> : <FiEye aria-hidden='true' />}
-                </button>
+                <div className='details'>
+                  <label htmlFor='email'>EMAIL ADDRESS*</label>
+                  <input
+                    id='email'
+                    type='email'
+                    value={formData.email}
+                    aria-invalid={Boolean(errors.email)}
+                    onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                  />
+                  {errors.email && <p className='field-error'>{errors.email}</p>}
+                </div>
+
+                <div className='details'>
+                  <label htmlFor='password'>PASSWORD*</label>
+                  <div className='password-input-wrapper'>
+                    <input
+                      id='password'
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.password}
+                      aria-invalid={Boolean(errors.password)}
+                      onChange={(event) => setFormData({ ...formData, password: event.target.value })}
+                    />
+                    <button
+                      className='password-visibility-button'
+                      type='button'
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FiEyeOff aria-hidden='true' /> : <FiEye aria-hidden='true' />}
+                    </button>
+                  </div>
+                  {errors.password && <p className='field-error'>{errors.password}</p>}
+                </div>
+
+                <div className='details'>
+                  <label htmlFor='confirm-password'>CONFIRM PASSWORD*</label>
+                  <div className='password-input-wrapper'>
+                    <input
+                      id='confirm-password'
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      value={formData.confirmPassword}
+                      aria-invalid={Boolean(errors.confirmPassword)}
+                      onChange={(event) => setFormData({ ...formData, confirmPassword: event.target.value })}
+                    />
+                    <button
+                      className='password-visibility-button'
+                      type='button'
+                      aria-label={showConfirmPassword ? 'Hide confirmation password' : 'Show confirmation password'}
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    >
+                      {showConfirmPassword ? <FiEyeOff aria-hidden='true' /> : <FiEye aria-hidden='true' />}
+                    </button>
+                  </div>
+                  {errors.confirmPassword && <p className='field-error'>{errors.confirmPassword}</p>}
+                </div>
+
+                <div className='second-details'>
+                  <button className='login' type='submit'>REGISTER</button>
+                </div>
+              </form>
+              <div className='login-prompt'>
+                <span>Already have an account?</span>
+                <Link to="/login">Log in</Link>
               </div>
-              {errors.confirmPassword && <p className='field-error'>{errors.confirmPassword}</p>}
-            </div>
-
-            <div className='second-details'>
-              <button className='login' type='submit'>REGISTER</button>
-            </div>
-          </form>
-          <div className='login-prompt'>
-            <span>Already have an account?</span>
-            <Link to="/login">Log in</Link>
-          </div>
+            </>
+          )}
         </div>
 
       </div>

@@ -21,6 +21,77 @@
   font-weight: 700;
 }
 
+.verification-confirmation {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.verification-icon {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1.25rem;
+  place-items: center;
+  border-radius: 50%;
+  background-color: rgba(184, 153, 70, 0.12);
+  color: rgb(164, 133, 49);
+  font-size: 1.7rem;
+}
+
+.Register-parent .verification-confirmation h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.verification-copy {
+  margin: 1rem 0 0;
+  color: rgba(0, 0, 0, 0.64);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.verification-email {
+  margin: 0.3rem 0 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.resend-prompt {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.64);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+}
+
+.resend-prompt button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgb(164, 133, 49);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: rgba(164, 133, 49, 0.4);
+  text-underline-offset: 0.2rem;
+}
+
+.resend-prompt button:hover,
+.resend-prompt button:focus-visible {
+  color: rgb(125, 99, 29);
+  text-decoration-color: currentColor;
+}
+
 .Register-parent .details {
   margin: 1.25rem 0 0;
 }
