@@ -18,6 +18,8 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [verificationSent, setVerificationSent] = useState(false);
+  const [resendError, setResendError] = useState(null);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   function validateForm() {
     const nextErrors = {};
@@ -84,11 +86,14 @@ function Register() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {
+      setIsRegistering(true);
       try {
         await axios.post('http://localhost:5000/auth/register', formData);
         setVerificationSent(true);
       } catch (error) {
         console.log(error.response.data);
+      } finally {
+        setIsRegistering(false);
       }
     }
 
@@ -107,8 +112,25 @@ function Register() {
               <p className='verification-email'>{formData.email}</p>
               <div className='resend-prompt'>
                 <span>Didn't receive the email?</span>
-                <button type='button'>Resend verification email</button>
+                <button type='button' onClick={async () => {
+                  setResendError(null);
+                  try {
+                    const response = await axios.post('http://localhost:5000/auth/resend-verification', {
+                      email: formData.email
+                    })
+
+                    console.log(response.data); // Log the response data to the console
+
+                  } catch (error) {
+                    setResendError(error.response?.data);
+                  }
+                }}>Resend verification email</button>
               </div>
+              {resendError && (
+                <p className='field-error resend-error' role='alert'>
+                  {typeof resendError === 'string' ? resendError : resendError.message}
+                </p>
+              )}
             </section>
           ) : (
             <>
@@ -183,7 +205,9 @@ function Register() {
                 </div>
 
                 <div className='second-details'>
-                  <button className='login' type='submit'>REGISTER</button>
+                  <button className='login' type='submit' disabled={isRegistering}>
+                    {isRegistering ? 'Registering...' : 'REGISTER'}
+                  </button>
                 </div>
               </form>
               <div className='login-prompt'>
