@@ -318,6 +318,13 @@
       }
     }
 
+    .our-best-sellers-mobile-parent .mobile-quick-add {
+      appearance: none;
+      padding: 0;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
     .our-best-sellers-mobile-image-parent:hover img {
       transform: scale(1.05);
     }

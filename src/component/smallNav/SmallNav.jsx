@@ -8,7 +8,7 @@ import { MdClose } from 'react-icons/md';
 import { MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-function SmallNav({ totalQuantity }) {
+function SmallNav({ onSearch, onCartClick }) {
   const { smallShopNow, setSmallShopNow } = useContext(ShopNowSmallMenu);
   const navigate = useNavigate()
 
@@ -31,16 +31,6 @@ function SmallNav({ totalQuantity }) {
     navigate('/login')
   }
 
-  function cart() {
-    if (totalQuantity > 0) {
-      navigate('/checkout');
-    } else {
-      navigate('/cart');
-    }
-  }
-
-
-
   return (
     <div>
       <div id='blur'>
@@ -49,11 +39,25 @@ function SmallNav({ totalQuantity }) {
             SMACK
           </div>
           <div className='fixed-width-right-section'>
-            <img src={searchIcon} alt="search icon" className='fixed-width-right-section-icons' />
+            <button
+              className='fixed-width-right-section-icons search-trigger'
+              type="button"
+              aria-label="Search the SMACK menu"
+              aria-haspopup="dialog"
+              onClick={onSearch}
+            >
+              <img src={searchIcon} alt="" />
+            </button>
             <img src={userIcon} alt="user icon" className='fixed-width-right-section-icons' onClick={contact} />
             <div className='cart-icon-wrapper'>
-              <img src={shopingBag} alt="shoping bag" className='fixed-width-right-section-icons' onClick={cart} />
-              {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
+              <button
+                className='fixed-width-right-section-icons cart-trigger'
+                type="button"
+                aria-label="Log in to view your cart"
+                onClick={onCartClick}
+              >
+                <img src={shopingBag} alt="" />
+              </button>
             </div>
             {smallShopNow === 1 ? (<MdClose size={30} color='white' onClick={removeSmallMenu} className='cancel' />) : (
               <MdMenu size={30} onClick={smallmenu} color='white' />

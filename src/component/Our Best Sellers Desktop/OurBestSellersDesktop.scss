@@ -214,6 +214,13 @@
         }
         }
 
+        .our-best-sellers-parent .quick-add {
+        appearance: none;
+        padding: 0;
+        background-color: transparent;
+        cursor: pointer;
+        }
+
         .our-best-sellers-product-image:hover img{
           transform: scale(1.05);
         }

@@ -1,7 +1,7 @@
 import './Navigation.scss';
 import LargeNav from '../../component/largeNav/LargeNav';
 import SmallNav from '../../component/smallNav/SmallNav';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import ShopNowDropdown from '../../component/ShopNow Dropdown/ShopNowDropdown';
 import BlogDropdown from '../../component/Blog Dropdown/BlogDropdown';
 import WhySmackDropdown from '../../component/Why Smack Dropdown/WhySmackDropdown'
@@ -9,36 +9,45 @@ import MobileTopMenus from '../../component/Mobile Top Menus/MobileTopMenus';
 import ShopNowForMobile from '../../component/Mobile Shop Now/MobileShopNow';
 import BlogForMobile from '../../component/Mobile Blog/MobileBlog';
 import WhySmack from '../../component/Mobile Why Smack/MobileWhySmack';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { getSessionId } from '../../backend/utils/session';
-import LoadingOverlay from '../../component/Our Best Sellers Desktop/Loading Overlay/LoadingOverlay';
+import { useState } from 'react';
+import ProductSearch from '../../component/Product Search/ProductSearch';
 
 function Navigation() {
-  const [totalQuantity, setTotalQuantity] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [isProductSearchOpen, setIsProductSearchOpen] = useState(false);
 
-
-  const getTotalQuantity = async () => {
-    const sessionId = getSessionId();
-    const response = await axios.get('https://smackbackend.onrender.com/cart-quantity', {
-      params: {
-        sessionId
-      }
+  const requireDashboardLogin = (
+    message = 'Please log in to your SMACK dashboard before adding dishes to your cart.'
+  ) => {
+    setIsProductSearchOpen(false);
+    navigate('/login', {
+      state: { message }
     });
-    setTotalQuantity(response.data.totalQuantity);
-    console.log(response.data);
   };
-
-  useEffect(() => {
-    getTotalQuantity();
-  }, [])
 
 
   return (
     <div>
-      <LargeNav totalQuantity={totalQuantity} />
-      <SmallNav totalQuantity={totalQuantity} />
+      <LargeNav
+        onSearch={() => setIsProductSearchOpen(true)}
+        onCartClick={() => requireDashboardLogin(
+          'Please log in to your SMACK dashboard to view your cart.'
+        )}
+      />
+      <SmallNav
+        onSearch={() => setIsProductSearchOpen(true)}
+        onCartClick={() => requireDashboardLogin(
+          'Please log in to your SMACK dashboard to view your cart.'
+        )}
+      />
+      <ProductSearch
+        open={isProductSearchOpen}
+        onClose={() => setIsProductSearchOpen(false)}
+        onAddToCart={() => {
+          requireDashboardLogin();
+          return false;
+        }}
+      />
       <ShopNowDropdown />
       <BlogDropdown />
       <WhySmackDropdown />
@@ -46,8 +55,7 @@ function Navigation() {
       <ShopNowForMobile />
       <BlogForMobile />
       <WhySmack />
-      {loading && <LoadingOverlay />}
-      <Outlet context={{ getTotalQuantity, setLoading, totalQuantity }} />
+      <Outlet context={{ requireDashboardLogin }} />
     </div>
   )
 }

@@ -1,7 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navigation from './routes/Navigation/Navigation';
 import HomePage from "./routes/Home/Home";
-import CartComponent from "./routes/Cart/Cart";
 import Login from "./routes/Login/Login";
 import Register from "./routes/Register/Register";
 import FindaRetailer from "./routes/Find a Retailer/FindaRetailer";
@@ -15,7 +14,6 @@ import JollofRice from "./routes/Jollof Rice/JollofRice";
 import SmackProducts from "./routes/Smack Products/SmackProducts";
 import Swallow from "./routes/Swallow/Swallow";
 import MobileJollofRice from "./routes/Mobile Jollof Rice/MobileJollofRice";
-import Checkout from "./routes/Checkout/Checkout";
 import Orders from "./routes/Orders/Orders";
 import Dashboard from "./routes/Dashboard/DashBoard";
 import ProtectedRoute from "./routes/Protected Routes/ProtectedRoute";
@@ -46,7 +44,13 @@ function App() {
         <Route path="/" element={<Navigation />}>
 
           <Route index element={<PublicRoute><HomePage /></PublicRoute>} />
-          <Route path="/cart" element={<CartComponent />} />
+          <Route path="/cart" element={
+            <Navigate
+              to="/login"
+              replace
+              state={{ message: 'Please log in to your SMACK dashboard to view your cart.' }}
+            />
+          } />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
           <Route path="/find-a-retailer" element={<FindaRetailer />} />
@@ -60,7 +64,13 @@ function App() {
           <Route path="/swallow" element={<Swallow />} />
           <Route path="/mobile-jollof-rice" element={<MobileJollofRice />} />
           <Route path="/chinese-dishes" element={<ChineseDishes />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={
+            <Navigate
+              to="/login"
+              replace
+              state={{ message: 'Please log in to your SMACK dashboard to view your cart and checkout.' }}
+            />
+          } />
           <Route path="/orders" element={<Orders />} />
         </Route>
         <Route path="/dashboard" element={<ProtectedRoute>

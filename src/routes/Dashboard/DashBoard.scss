@@ -169,6 +169,26 @@
     color: var(--smack-gold);
 }
 
+.customer-nav-cart-count {
+    display: inline-grid;
+    min-width: 1.35rem;
+    height: 1.35rem;
+    place-items: center;
+    margin-left: auto;
+    padding: 0 0.3rem;
+    border-radius: 999px;
+    background: #efe8d5;
+    color: #75622f;
+    font-size: 0.66rem;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.customer-nav-link.is-active .customer-nav-cart-count {
+    background: #dfcf9e;
+    color: #594719;
+}
+
 .customer-nav-disabled {
     cursor: not-allowed;
     opacity: 0.72;
@@ -288,18 +308,163 @@
 }
 
 .dashboard-main {
+    display: flex;
     min-width: 0;
     flex: 1;
-}
-
-.mobile-dashboard-header {
-    display: none;
+    flex-direction: column;
 }
 
 .dashboard-page-content {
     width: min(100%, 1500px);
     margin: 0 auto;
     padding: clamp(1.5rem, 3.5vw, 3.25rem);
+}
+
+.dashboard-footer {
+    position: relative;
+    overflow: hidden;
+    margin-top: auto;
+    padding: 2.25rem clamp(1rem, 3.5vw, 3.25rem) 1rem;
+    border-top: 3px solid #b79a4a;
+    background:
+        radial-gradient(ellipse at 88% 0%, rgba(164, 133, 49, 0.16), transparent 32rem),
+        linear-gradient(120deg, #28261f 0%, #302d24 58%, #26241e 100%);
+    color: #fff;
+}
+
+.dashboard-footer::before {
+    position: absolute;
+    top: 0;
+    right: 8%;
+    width: 16rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(231, 210, 146, 0.75), transparent);
+    content: '';
+}
+
+.dashboard-footer-content,
+.dashboard-footer-bottom {
+    width: min(100%, 1370px);
+    margin: 0 auto;
+}
+
+.dashboard-footer-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: clamp(2rem, 6vw, 6rem);
+}
+
+.dashboard-footer-brand {
+    max-width: 25rem;
+}
+
+.dashboard-footer-brand .smack-wordmark {
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.dashboard-footer-brand .smack-mark {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 0.52rem;
+    font-size: 0.9rem;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-footer-brand .dashboard-footer-tagline {
+    margin: 1rem 0 0;
+    color: #e2ca7d;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.dashboard-footer-brand p {
+    max-width: 22rem;
+    margin: 0.45rem 0 0;
+    color: #c4c0b4;
+    font-size: 0.74rem;
+    line-height: 1.7;
+}
+
+.dashboard-footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 0.55rem;
+    min-width: min(100%, 390px);
+}
+
+.dashboard-footer-links-title {
+    grid-column: 1 / -1;
+    margin: 0 0 0.2rem 0.15rem;
+    color: #a9a495;
+    font-size: 0.6rem;
+    font-weight: 750;
+    letter-spacing: 0.14em;
+}
+
+.dashboard-footer-links button,
+.dashboard-footer-links a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 0.7rem;
+    background: rgba(255, 255, 255, 0.035);
+    color: #e5e1d7;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.dashboard-footer-links button:hover,
+.dashboard-footer-links a:hover {
+    transform: translateY(-2px);
+    border-color: rgba(226, 202, 125, 0.45);
+    background: rgba(164, 133, 49, 0.16);
+    color: #f1d98e;
+}
+
+.dashboard-footer-links svg {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    color: #d5bb68;
+}
+
+.dashboard-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.75rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    color: #a9a699;
+    font-size: 0.64rem;
+}
+
+.dashboard-footer-account-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.dashboard-footer-account-label > span {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: #a8c58a;
+    box-shadow: 0 0 0 3px rgba(168, 197, 138, 0.12);
+}
+
+.mobile-dashboard-header {
+    display: none;
 }
 
 .profile-view-layout {
@@ -626,7 +791,7 @@
 
 .menu-filter-row {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
+    grid-template-columns: repeat(3, max-content);
     gap: 0.5rem;
     margin: 1.1rem 0 0.6rem;
 }
@@ -660,6 +825,50 @@
     margin: 0 0 0.75rem;
     color: #969187;
     font-size: 0.67rem;
+}
+
+.menu-data-message,
+.menu-data-error {
+    margin: 0.75rem 0 0;
+    padding: 1rem;
+    border: 1px solid #eae7df;
+    border-radius: 0.75rem;
+    background: #fff;
+    color: #716e65;
+    font-size: 0.78rem;
+    line-height: 1.55;
+}
+
+.menu-data-error {
+    border-color: #edd2cd;
+    background: #fcf6f5;
+    color: #9a4435;
+}
+
+.menu-data-error p {
+    margin: 0;
+}
+
+.menu-data-error button {
+    min-height: 2.25rem;
+    margin-top: 0.75rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid #d9b6af;
+    border-radius: 0.5rem;
+    background: #fff;
+    color: #873b30;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 650;
+}
+
+.menu-data-error button:hover {
+    background: #f8e9e6;
+}
+
+.cart-data-error {
+    margin-bottom: 1rem;
 }
 
 .menu-product-grid {
@@ -1270,6 +1479,40 @@
     margin-top: 0.7rem;
 }
 
+.dashboard-delivery-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.7rem;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    border: 0;
+}
+
+.dashboard-delivery-options legend {
+    margin-bottom: 0.35rem;
+    color: #817e75;
+    font-size: 0.66rem;
+    font-weight: 650;
+}
+
+.dashboard-delivery-options label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #68655c;
+    font-size: 0.63rem;
+    cursor: pointer;
+}
+
+.dashboard-delivery-options input {
+    accent-color: var(--smack-gold);
+}
+
+.dashboard-delivery-options input:disabled,
+.dashboard-delivery-options label:has(input:disabled) {
+    cursor: not-allowed;
+}
+
 .cart-quantity-control {
     display: inline-flex;
     min-height: 1.9rem;
@@ -1329,6 +1572,11 @@
 
 .cart-remove-button:hover {
     color: #9a4e3c;
+}
+
+.cart-remove-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .cart-remove-button svg {
@@ -1395,8 +1643,22 @@
     line-height: 1.5;
 }
 
+.dashboard-cart-summary > .cart-summary-notice {
+    color: #71613b;
+}
+
+.dashboard-cart-summary > .cart-summary-error {
+    color: #9a4435;
+}
+
 .dashboard-cart-summary .cart-browse-button {
     width: 100%;
+}
+
+.dashboard-cart-summary .cart-browse-button:disabled {
+    border-color: #c9c3b3;
+    background: #c9c3b3;
+    cursor: not-allowed;
 }
 
 .support-view {
@@ -2021,6 +2283,17 @@
         flex-basis: 230px;
     }
 
+    .dashboard-footer-content {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 1.35rem;
+    }
+
+    .dashboard-footer-links {
+        width: min(100%, 520px);
+        min-width: 0;
+    }
+
     .menu-product-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
@@ -2147,6 +2420,11 @@
         padding: 1.5rem 1.25rem;
     }
 
+    .dashboard-footer {
+        padding-right: 1.25rem;
+        padding-left: 1.25rem;
+    }
+
     .dashboard-panel {
         padding: 1.1rem;
     }
@@ -2214,6 +2492,37 @@
 
     .dashboard-page-content {
         padding: 1rem 0.9rem;
+    }
+
+    .dashboard-footer {
+        padding: 1.6rem 0.9rem 0.85rem;
+    }
+
+    .dashboard-footer-content {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 1.3rem;
+    }
+
+    .dashboard-footer-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+        min-width: 0;
+        gap: 0.45rem;
+    }
+
+    .dashboard-footer-links button,
+    .dashboard-footer-links a {
+        min-height: 2.5rem;
+        padding: 0.45rem 0.55rem;
+        font-size: 0.67rem;
+    }
+
+    .dashboard-footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+        margin-top: 1.2rem;
     }
 
     .dashboard-hero {

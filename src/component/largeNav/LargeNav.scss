@@ -704,3 +704,20 @@
 
   }
 }
+ .search-trigger,
+ .cart-trigger {
+   display: grid;
+   place-items: center;
+   padding: 0;
+   border: 0;
+   background: transparent;
+   cursor: pointer;
+ }
+
+ .search-trigger img,
+ .cart-trigger img {
+   display: block;
+   width: 100%;
+   height: auto;
+   object-fit: contain;
+ }

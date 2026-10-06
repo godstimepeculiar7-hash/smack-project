@@ -1,13 +1,8 @@
 import './OurBestSellersDesktop.scss';
-import { formatCurrency } from '../../component/Our Best Sellers Desktop/Money/Money'
-import { useContext } from 'react';
-import { CartContext } from '../../backend/Cart';
-import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
-import { getSessionId } from '../../backend/utils/session';
 
-function OurBestSellersDesktop({ data, cartQuantity }) {
-  const { getTotalQuantity, setLoading } = useOutletContext();
+function OurBestSellersDesktop({ data }) {
+  const { requireDashboardLogin } = useOutletContext();
 
   return (
     <div className='our-best-sellers-parent'>
@@ -31,28 +26,9 @@ function OurBestSellersDesktop({ data, cartQuantity }) {
               <div className='measurement'>{product.kg}</div>
               <div className='buttons-parent'>
                 <div className='bundle-buy'>BUNDLE BUY</div>
-                <div className='quick-add' onClick={async () => {
-                  try {
-                    const sessionId = getSessionId();
-                    const productId = product._id
-                    console.log(sessionId, productId)
-                    setLoading(true); // Show the loading overlay
-                    const response = await axios.post('https://smackbackend.onrender.com/cart', {
-                      sessionId,
-                      productId,
-                    });
-
-                    // Update the total quantity in the navigation bar
-                    await getTotalQuantity();
-                    console.log(response.data.items);
-                    console.log('added');
-                  } catch (error) {
-                    console.log(error);
-                  } finally {
-                    setLoading(false); // Ensure the loading overlay is hidden even if there's an error
-                  }
-
-                }}>QUICK ADD</div>
+                <button className='quick-add' type="button" onClick={requireDashboardLogin}>
+                  QUICK ADD
+                </button>
               </div>
             </div>
           )

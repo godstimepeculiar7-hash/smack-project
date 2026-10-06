@@ -1,12 +1,9 @@
 import './OurBestSellersMobile.scss';
-import Bowl from '../../assets/Bowl.jpeg';
-import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
-import { getSessionId } from '../../backend/utils/session';
 
 
-function OurBestSellersMobile({ data, cartQuantity }) {
-  const { getTotalQuantity, setLoading } = useOutletContext();
+function OurBestSellersMobile({ data }) {
+  const { requireDashboardLogin } = useOutletContext();
 
   return (
     <div className='our-best-sellers-mobile-parent'>
@@ -29,26 +26,9 @@ function OurBestSellersMobile({ data, cartQuantity }) {
               <div className='mobile-measurement'>{product.kg}</div>
               <div className='mobile-buttons-parent'>
                 <div className='mobile-bundle-buy'>BUNDLE BUY</div>
-                <div className='mobile-quick-add' onClick={async () => {
-                  try {
-                    const sessionId = getSessionId();
-                    const productId = product._id
-                    setLoading(true); // Show the loading overlay
-                    const response = await axios.post('https://smackbackend.onrender.com/cart', {
-                      sessionId,
-                      productId
-                    });
-                    console.log(response.data)
-
-                    // Update the total quantity in the navigation bar
-                    await getTotalQuantity();
-                  } catch (error) {
-                    console.log(error)
-                  } finally {
-                    setLoading(false); // Ensure the loading overlay is hidden even if there's an error
-                  }
-
-                }}>QUICK ADD</div>
+                <button className='mobile-quick-add' type="button" onClick={requireDashboardLogin}>
+                  QUICK ADD
+                </button>
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ import { whySmackDrop } from '../../../Context/WhySmackDropdown';
 import { useNavigate } from 'react-router-dom';
 
 
-function LargeNav({totalQuantity}) {
+function LargeNav({ onSearch, onCartClick }) {
   const { shop, setShop } = useContext(shopNow);
 
   const handler = () => {
@@ -57,14 +57,6 @@ function LargeNav({totalQuantity}) {
   }
 
   const navigate = useNavigate();
-
-  function Cart() {
-    if (totalQuantity > 0) {
-      navigate('/checkout');
-    } else {
-      navigate('/cart');
-    }
-  }
 
   function home() {
     navigate('/');
@@ -193,10 +185,24 @@ function LargeNav({totalQuantity}) {
             </p>
           </div>
           <div className='sub-fixed-right-section'>
-            <img src={searchIcon} alt="search icon" className='sub-fixed-right-section-icons' />
+            <button
+              className='sub-fixed-right-section-icons search-trigger'
+              type="button"
+              aria-label="Search the SMACK menu"
+              aria-haspopup="dialog"
+              onClick={onSearch}
+            >
+              <img src={searchIcon} alt="" />
+            </button>
             <img src={userIcon} alt="user icon" className='sub-fixed-right-section-icons' onClick={login} />
-            <img src={shoopingBag} alt="shoping bag" className='sub-fixed-right-section-icons' onClick={Cart} />
-            {totalQuantity > 0 && <button className='basket'>{totalQuantity}</button>}
+            <button
+              className='sub-fixed-right-section-icons cart-trigger'
+              type="button"
+              aria-label="Log in to view your cart"
+              onClick={onCartClick}
+            >
+              <img src={shoopingBag} alt="" />
+            </button>
           </div>
 
         </div>

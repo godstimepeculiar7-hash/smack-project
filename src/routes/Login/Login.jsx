@@ -1,9 +1,11 @@
 import './Login.scss';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import FooterDesktop from '../../component/Footer Desktop/FooterDesktop';
 import FooterMobile from '../../component/Footer Mobile/FooterMobile';
 import { useState } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import axios from 'axios';
+
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ function Login() {
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   function validateForm() {
     const nextErrors = {};
@@ -58,13 +62,42 @@ function Login() {
     return nextErrors;
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
     const nextErrors = validateForm();
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {
-      console.log('Login form is valid and ready for the backend:', formData);
+      try {
+        await axios.post(
+          'http://localhost:5000/auth/login',
+          {
+            email: formData.email,
+            password: formData.password
+          },
+          {
+            withCredentials: true
+          }
+        );
+
+        navigate('/dashboard');
+
+      } catch (error) {
+        if (error.response) {
+          const responseMessage = error.response.data?.message;
+          setErrors({
+            form: typeof responseMessage === 'string'
+              ? responseMessage
+              : 'Invalid username/email or password.',
+            credentials: error.response.status === 401
+          });
+        } else {
+          setErrors({
+            form: 'Unable to connect to the server. Please try again.'
+          });
+        }
+      }
     }
   }
 
@@ -73,7 +106,15 @@ function Login() {
       <div className='login-parent'>
         <div className='form-parent'>
           <h1>Login</h1>
+          {location.state?.message && (
+            <p className="login-redirect-notice" role="status">
+              {location.state.message}
+            </p>
+          )}
           <form onSubmit={handleSubmit} noValidate>
+            {errors.form && (
+              <p id="login-form-error" className="form-error" role="alert">{errors.form}</p>
+            )}
             <div className='details'>
               <label htmlFor='login-email'>USERNAME OR EMAIL ADDRESS*</label>
               <input
@@ -81,10 +122,18 @@ function Login() {
                 type='email'
                 placeholder='Email'
                 value={formData.email}
-                aria-invalid={Boolean(errors.email)}
-                onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                aria-invalid={Boolean(errors.email || errors.credentials)}
+                aria-describedby={errors.email ? 'login-email-error' : errors.form ? 'login-form-error' : undefined}
+                onChange={(event) => {
+                  setFormData({ ...formData, email: event.target.value });
+                  setErrors((currentErrors) => ({
+                    ...currentErrors,
+                    form: '',
+                    credentials: false
+                  }));
+                }}
               />
-              {errors.email && <p className='field-error'>{errors.email}</p>}
+              {errors.email && <p id='login-email-error' className='field-error'>{errors.email}</p>}
             </div>
 
             <div className='details'>
@@ -95,8 +144,16 @@ function Login() {
                   type={showPassword ? 'text' : 'password'}
                   placeholder='Password'
                   value={formData.password}
-                  aria-invalid={Boolean(errors.password)}
-                  onChange={(event) => setFormData({ ...formData, password: event.target.value })}
+                  aria-invalid={Boolean(errors.password || errors.credentials)}
+                  aria-describedby={errors.password ? 'login-password-error' : errors.form ? 'login-form-error' : undefined}
+                  onChange={(event) => {
+                    setFormData({ ...formData, password: event.target.value });
+                    setErrors((currentErrors) => ({
+                      ...currentErrors,
+                      form: '',
+                      credentials: false
+                    }));
+                  }}
                 />
                 <button
                   className='password-visibility-button'
@@ -107,7 +164,7 @@ function Login() {
                   {showPassword ? <FiEyeOff aria-hidden='true' /> : <FiEye aria-hidden='true' />}
                 </button>
               </div>
-              {errors.password && <p className='field-error'>{errors.password}</p>}
+              {errors.password && <p id='login-password-error' className='field-error'>{errors.password}</p>}
 
               <div className='second-details'>
                 <button className='login' type='submit'>LOG IN</button>

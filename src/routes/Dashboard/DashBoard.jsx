@@ -1,11 +1,9 @@
-import { createElement, useContext, useEffect, useId, useRef, useState } from 'react';
+import { createElement, useCallback, useEffect, useId, useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import riceImage from '../../assets/shopnow4.jpg';
 import { Products as bestSellerProducts } from '../../component/Our Best Sellers Desktop/products';
-import riceProducts from '../../My Products/Rice';
-import swallowProducts from '../../My Products/Swallow';
-import { CartContext } from '../../backend/Cart';
+import { getSessionId } from '../../backend/utils/session';
 import {
     FiCheck,
     FiChevronLeft,
@@ -58,6 +56,7 @@ function getInitials(name) {
 
 function DashboardNavigation({
     activeView,
+    cartQuantity,
     mobile = false,
     onNavigate,
     onSelectView,
@@ -74,6 +73,11 @@ function DashboardNavigation({
                     <>
                         {createElement(Icon, { 'aria-hidden': true })}
                         <span>{label}</span>
+                        {view === 'cart' && (
+                            <span className="customer-nav-cart-count" aria-label={`${cartQuantity} items in cart`}>
+                                {cartQuantity}
+                            </span>
+                        )}
                     </>
                 );
 
@@ -112,6 +116,7 @@ function DashboardSidebar({
     name,
     email,
     activeView,
+    cartQuantity,
     onSelectView,
     onNavigate,
     onLogout,
@@ -177,6 +182,7 @@ function DashboardSidebar({
                 </div>
                 <DashboardNavigation
                     activeView={activeView}
+                    cartQuantity={cartQuantity}
                     mobile={mobile}
                     onNavigate={onClose}
                     onSelectView={onSelectView}
@@ -581,8 +587,6 @@ function SettingsView({
     );
 }
 
-const cartProducts = [...riceProducts, ...swallowProducts, ...bestSellerProducts];
-
 const heroFoodImages = [
     { image: riceImage, alt: 'A plate of chicken and rice' },
     ...bestSellerProducts.map(({ image, name }) => ({ image, alt: name }))
@@ -672,27 +676,52 @@ function formatNaira(amount) {
     return `₦${Math.round(amount).toLocaleString('en-NG')}`;
 }
 
-function CartView({ onBrowseMenu }) {
-    const {
-        cart,
-        totalQuantity,
-        setCart,
-        removeFromCart,
-        totalCost,
-        shippingCost,
-        tax,
-        orderTotal
-    } = useContext(CartContext);
+function calculateCheckoutSummary(items, options) {
+    const itemsTotal = items.reduce((total, item) => (
+        total + item.product.priceCents * item.quantity
+    ), 0);
+    const shippingTotal = items.reduce((total, item) => {
+        const option = options.find(({ id }) => String(id) === item.deliveryOptionId);
+        return total + (option?.priceCents || 0);
+    }, 0);
+    const totalBeforeTax = itemsTotal + shippingTotal;
+    const tax = totalBeforeTax * 0.1;
 
+    return {
+        itemsTotal,
+        shippingTotal,
+        totalBeforeTax,
+        tax,
+        totalCost: totalBeforeTax + tax
+    };
+}
+
+function CartView({
+    onBrowseMenu,
+    items,
+    totalQuantity,
+    isLoading,
+    isUpdating,
+    loadError,
+    summaryError,
+    paymentSummary,
+    deliveryOptions,
+    isPlacingOrder,
+    placeOrderMessage,
+    placeOrderError,
+    onPlaceOrder,
+    onRetry,
+    onUpdateQuantity,
+    onUpdateDeliveryOption,
+    onRemove
+}) {
     const updateQuantity = (productId, quantity) => {
         if (quantity < 1) {
-            removeFromCart(productId);
+            onRemove(productId);
             return;
         }
 
-        setCart((currentCart) => currentCart.map((item) => (
-            item.id === productId ? { ...item, quantity } : item
-        )));
+        onUpdateQuantity(productId, quantity);
     };
 
     return (
@@ -708,7 +737,16 @@ function CartView({ onBrowseMenu }) {
                 </span>
             </div>
 
-            {cart.length === 0 ? (
+            {loadError && (
+                <div className="menu-data-error cart-data-error" role="alert">
+                    <p>{loadError}</p>
+                    <button type="button" onClick={onRetry}>Try again</button>
+                </div>
+            )}
+
+            {isLoading ? (
+                <p className="menu-data-message" role="status">Loading your cart...</p>
+            ) : items.length === 0 ? (
                 <div className="cart-empty-state">
                     <span className="cart-empty-icon"><FiShoppingCart aria-hidden="true" /></span>
                     <h3>Your cart is ready for something delicious</h3>
@@ -720,36 +758,36 @@ function CartView({ onBrowseMenu }) {
             ) : (
                 <div className="cart-content">
                     <div className="dashboard-cart-items">
-                        {cart.map((cartItem) => {
-                            const product = cartProducts.find(({ id }) => id === cartItem.id);
-
+                        {items.map((cartItem) => {
+                            const { product } = cartItem;
                             return (
-                                <article className="dashboard-cart-item" key={cartItem.id}>
+                                <article className="dashboard-cart-item" key={cartItem.productId}>
                                     <div className="dashboard-cart-image">
-                                        {product?.image ? (
+                                        {product.image ? (
                                             <img src={product.image} alt="" loading="lazy" />
                                         ) : (
                                             <FiShoppingCart aria-hidden="true" />
                                         )}
                                     </div>
                                     <div className="dashboard-cart-item-details">
-                                        <h3>{product?.name || 'Unavailable dish'}</h3>
-                                        <p>{product ? formatNaira(product.priceCents) : 'This item is no longer available'}</p>
+                                        <h3>{product.name}</h3>
+                                        <p>{formatNaira(product.priceCents)}</p>
                                         <div className="cart-item-controls">
-                                            <div className="cart-quantity-control" aria-label={`Quantity for ${product?.name || 'unavailable dish'}`}>
+                                            <div className="cart-quantity-control" aria-label={`Quantity for ${product.name}`}>
                                                 <button
                                                     type="button"
-                                                    aria-label={`Decrease quantity of ${product?.name || 'unavailable dish'}`}
-                                                    onClick={() => updateQuantity(cartItem.id, cartItem.quantity - 1)}
+                                                    aria-label={`Decrease quantity of ${product.name}`}
+                                                    disabled={isUpdating}
+                                                    onClick={() => updateQuantity(cartItem.productId, cartItem.quantity - 1)}
                                                 >
                                                     <FiMinus aria-hidden="true" />
                                                 </button>
                                                 <span aria-live="polite">{cartItem.quantity}</span>
                                                 <button
                                                     type="button"
-                                                    aria-label={`Increase quantity of ${product?.name || 'unavailable dish'}`}
-                                                    disabled={!product}
-                                                    onClick={() => updateQuantity(cartItem.id, cartItem.quantity + 1)}
+                                                    aria-label={`Increase quantity of ${product.name}`}
+                                                    disabled={isUpdating}
+                                                    onClick={() => updateQuantity(cartItem.productId, cartItem.quantity + 1)}
                                                 >
                                                     <FiPlus aria-hidden="true" />
                                                 </button>
@@ -757,18 +795,42 @@ function CartView({ onBrowseMenu }) {
                                             <button
                                                 className="cart-remove-button"
                                                 type="button"
-                                                onClick={() => removeFromCart(cartItem.id)}
+                                                disabled={isUpdating}
+                                                onClick={() => onRemove(cartItem.productId)}
                                             >
                                                 <FiTrash2 aria-hidden="true" />
                                                 Remove
                                             </button>
                                         </div>
+                                        <fieldset className="dashboard-delivery-options">
+                                            <legend>Delivery option</legend>
+                                            {deliveryOptions.map((option) => (
+                                                <label key={option.id}>
+                                                    <input
+                                                        type="radio"
+                                                        name={`delivery-option-${cartItem.productId}`}
+                                                        value={option.id}
+                                                        checked={option.id === cartItem.deliveryOptionId}
+                                                        disabled={isUpdating}
+                                                        onChange={() => onUpdateDeliveryOption(
+                                                            cartItem.productId,
+                                                            option.backendId
+                                                        )}
+                                                    />
+                                                    <span>
+                                                        {option.estimatedHours} hour{option.estimatedHours === 1 ? '' : 's'}
+                                                        {' · '}
+                                                        {option.priceCents === 0
+                                                            ? 'Free'
+                                                            : formatNaira(option.priceCents)}
+                                                    </span>
+                                                </label>
+                                            ))}
+                                        </fieldset>
                                     </div>
-                                    {product && (
-                                        <strong className="dashboard-cart-line-total">
-                                            {formatNaira(product.priceCents * cartItem.quantity)}
-                                        </strong>
-                                    )}
+                                    <strong className="dashboard-cart-line-total">
+                                        {formatNaira(product.priceCents * cartItem.quantity)}
+                                    </strong>
                                 </article>
                             );
                         })}
@@ -776,13 +838,21 @@ function CartView({ onBrowseMenu }) {
 
                     <aside className="dashboard-cart-summary" aria-label="Cart summary">
                         <h3>Order summary</h3>
-                        <div><span>Items ({totalQuantity})</span><strong>{formatNaira(totalCost())}</strong></div>
-                        <div><span>Delivery</span><strong>{formatNaira(shippingCost())}</strong></div>
-                        <div><span>Estimated tax</span><strong>{formatNaira(tax)}</strong></div>
-                        <div className="cart-summary-total"><span>Estimated total</span><strong>{formatNaira(orderTotal)}</strong></div>
-                        <p>Final delivery and payment details can be confirmed at checkout.</p>
-                        <button type="button" className="cart-browse-button" onClick={onBrowseMenu}>
-                            Continue browsing <FiChevronRight aria-hidden="true" />
+                        <div><span>Items ({totalQuantity})</span><strong>{formatNaira(paymentSummary.itemsTotal)}</strong></div>
+                        <div><span>Shipping &amp; handling</span><strong>{formatNaira(paymentSummary.shippingTotal)}</strong></div>
+                        <div><span>Total before tax</span><strong>{formatNaira(paymentSummary.totalBeforeTax)}</strong></div>
+                        <div><span>Estimated tax (10%)</span><strong>{formatNaira(paymentSummary.tax)}</strong></div>
+                        <div className="cart-summary-total"><span>Order total</span><strong>{formatNaira(paymentSummary.totalCost)}</strong></div>
+                        {summaryError && <p className="cart-summary-notice" role="status">{summaryError}</p>}
+                        {placeOrderError && <p className="cart-summary-error" role="alert">{placeOrderError}</p>}
+                        {placeOrderMessage && <p className="cart-summary-notice" role="status">{placeOrderMessage}</p>}
+                        <button
+                            type="button"
+                            className="cart-browse-button"
+                            disabled={isPlacingOrder || isUpdating || isLoading}
+                            onClick={onPlaceOrder}
+                        >
+                            {isPlacingOrder ? 'Preparing your order...' : 'Place your order'}
                         </button>
                     </aside>
                 </div>
@@ -791,47 +861,115 @@ function CartView({ onBrowseMenu }) {
     );
 }
 
-const menuItems = [
-    ...bestSellerProducts.map(({ id, name, image, priceCents }) => ({
-        id: `favourite-${id}`,
-        productId: id,
-        name,
-        image,
-        priceCents,
-        category: 'SMACK favourites',
-        categoryKey: 'favourites'
-    })),
-    ...riceProducts.slice(0, 8).map(({ id, name, image, priceCents }) => ({
-        id: `rice-${id}`,
-        productId: id,
-        name: name.trim(),
-        image,
-        priceCents,
-        category: 'Rice dishes',
-        categoryKey: 'rice'
-    })),
-    ...swallowProducts.slice(0, 8).map(({ id, name, image, priceCents }) => ({
-        id: `swallow-${id}`,
-        productId: id,
-        name: name.trim(),
-        image,
-        priceCents,
-        category: 'Swallow & soups',
-        categoryKey: 'swallow'
-    }))
-];
+function normalizeMenuProducts(products) {
+    if (!Array.isArray(products)) {
+        throw new Error('The product service returned an unexpected response.');
+    }
 
-function ExploreMenu({ onSelectProduct, onBrowseAll }) {
+    return products.map((product) => {
+        const id = product._id || product.id;
+        const name = typeof product.name === 'string' ? product.name.trim() : '';
+        const image = typeof product.image === 'string' ? product.image.trim() : '';
+
+        if (!id || !name || !image || !Number.isFinite(Number(product.priceCents))) {
+            throw new Error('A product from the product service is missing required information.');
+        }
+
+        const categoryKey = /rice|chicken sauce/i.test(name) ? 'rice' : 'swallow';
+
+        return {
+            id: String(id),
+            productId: String(id),
+            name,
+            image,
+            priceCents: Number(product.priceCents),
+            category: categoryKey === 'rice' ? 'Rice & mains' : 'Soups & swallow',
+            categoryKey
+        };
+    });
+}
+
+function normalizeSessionCartItems(items) {
+    if (!Array.isArray(items)) {
+        throw new Error('The cart service returned an unexpected response.');
+    }
+
+    return items.map((item) => {
+        const product = item.productId;
+        const productId = product && typeof product === 'object'
+            ? product._id || product.id
+            : null;
+        const quantity = Number(item.quantity);
+        const priceCents = Number(product?.priceCents);
+
+        if (
+            !productId
+            || typeof product.name !== 'string'
+            || !Number.isInteger(quantity)
+            || quantity < 1
+            || !Number.isFinite(priceCents)
+        ) {
+            throw new Error('A cart item is missing product or quantity information.');
+        }
+
+        return {
+            productId: String(productId),
+            quantity,
+            deliveryOptionId: String(item.deliveryOptionId || '1'),
+            product: {
+                name: product.name,
+                image: typeof product.image === 'string' ? product.image : '',
+                priceCents
+            }
+        };
+    });
+}
+
+function normalizeDeliveryOptions(options) {
+    if (!Array.isArray(options)) {
+        throw new Error('The delivery service returned an unexpected response.');
+    }
+
+    return options.map((option) => {
+        const id = String(option.id);
+        const estimatedHours = Number(option.estimatedHours);
+        const priceCents = Number(option.priceCents);
+
+        if (
+            !id
+            || !Number.isFinite(estimatedHours)
+            || estimatedHours <= 0
+            || !Number.isFinite(priceCents)
+            || priceCents < 0
+        ) {
+            throw new Error('A delivery option is missing required information.');
+        }
+
+        return { id, backendId: option.id, estimatedHours, priceCents };
+    });
+}
+
+function getSessionCartError(error, fallback) {
+    const serverMessage = error.response?.data?.message;
+    if (typeof serverMessage === 'string') return serverMessage;
+    if (!axios.isAxiosError(error)) {
+        return error instanceof Error ? error.message : fallback;
+    }
+    return error.response
+        ? fallback
+        : 'We couldn’t connect to your cart. Check your connection and try again.';
+}
+
+function ExploreMenu({ products, isLoading, loadError, onRetry, onSelectProduct, onBrowseAll }) {
     const [activeCategory, setActiveCategory] = useState('all');
     const categories = [
-        { label: 'Everything', value: 'all' },
-        { label: 'SMACK favourites', value: 'favourites' },
-        { label: 'Rice dishes', value: 'rice' },
-        { label: 'Swallow & soups', value: 'swallow' }
+        { label: 'All dishes', value: 'all' },
+        { label: 'Rice & mains', value: 'rice' },
+        { label: 'Soups & swallow', value: 'swallow' }
     ];
     const visibleItems = activeCategory === 'all'
-        ? menuItems
-        : menuItems.filter((item) => item.categoryKey === activeCategory);
+        ? products
+        : products.filter((item) => item.categoryKey === activeCategory);
 
     return (
         <section className="menu-discovery" aria-labelledby="menu-discovery-title">
@@ -841,9 +979,11 @@ function ExploreMenu({ onSelectProduct, onBrowseAll }) {
                     <h2 id="menu-discovery-title">A taste of the menu</h2>
                     <p className="menu-discovery-subtitle">Find something you’ll love from the SMACK kitchen.</p>
                 </div>
-                <button className="menu-view-all" type="button" onClick={onBrowseAll}>
-                    Explore all <FiChevronRight aria-hidden="true" />
-                </button>
+                {onBrowseAll && (
+                    <button className="menu-view-all" type="button" onClick={onBrowseAll}>
+                        Explore all <FiChevronRight aria-hidden="true" />
+                    </button>
+                )}
             </div>
             <div className="menu-filter-row" role="group" aria-label="Filter menu items">
                 {categories.map(({ label, value }) => (
@@ -858,43 +998,65 @@ function ExploreMenu({ onSelectProduct, onBrowseAll }) {
                     </button>
                 ))}
             </div>
-            <p className="menu-results-count" aria-live="polite">
-                Showing {visibleItems.length} {visibleItems.length === 1 ? 'dish' : 'dishes'}
-            </p>
-            <div className="menu-product-grid">
-                {visibleItems.map((product) => (
-                    <button
-                        className="menu-product-card"
-                        key={product.id}
-                        type="button"
-                        onClick={() => onSelectProduct(product)}
-                        aria-label={`View ${product.name}`}
-                    >
-                        <span className="menu-product-image" aria-hidden="true">
-                            <img src={product.image} alt="" loading="lazy" />
-                        </span>
-                        <span className="menu-product-shade" aria-hidden="true" />
-                        <span className="menu-product-info">
-                            <span className="menu-product-category">{product.category}</span>
-                            <strong>{product.name}</strong>
-                            <span className="menu-product-arrow" aria-hidden="true">
-                                <FiChevronRight />
-                            </span>
-                        </span>
-                    </button>
-                ))}
-            </div>
+            {isLoading ? (
+                <p className="menu-data-message" role="status">Loading dishes from the SMACK menu...</p>
+            ) : loadError ? (
+                <div className="menu-data-error" role="alert">
+                    <p>{loadError}</p>
+                    <button type="button" onClick={onRetry}>Try again</button>
+                </div>
+            ) : products.length === 0 ? (
+                <p className="menu-data-message">There are no dishes available right now.</p>
+            ) : (
+                <>
+                    <p className="menu-results-count" aria-live="polite">
+                        Showing {visibleItems.length} {visibleItems.length === 1 ? 'dish' : 'dishes'}
+                    </p>
+                    <div className="menu-product-grid">
+                        {visibleItems.map((product) => (
+                            <button
+                                className="menu-product-card"
+                                key={product.id}
+                                type="button"
+                                onClick={() => onSelectProduct(product)}
+                                aria-label={`View ${product.name}`}
+                            >
+                                <span className="menu-product-image" aria-hidden="true">
+                                    <img src={product.image} alt="" loading="lazy" />
+                                </span>
+                                <span className="menu-product-shade" aria-hidden="true" />
+                                <span className="menu-product-info">
+                                    <span className="menu-product-category">{product.category}</span>
+                                    <strong>{product.name}</strong>
+                                    <span className="menu-product-arrow" aria-hidden="true">
+                                        <FiChevronRight />
+                                    </span>
+                                </span>
+                            </button>
+                        ))}
+                    </div>
+                </>
+            )}
         </section>
     );
 }
 
-function DashboardProductView({ product, onBack, onViewCart }) {
-    const { addToCart } = useContext(CartContext);
+function DashboardProductView({ product, onBack, onViewCart, onAddToCart }) {
     const [addedToCart, setAddedToCart] = useState(false);
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
+    const [addToCartError, setAddToCartError] = useState('');
 
-    const handleAddToCart = () => {
-        addToCart({ id: product.productId });
-        setAddedToCart(true);
+    const handleAddToCart = async () => {
+        setIsAddingToCart(true);
+        setAddToCartError('');
+        try {
+            await onAddToCart(product.productId);
+            setAddedToCart(true);
+        } catch (error) {
+            setAddToCartError(error.message);
+        } finally {
+            setIsAddingToCart(false);
+        }
     };
 
     return (
@@ -914,10 +1076,11 @@ function DashboardProductView({ product, onBack, onViewCart }) {
                     <p className="dashboard-product-description">
                         Made with care in the SMACK kitchen. Add this dish to your cart when you’re ready to order.
                     </p>
-                    <button className="product-add-button" type="button" onClick={handleAddToCart}>
+                    <button className="product-add-button" type="button" disabled={isAddingToCart} onClick={handleAddToCart}>
                         <FiShoppingCart aria-hidden="true" />
-                        Add to cart
+                        {isAddingToCart ? 'Adding...' : 'Add to cart'}
                     </button>
+                    {addToCartError && <p className="menu-data-error" role="alert">{addToCartError}</p>}
                     {addedToCart && (
                         <div className="product-added-confirmation" role="status">
                             <span>Added to your cart.</span>
@@ -930,13 +1093,78 @@ function DashboardProductView({ product, onBack, onViewCart }) {
     );
 }
 
+function DashboardFooter({ onSelectView }) {
+    return (
+        <footer className="dashboard-footer">
+            <div className="dashboard-footer-content">
+                <div className="dashboard-footer-brand">
+                    <div className="smack-wordmark" aria-label="SMACK">
+                        <span className="smack-mark">S</span>
+                        <span>SMACK</span>
+                    </div>
+                    <p className="dashboard-footer-tagline">GOOD FOOD. GOOD MOOD.</p>
+                    <p>Thanks for making SMACK part of your day. We’re here whenever you need us.</p>
+                </div>
+                <nav className="dashboard-footer-links" aria-label="Dashboard quick links">
+                    <span className="dashboard-footer-links-title">HERE FOR YOU</span>
+                    <button type="button" onClick={() => onSelectView('profile')}>
+                        <FiUser aria-hidden="true" />
+                        My profile
+                    </button>
+                    <button type="button" onClick={() => onSelectView('cart')}>
+                        <FiShoppingCart aria-hidden="true" />
+                        My cart
+                    </button>
+                    <button type="button" onClick={() => onSelectView('support')}>
+                        <FiHelpCircle aria-hidden="true" />
+                        Help &amp; support
+                    </button>
+                    <a href="mailto:info@Smack.co.uk">
+                        <FiMail aria-hidden="true" />
+                        Contact us
+                    </a>
+                </nav>
+            </div>
+            <div className="dashboard-footer-bottom">
+                <span>© {new Date().getFullYear()} SMACK. Made with care.</span>
+                <span className="dashboard-footer-account-label">
+                    <span aria-hidden="true" />
+                    Secure customer account
+                </span>
+            </div>
+        </footer>
+    );
+}
+
 function Dashboard({ user }) {
     const navigate = useNavigate();
+    const sessionId = getSessionId();
     const [activeView, setActiveView] = useState('overview');
     const [menuOpen, setMenuOpen] = useState(false);
     const [emailUpdates, setEmailUpdates] = useState(true);
     const [orderUpdates, setOrderUpdates] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [menuProducts, setMenuProducts] = useState([]);
+    const [isLoadingMenuProducts, setIsLoadingMenuProducts] = useState(true);
+    const [menuProductsError, setMenuProductsError] = useState('');
+    const [menuProductsReload, setMenuProductsReload] = useState(0);
+    const [sessionCartItems, setSessionCartItems] = useState([]);
+    const [sessionCartQuantity, setSessionCartQuantity] = useState(0);
+    const [sessionCartDeliveryOptions, setSessionCartDeliveryOptions] = useState([]);
+    const [sessionCartSummary, setSessionCartSummary] = useState({
+        itemsTotal: 0,
+        shippingTotal: 0,
+        totalBeforeTax: 0,
+        tax: 0,
+        totalCost: 0
+    });
+    const [isLoadingSessionCart, setIsLoadingSessionCart] = useState(true);
+    const [isUpdatingSessionCart, setIsUpdatingSessionCart] = useState(false);
+    const [sessionCartError, setSessionCartError] = useState('');
+    const [sessionCartSummaryError, setSessionCartSummaryError] = useState('');
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+    const [placeOrderMessage, setPlaceOrderMessage] = useState('');
+    const [placeOrderError, setPlaceOrderError] = useState('');
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [logoutError, setLogoutError] = useState('');
     const menuButtonRef = useRef(null);
@@ -959,6 +1187,227 @@ function Dashboard({ user }) {
         setSelectedProduct(product);
         setActiveView('product');
     };
+
+    const loadSessionCart = useCallback(async (shouldThrow = false) => {
+        setIsLoadingSessionCart(true);
+        setSessionCartError('');
+
+        try {
+            const [cartResponse, quantityResponse, deliveryResponse] = await Promise.all([
+                axios.get('https://smackbackend.onrender.com/checkout', {
+                    params: { sessionId }
+                }),
+                axios.get('https://smackbackend.onrender.com/cart-quantity', {
+                    params: { sessionId }
+                }),
+                axios.get('https://smackbackend.onrender.com/delivery-options')
+            ]);
+            const quantity = Number(quantityResponse.data?.totalQuantity);
+            const items = normalizeSessionCartItems(cartResponse.data?.items);
+            const options = normalizeDeliveryOptions(deliveryResponse.data);
+
+            if (!Number.isInteger(quantity) || quantity < 0) {
+                throw new Error('The cart service returned an invalid item count.');
+            }
+
+            setSessionCartItems(items);
+            setSessionCartQuantity(quantity);
+            setSessionCartDeliveryOptions(options);
+            setSessionCartSummary(calculateCheckoutSummary(items, options));
+
+            try {
+                const summaryResponse = await axios.get(
+                    'https://smackbackend.onrender.com/payment-summary',
+                    { params: { sessionId } }
+                );
+                const summary = summaryResponse.data;
+                const summaryFields = [
+                    'itemsTotal',
+                    'shippingTotal',
+                    'totalBeforeTax',
+                    'tax',
+                    'totalCost'
+                ];
+
+                if (!summaryFields.every((field) => (
+                    summary?.[field] !== null
+                    && summary?.[field] !== undefined
+                    && Number.isFinite(Number(summary[field]))
+                ))) {
+                    throw new Error('The payment summary service returned incomplete totals.');
+                }
+
+                setSessionCartSummary(Object.fromEntries(
+                    summaryFields.map((field) => [field, Number(summary[field])])
+                ));
+                setSessionCartSummaryError('');
+            } catch {
+                setSessionCartSummary(calculateCheckoutSummary(items, options));
+                setSessionCartSummaryError(
+                    'Live payment totals are unavailable; showing an estimate from your cart and delivery options using the checkout page’s 10% tax rate.'
+                );
+            }
+        } catch (error) {
+            const message = getSessionCartError(error, 'We couldn’t load your cart. Please try again.');
+            setSessionCartError(message);
+            if (shouldThrow) throw new Error(message);
+        } finally {
+            setIsLoadingSessionCart(false);
+        }
+    }, [sessionId]);
+
+    useEffect(() => {
+        loadSessionCart();
+    }, [loadSessionCart]);
+
+    const addToSessionCart = async (productId) => {
+        try {
+            await axios.post('https://smackbackend.onrender.com/cart', {
+                sessionId,
+                productId
+            });
+            await loadSessionCart(true);
+        } catch (error) {
+            const message = getSessionCartError(error, 'We couldn’t add this dish to your cart. Please try again.');
+            setSessionCartError(message);
+            throw new Error(message);
+        }
+    };
+
+    const updateSessionCart = async (productId, quantity) => {
+        setIsUpdatingSessionCart(true);
+        setSessionCartError('');
+        try {
+            await axios.put('https://smackbackend.onrender.com/update-quantity', {
+                sessionId,
+                productId,
+                quantity
+            });
+            await loadSessionCart(true);
+        } catch (error) {
+            setSessionCartError(getSessionCartError(error, 'We couldn’t update your cart. Please try again.'));
+        } finally {
+            setIsUpdatingSessionCart(false);
+        }
+    };
+
+    const removeFromSessionCart = async (productId) => {
+        setIsUpdatingSessionCart(true);
+        setSessionCartError('');
+        try {
+            await axios.delete('https://smackbackend.onrender.com/cart', {
+                data: { sessionId, productId }
+            });
+            await loadSessionCart(true);
+        } catch (error) {
+            setSessionCartError(getSessionCartError(error, 'We couldn’t remove this dish. Please try again.'));
+        } finally {
+            setIsUpdatingSessionCart(false);
+        }
+    };
+
+    const updateSessionCartDeliveryOption = async (productId, deliveryOptionId) => {
+        setIsUpdatingSessionCart(true);
+        setSessionCartError('');
+        setPlaceOrderMessage('');
+        try {
+            await axios.put('https://smackbackend.onrender.com/cart/delivery-option', {
+                sessionId,
+                productId,
+                deliveryOptionId
+            });
+            await loadSessionCart(true);
+        } catch (error) {
+            setSessionCartError(getSessionCartError(error, 'We couldn’t update the delivery option. Please try again.'));
+        } finally {
+            setIsUpdatingSessionCart(false);
+        }
+    };
+
+    const placeSessionCartOrder = async () => {
+        setIsPlacingOrder(true);
+        setPlaceOrderMessage('');
+        setPlaceOrderError('');
+
+        try {
+            if (!navigator.geolocation) {
+                throw new Error('Location access is not available in this browser.');
+            }
+
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject);
+            });
+            const { latitude, longitude } = position.coords;
+            const response = await axios.post('https://smackbackend.onrender.com/create-payment', {
+                sessionId,
+                latitude,
+                longitude
+            });
+            const serverMessage = response.data?.message;
+            setPlaceOrderMessage(
+                typeof serverMessage === 'string'
+                    ? serverMessage
+                    : 'Your order request was submitted successfully.'
+            );
+        } catch (error) {
+            if (typeof error?.code === 'number' && error.code >= 1 && error.code <= 3) {
+                setPlaceOrderError(
+                    error.code === 1
+                        ? 'Allow location access to place your order.'
+                        : error.code === 3
+                            ? 'Location request timed out. Please try again.'
+                            : 'Your location could not be determined. Please try again.'
+                );
+            } else {
+                setPlaceOrderError(getSessionCartError(
+                    error,
+                    'We couldn’t place your order. Please try again.'
+                ));
+            }
+        } finally {
+            setIsPlacingOrder(false);
+        }
+    };
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        const loadProducts = async () => {
+            setIsLoadingMenuProducts(true);
+            setMenuProductsError('');
+
+            try {
+                const response = await axios.get(
+                    'https://smackbackend.onrender.com/products',
+                    { signal: controller.signal }
+                );
+                setMenuProducts(normalizeMenuProducts(response.data));
+            } catch (error) {
+                if (axios.isCancel(error)) return;
+
+                const serverMessage = error.response?.data?.message;
+                setMenuProductsError(
+                    typeof serverMessage === 'string'
+                        ? serverMessage
+                        : axios.isAxiosError(error)
+                            ? error.response
+                                ? 'We couldn’t load the SMACK menu. Please try again.'
+                                : 'We couldn’t connect to the SMACK menu. Check your connection and try again.'
+                            : error instanceof Error
+                                ? error.message
+                                : 'We couldn’t load the SMACK menu. Please try again.'
+                );
+            } finally {
+                if (!controller.signal.aborted) {
+                    setIsLoadingMenuProducts(false);
+                }
+            }
+        };
+
+        loadProducts();
+        return () => controller.abort();
+    }, [menuProductsReload]);
+
     const handleLogout = async () => {
         setIsLoggingOut(true);
         setLogoutError('');
@@ -1043,6 +1492,7 @@ function Dashboard({ user }) {
                 name={name || 'Smack customer'}
                 email={user?.email || 'Smack customer'}
                 activeView={activeView}
+                cartQuantity={sessionCartQuantity}
                 onSelectView={handleViewSelect}
                 onNavigate={() => setMenuOpen(false)}
                 onLogout={handleLogout}
@@ -1054,6 +1504,7 @@ function Dashboard({ user }) {
                 name={name || 'Smack customer'}
                 email={user?.email || 'Smack customer'}
                 activeView={activeView}
+                cartQuantity={sessionCartQuantity}
                 onSelectView={handleViewSelect}
                 onNavigate={() => setMenuOpen(false)}
                 onLogout={handleLogout}
@@ -1103,7 +1554,25 @@ function Dashboard({ user }) {
                     ) : activeView === 'orders' ? (
                         <OrdersView />
                     ) : activeView === 'cart' ? (
-                        <CartView onBrowseMenu={browseMenu} />
+                        <CartView
+                            onBrowseMenu={browseMenu}
+                            items={sessionCartItems}
+                            totalQuantity={sessionCartQuantity}
+                            isLoading={isLoadingSessionCart}
+                            isUpdating={isUpdatingSessionCart}
+                            loadError={sessionCartError}
+                            summaryError={sessionCartSummaryError}
+                            paymentSummary={sessionCartSummary}
+                            deliveryOptions={sessionCartDeliveryOptions}
+                            isPlacingOrder={isPlacingOrder}
+                            placeOrderMessage={placeOrderMessage}
+                            placeOrderError={placeOrderError}
+                            onPlaceOrder={placeSessionCartOrder}
+                            onRetry={loadSessionCart}
+                            onUpdateQuantity={updateSessionCart}
+                            onUpdateDeliveryOption={updateSessionCartDeliveryOption}
+                            onRemove={removeFromSessionCart}
+                        />
                     ) : activeView === 'support' ? (
                         <SupportView />
                     ) : activeView === 'addresses' ? (
@@ -1123,14 +1592,25 @@ function Dashboard({ user }) {
                             product={selectedProduct}
                             onBack={browseMenu}
                             onViewCart={() => setActiveView('cart')}
+                            onAddToCart={addToSessionCart}
                         />
                     ) : (
                         <ExploreMenu
+                            products={menuProducts}
+                            isLoading={isLoadingMenuProducts}
+                            loadError={menuProductsError}
+                            onRetry={() => setMenuProductsReload((attempt) => attempt + 1)}
                             onSelectProduct={selectProduct}
                             onBrowseAll={browseMenu}
                         />
                     )}
                 </div>
+                <DashboardFooter
+                    onSelectView={(view) => {
+                        setSelectedProduct(null);
+                        setActiveView(view);
+                    }}
+                />
             </main>
         </div>
     );
