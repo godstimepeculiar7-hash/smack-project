@@ -194,6 +194,49 @@
   color: white;
 }
 
+.Register-parent .login:disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background-color: rgb(184, 153, 70);
+  color: white;
+  cursor: wait;
+  opacity: 0.88;
+}
+
+.register-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: register-spin 700ms linear infinite;
+}
+
+@keyframes register-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Register-parent .registration-status,
+.Register-parent .registration-error {
+  margin: 0.75rem 0 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.Register-parent .registration-status {
+  color: rgba(0, 0, 0, 0.62);
+}
+
+.Register-parent .registration-error {
+  color: #c62828;
+}
+
 .login-prompt {
   display: flex;
   align-items: center;
@@ -234,5 +277,11 @@
 
   .Register-parent .details input {
     height: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .register-spinner {
+    animation-duration: 1.5s;
   }
 }

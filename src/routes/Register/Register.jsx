@@ -20,6 +20,8 @@ function Register() {
   const [verificationSent, setVerificationSent] = useState(false);
   const [resendError, setResendError] = useState(null);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isTakingLong, setIsTakingLong] = useState(false);
+  const [registrationError, setRegistrationError] = useState('');
 
   function validateForm() {
     const nextErrors = {};
@@ -87,13 +89,30 @@ function Register() {
 
     if (Object.keys(nextErrors).length === 0) {
       setIsRegistering(true);
+      setIsTakingLong(false);
+      setRegistrationError('');
+      const slowRequestTimer = window.setTimeout(() => setIsTakingLong(true), 8000);
+
       try {
         await axios.post('https://smackbackend.onrender.com/auth/register', formData);
         setVerificationSent(true);
       } catch (error) {
-        console.log(error.response.data);
+        const responseData = error.response?.data;
+        const serverMessage = typeof responseData === 'string'
+          ? responseData
+          : responseData?.message || responseData?.error;
+
+        setRegistrationError(
+          typeof serverMessage === 'string'
+            ? serverMessage
+            : error.response
+              ? 'We couldn’t complete your registration. Please check your details and try again.'
+              : 'We couldn’t reach the registration service. Check your connection and try again.'
+        );
       } finally {
+        window.clearTimeout(slowRequestTimer);
         setIsRegistering(false);
+        setIsTakingLong(false);
       }
     }
 
@@ -135,7 +154,7 @@ function Register() {
           ) : (
             <>
               <h1>REGISTER</h1>
-              <form onSubmit={handleSubmit} noValidate>
+              <form onSubmit={handleSubmit} noValidate aria-busy={isRegistering}>
                 <div className='details'>
                   <label htmlFor='full-name'>FULL NAME*</label>
                   <input
@@ -206,8 +225,25 @@ function Register() {
 
                 <div className='second-details'>
                   <button className='login' type='submit' disabled={isRegistering}>
-                    {isRegistering ? 'Registering...' : 'REGISTER'}
+                    {isRegistering ? (
+                      <>
+                        <span className='register-spinner' aria-hidden='true' />
+                        Creating account...
+                      </>
+                    ) : 'REGISTER'}
                   </button>
+                  {isRegistering && (
+                    <p className='registration-status' role='status' aria-live='polite'>
+                      {isTakingLong
+                        ? 'This is taking longer than usual. Please keep this page open while we finish.'
+                        : 'Creating your account and preparing your verification email...'}
+                    </p>
+                  )}
+                  {registrationError && (
+                    <p className='registration-error' role='alert'>
+                      {registrationError}
+                    </p>
+                  )}
                 </div>
               </form>
               <div className='login-prompt'>
