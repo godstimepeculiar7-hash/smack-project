@@ -63,7 +63,9 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
         </Route>
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute>
+          {(user) => <Dashboard user={user} />}
+        </ProtectedRoute>} />
       </Routes>
     </div>
 

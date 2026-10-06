@@ -5,24 +5,21 @@ import { Navigate } from "react-router-dom";
 function ProtectedRoute({ children }) {
     const [loading, setLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                console.log("Checking auth...");
 
                 const response = await axios.get('http://localhost:5000/auth/me', {
                     withCredentials: true
                 });
-
-                console.log("Auth response:", response.data);
+                setUser(response.data);
 
                 setAuthenticated(true);
             } catch (error) {
-                console.log("ProtectedRoute error:", error);
                 setAuthenticated(false);
             } finally {
-                console.log("Finished auth check");
                 setLoading(false);
             }
         };
@@ -39,7 +36,7 @@ function ProtectedRoute({ children }) {
         return <Navigate to="/login" replace />;
     }
 
-    return children;
+    return children(user);
 }
 
 export default ProtectedRoute;
