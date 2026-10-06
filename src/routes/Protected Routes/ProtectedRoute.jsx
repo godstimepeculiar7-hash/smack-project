@@ -11,7 +11,7 @@ function ProtectedRoute({ children }) {
         const checkAuth = async () => {
             try {
 
-                const response = await axios.get('https://smackbackend.onrender.com/auth/me', {
+                const response = await axios.get('http://localhost:5000/auth/me', {
                     withCredentials: true
                 });
                 setUser(response.data);
