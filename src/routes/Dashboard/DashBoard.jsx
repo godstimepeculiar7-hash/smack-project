@@ -1,4 +1,6 @@
 import { createElement, useContext, useEffect, useId, useRef, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import riceImage from '../../assets/shopnow4.jpg';
 import { Products as bestSellerProducts } from '../../component/Our Best Sellers Desktop/products';
 import riceProducts from '../../My Products/Rice';
@@ -54,7 +56,14 @@ function getInitials(name) {
         .toUpperCase() || 'S';
 }
 
-function DashboardNavigation({ activeView, mobile = false, onNavigate, onSelectView }) {
+function DashboardNavigation({
+    activeView,
+    mobile = false,
+    onNavigate,
+    onSelectView,
+    onLogout,
+    isLoggingOut
+}) {
     return (
         <nav className="customer-nav" aria-label="Account navigation">
             <p className="customer-nav-label">YOUR ACCOUNT</p>
@@ -87,12 +96,11 @@ function DashboardNavigation({ activeView, mobile = false, onNavigate, onSelectV
                 <button
                     className="customer-nav-link customer-nav-logout"
                     type="button"
-                    disabled
-                    title="Sign out is not connected yet"
+                    disabled={isLoggingOut}
+                    onClick={onLogout}
                 >
                     <FiLogOut aria-hidden="true" />
-                    <span>Sign out</span>
-                    <span className="nav-coming-soon">Not connected</span>
+                    <span>{isLoggingOut ? 'Signing out...' : 'Sign out'}</span>
                 </button>
             )}
         </nav>
@@ -106,6 +114,9 @@ function DashboardSidebar({
     activeView,
     onSelectView,
     onNavigate,
+    onLogout,
+    isLoggingOut,
+    logoutError,
     mobile = false,
     open,
     onClose,
@@ -169,18 +180,22 @@ function DashboardSidebar({
                     mobile={mobile}
                     onNavigate={onClose}
                     onSelectView={onSelectView}
+                    onLogout={onLogout}
+                    isLoggingOut={isLoggingOut}
                 />
                 {!mobile && (
                     <button
                         className="sidebar-signout"
                         type="button"
-                        disabled
-                        title="Sign out is not connected yet"
+                        disabled={isLoggingOut}
+                        onClick={onLogout}
                     >
                         <FiLogOut aria-hidden="true" />
-                        <span>Sign out</span>
-                        <span className="nav-coming-soon">Not connected</span>
+                        <span>{isLoggingOut ? 'Signing out...' : 'Sign out'}</span>
                     </button>
+                )}
+                {logoutError && (
+                    <p className="sidebar-logout-error" role="alert">{logoutError}</p>
                 )}
                 <div className="sidebar-help">
                     <span className="sidebar-help-icon"><FiHelpCircle aria-hidden="true" /></span>
@@ -916,11 +931,14 @@ function DashboardProductView({ product, onBack, onViewCart }) {
 }
 
 function Dashboard({ user }) {
+    const navigate = useNavigate();
     const [activeView, setActiveView] = useState('overview');
     const [menuOpen, setMenuOpen] = useState(false);
     const [emailUpdates, setEmailUpdates] = useState(true);
     const [orderUpdates, setOrderUpdates] = useState(true);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [logoutError, setLogoutError] = useState('');
     const menuButtonRef = useRef(null);
     const drawerRef = useRef(null);
     const drawerId = useId();
@@ -940,6 +958,28 @@ function Dashboard({ user }) {
     const selectProduct = (product) => {
         setSelectedProduct(product);
         setActiveView('product');
+    };
+    const handleLogout = async () => {
+        setIsLoggingOut(true);
+        setLogoutError('');
+
+        try {
+            await axios.post(
+                'http://localhost:5000/auth/logout',
+                {},
+                { withCredentials: true }
+            );
+            navigate('/login', { replace: true });
+        } catch (error) {
+            const responseMessage = error.response?.data?.message;
+            setLogoutError(
+                typeof responseMessage === 'string'
+                    ? responseMessage
+                    : 'We couldn’t sign you out. Please try again.'
+            );
+        } finally {
+            setIsLoggingOut(false);
+        }
     };
 
     useEffect(() => {
@@ -1005,6 +1045,9 @@ function Dashboard({ user }) {
                 activeView={activeView}
                 onSelectView={handleViewSelect}
                 onNavigate={() => setMenuOpen(false)}
+                onLogout={handleLogout}
+                isLoggingOut={isLoggingOut}
+                logoutError={logoutError}
             />
             <DashboardSidebar
                 initials={initials}
@@ -1013,6 +1056,9 @@ function Dashboard({ user }) {
                 activeView={activeView}
                 onSelectView={handleViewSelect}
                 onNavigate={() => setMenuOpen(false)}
+                onLogout={handleLogout}
+                isLoggingOut={isLoggingOut}
+                logoutError={logoutError}
                 mobile
                 open={menuOpen}
                 onClose={() => setMenuOpen(false)}
