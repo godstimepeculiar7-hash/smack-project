@@ -88,7 +88,7 @@ function Register() {
     if (Object.keys(nextErrors).length === 0) {
       setIsRegistering(true);
       try {
-        await axios.post('http://localhost:5000/auth/register', formData);
+        await axios.post('https://smackbackend.onrender.com/auth/register', formData);
         setVerificationSent(true);
       } catch (error) {
         console.log(error.response.data);
@@ -115,7 +115,7 @@ function Register() {
                 <button type='button' onClick={async () => {
                   setResendError(null);
                   try {
-                    const response = await axios.post('http://localhost:5000/auth/resend-verification', {
+                    const response = await axios.post('https://smackbackend.onrender.com/auth/resend-verification', {
                       email: formData.email
                     })
 
